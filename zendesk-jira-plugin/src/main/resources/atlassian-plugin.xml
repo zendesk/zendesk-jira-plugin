@@ -1,0 +1,10 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <!-- TODO: Add vendor details -->
+        <!--
+        <vendor name="Example Company" url="http://www.example.com"/>
+        -->
+    </plugin-info>
+</atlassian-plugin>

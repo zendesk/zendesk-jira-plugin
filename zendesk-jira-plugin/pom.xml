@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.atlassian.jira.plugins</groupId>
+        <artifactId>jira-plugin-base</artifactId>
+        <version>13</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.agilos</groupId>
+    <artifactId>zendesk-jira-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Zendesk JIRA plugin</name>
+    <packaging>atlassian-plugin</packaging>
+
+    <properties>
+        <atlassian.plugin.key>org.agilos.zendesk-jira-plugin</atlassian.plugin.key>
+
+        <!-- JIRA version -->
+        <atlassian.product.version>3.13</atlassian.product.version>
+        <!-- JIRA functional test library version -->
+        <atlassian.product.test-lib.version>3.13</atlassian.product.test-lib.version>
+        <!-- JIRA data version -->
+        <atlassian.product.data.version>3.13</atlassian.product.data.version>
+    </properties>
+
+    <description>Plugin for JIRA providing Zendesk integration</description>
+	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
+
+
+	<developers>
+		<developer>
+			<name>Mikis Seth Sørensen</name>
+			<organization>Agilis Software ApS</organization>
+		</developer>
+	</developers>
+	-->
+
+
+    <scm>
+		<connection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</connection>
+		<developerConnection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin</url>
+	</scm>
+
+    <!--You can define Ant tasks to be executed before and/or after integration tests --><!--
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-integration-test-user-ant-tasks</id>
+                        <configuration>
+                            <tasks>
+                                <echo message="Ant task before integration tests."/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>post-integration-test-user-ant-tasks</id>
+                        <configuration>
+                            <tasks>
+                                <echo message="Ant task _after_ integration tests."/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>-->
+
+</project>
