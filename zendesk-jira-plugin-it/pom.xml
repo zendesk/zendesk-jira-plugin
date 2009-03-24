@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.agilos</groupId>
+		<artifactId>zendesk-jira-plugin</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>zendesk-jira-plugin-it</artifactId>
+	<name>Zendesk JIRA plugin integration test</name>
+	<!--
+		You can define Ant tasks to be executed before and/or after
+		integration tests
+	-->
+	<!--
+		<build> <plugins> <plugin>
+		<artifactId>maven-antrun-plugin</artifactId> <executions> <execution>
+		<id>pre-integration-test-user-ant-tasks</id> <configuration> <tasks>
+		<echo message="Ant task before integration tests."/> </tasks>
+		</configuration> </execution> <execution>
+		<id>post-integration-test-user-ant-tasks</id> <configuration> <tasks>
+		<echo message="Ant task _after_ integration tests."/> </tasks>
+		</configuration> </execution> </executions> </plugin> </plugins>
+		</build>
+	-->
+	<build>
+		<plugins>
+
+			<plugin>
+    			<groupId>org.apache.axis2</groupId>
+    			<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+				<version>1.4</version>
+    			<executions>
+    				<execution>
+    					<goals>
+    						<goal>wsdl2code</goal>
+    					</goals>
+    				<configuration>
+						<packageName>org.agilos.jira.soapclient</packageName>
+						<wsdlFile>src/main/resources/wsdl/jirasoapservice-v2.xml</wsdlFile>
+					<databindingName>xmlbeans</databindingName>
+				</configuration>
+				</execution>
+			</executions>
+    		</plugin>					
+
+			<plugin>
+				<groupId>greenpepper</groupId>
+				<artifactId>greenpepper-maven-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<fixtureSourceDirectory><!-- put your fixture sources directory -->
+					</fixtureSourceDirectory>
+					<fixtureOutputDirectory><!-- put your fixture classes directory -->
+					</fixtureOutputDirectory>
+					<specsDirectory>
+						<!--
+					destination for downloaded specification files
+				-->
+					</specsDirectory>
+					<resources>
+						<resource>
+							<directory />
+							<excludes>
+								<exclude>**/*.java</exclude>
+							</excludes>
+						</resource>
+					</resources>
+					<repositories>
+						<repository>
+							<type><!-- put your suite resolver class-->
+							</type>
+							<suites>
+								<suite><!-- put your suite uri -->
+								</suite>
+							</suites>
+						</repository>
+						<repository>
+							<type><!-- put your test resolver class-->
+							</type>
+							<tests>
+								<test><!-- put your test uri -->
+								</test>
+							</tests>
+						</repository>
+					</repositories>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>GreenPepper Proximity</id>
+			<name>GreenPepper Proximity</name>
+			<url>http://www.greenpeppersoftware.com/proximity/repository/public</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>GreenPepper Proximity</id>
+			<name>GreenPepper Proximity</name>
+			<url>http://www.greenpeppersoftware.com/proximity/repository/public</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

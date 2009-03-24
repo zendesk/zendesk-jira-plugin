@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.atlassian.jira.plugins</groupId>
+		<artifactId>jira-plugin-base</artifactId>
+		<version>13</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.agilos</groupId>
+	<artifactId>zendesk-jira-plugin</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>Zendesk JIRA plugin</name>
+	<packaging>pom</packaging>
+	<description>Plugin for JIRA providing Zendesk integration</description>
+	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
+
+	<developers>
+		<developer>
+			<name>Mikis Seth Sørensen</name>
+			<organization>Agilis Software ApS</organization>
+		</developer>
+	</developers>
+	-->
+
+	<scm>
+		<connection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</connection>
+		<developerConnection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin</url>
+	</scm>
+
+	<modules>
+		<module>zendesk-jira-plugin-core</module>
+		<module>zendesk-jira-plugin-it</module>
+	</modules>
+
+</project>
