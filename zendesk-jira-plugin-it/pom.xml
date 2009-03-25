@@ -29,24 +29,36 @@
 	-->
 	<build>
 		<plugins>
-
+			<!--
+				Ran into issue http://bugs.adobe.com/jira/browse/FB-8484, reverting
+				to axis1 <plugin> <groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+				<version>1.4</version> <executions> <execution> <goals>
+				<goal>wsdl2code</goal> </goals> <configuration>
+				<packageName>org.agilos.jira.soapclient</packageName>
+				<wsdlFile>src/main/resources/wsdl/jirasoapservice-v2.xml</wsdlFile>
+				<databindingName>xmlbeans</databindingName> </configuration>
+				</execution> </executions> </plugin
+			-->
 			<plugin>
-    			<groupId>org.apache.axis2</groupId>
-    			<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
-				<version>1.4</version>
-    			<executions>
-    				<execution>
-    					<goals>
-    						<goal>wsdl2code</goal>
-    					</goals>
-    				<configuration>
-						<packageName>org.agilos.jira.soapclient</packageName>
-						<wsdlFile>src/main/resources/wsdl/jirasoapservice-v2.xml</wsdlFile>
-					<databindingName>xmlbeans</databindingName>
-				</configuration>
-				</execution>
-			</executions>
-    		</plugin>					
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>axistools-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+						<configuration>
+							<!--
+								urls>
+								<url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
+								</urls
+							-->						
+							<packageSpace>org.agilos.jira.soapclient</packageSpace>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>greenpepper</groupId>
@@ -93,6 +105,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	
 	<repositories>
 		<repository>
 			<id>GreenPepper Proximity</id>
