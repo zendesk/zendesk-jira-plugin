@@ -28,5 +28,7 @@ public class WebserviceFixture implements ClientConstants
         token = jiraSoapService.login(login_name, password);
 	}
 	
-	public void createProject(String)
+	public void createProject() {
+		
+	}
 }
