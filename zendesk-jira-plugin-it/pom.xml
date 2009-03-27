@@ -12,34 +12,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>zendesk-jira-plugin-it</artifactId>
 	<name>Zendesk JIRA plugin integration test</name>
-	<!--
-		You can define Ant tasks to be executed before and/or after
-		integration tests
-	-->
-	<!--
-		<build> <plugins> <plugin>
-		<artifactId>maven-antrun-plugin</artifactId> <executions> <execution>
-		<id>pre-integration-test-user-ant-tasks</id> <configuration> <tasks>
-		<echo message="Ant task before integration tests."/> </tasks>
-		</configuration> </execution> <execution>
-		<id>post-integration-test-user-ant-tasks</id> <configuration> <tasks>
-		<echo message="Ant task _after_ integration tests."/> </tasks>
-		</configuration> </execution> </executions> </plugin> </plugins>
-		</build>
-	-->
+
 	<build>
 		<plugins>
-			<!--
-				Ran into issue http://bugs.adobe.com/jira/browse/FB-8484, reverting
-				to axis1 <plugin> <groupId>org.apache.axis2</groupId>
-				<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
-				<version>1.4</version> <executions> <execution> <goals>
-				<goal>wsdl2code</goal> </goals> <configuration>
-				<packageName>org.agilos.jira.soapclient</packageName>
-				<wsdlFile>src/main/resources/wsdl/jirasoapservice-v2.xml</wsdlFile>
-				<databindingName>xmlbeans</databindingName> </configuration>
-				</execution> </executions> </plugin
-			-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>axistools-maven-plugin</artifactId>
@@ -53,72 +28,73 @@
 								urls>
 								<url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
 								</urls
-							-->						
+							-->
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
-				<groupId>greenpepper</groupId>
-				<artifactId>greenpepper-maven-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-					<fixtureSourceDirectory><!-- put your fixture sources directory -->
-					</fixtureSourceDirectory>
-					<fixtureOutputDirectory><!-- put your fixture classes directory -->
-					</fixtureOutputDirectory>
-					<specsDirectory>
-						<!--
-					destination for downloaded specification files
-				-->
-					</specsDirectory>
-					<resources>
-						<resource>
-							<directory />
-							<excludes>
-								<exclude>**/*.java</exclude>
-							</excludes>
-						</resource>
-					</resources>
-					<repositories>
-						<repository>
-							<type><!-- put your suite resolver class-->
-							</type>
-							<suites>
-								<suite><!-- put your suite uri -->
-								</suite>
-							</suites>
-						</repository>
-						<repository>
-							<type><!-- put your test resolver class-->
-							</type>
-							<tests>
-								<test><!-- put your test uri -->
-								</test>
-							</tests>
-						</repository>
-					</repositories>
+					<excludes>
+						<exclude>**/integrationtest/**</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
+			<!--
+				You can define Ant tasks to be executed before and/or after
+				integration tests
+			-->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>pre-integration-test-user-ant-tasks</id>
+						<configuration>
+							<tasks>
+								<echo message="Ant task before integration tests." />
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>post-integration-test-user-ant-tasks</id>
+						<configuration>
+							<tasks>
+								<echo message="Ant task _after_ integration tests." />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
-	
-	<repositories>
-		<repository>
-			<id>GreenPepper Proximity</id>
-			<name>GreenPepper Proximity</name>
-			<url>http://www.greenpeppersoftware.com/proximity/repository/public</url>
-		</repository>
-	</repositories>
+	<profiles>
+		<profile>
+			<id>integrationtest</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>surefire-integrationtest</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<excludes>
+										<exclude>none</exclude>
+									</excludes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>GreenPepper Proximity</id>
-			<name>GreenPepper Proximity</name>
-			<url>http://www.greenpeppersoftware.com/proximity/repository/public</url>
-		</pluginRepository>
-	</pluginRepositories>
 </project>

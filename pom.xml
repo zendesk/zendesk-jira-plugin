@@ -18,14 +18,26 @@
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
 
+	<issueManagement>
+		<system>JIRA</system>
+		<url>http://jira.agilos.org/browse/ZEN</url>
+	</issueManagement>
+	
 	<developers>
 		<developer>
 			<name>Mikis Seth Sørensen</name>
 			<organization>Agilis Software ApS</organization>
 		</developer>
 	</developers>
-	-->
 
+	<licenses>
+		<license>
+			<name>Apache License V2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
 	<scm>
 		<connection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</connection>
 		<developerConnection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</developerConnection>
@@ -36,5 +48,53 @@
 		<module>zendesk-jira-plugin-core</module>
 		<module>zendesk-jira-plugin-it</module>
 	</modules>
-
+	
+	
+  <dependencies>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>5.8</version>
+      <scope>test</scope>
+      <classifier>jdk15</classifier>
+    </dependency>
+  </dependencies>
+  
+  <distributionManagement>
+    <site>
+      <id>agilos.com</id>
+      <url>sftp://agilos.org/maven/zendesk/current</url>
+    </site>
+  </distributionManagement>
+  
+  <build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>RELEASE</version>
+				<configuration>
+					<compilerVersion>1.6</compilerVersion>
+					<source>1.5</source>
+					<target>1.5</target>
+					<debug>true</debug>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>true</showWarnings>
+					<optimize>false</optimize>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.atlassian.maven.plugins</groupId>
+				<artifactId>maven-clover2-plugin</artifactId>
+				<configuration>
+					<targetPercentage>50%</targetPercentage>
+            		<generateHistorical>true</generateHistorical>
+            		<licenseLocation>clover.license</licenseLocation>
+            	<historyDir>${user.home}/history/${project.artifact}</historyDir>
+            	</configuration>
+      		</plugin>
+    </plugins>
+  </build>
+  <properties>  
+      <jira.start>false</jira.start>
+  </properties>
 </project>

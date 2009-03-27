@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Dataentity">
+  <bannerRight>
+    <src>http://maven.apache.org/images/logo_maven.jpg</src>
+  </bannerRight>
+  <publishDate format="yyyy-MM-dd HH:mm"/>
+  
+  <poweredBy>
+      <logo name="Hosted on agilos.org" href="http://agilos.org"/>
+      <logo name="Build with Maven 2" href="http://maven.apache.org/"
+              img="images/logos/maven-feather.png"/>
+    </poweredBy>
+  <body>
+    <links>
+      <item name="Maven 2" href="http://maven.apache.org/maven2/"/>
+    </links>
+
+    <menu name="Zendesk JIRA plugin">
+      <item name="Introduction" href="introduction.html"/>
+    </menu>    
+    
+    <menu ref="modules" inherit="bottom"/>
+    ${reports}
+  </body>
+</project>
