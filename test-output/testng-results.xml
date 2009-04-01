@@ -1,0 +1,86 @@
+<testng-results>
+  <reporter-output>
+  </reporter-output>
+  <suite name="zendesk-jira-plugin">
+    <groups>
+    </groups>
+    <test name="it.org.zendesk_jira_plugin.WebserviceTest">
+      <class name="it.org.zendesk_jira_plugin.WebserviceTest">
+        <test-method status="PASS" signature="setUp()" name="setUp" is-config="true" duration-ms="1411" started-at="2009-04-01T10:33:18Z" finished-at="2009-04-01T10:33:19Z">
+        </test-method>
+        <test-method status="PASS" signature="setUp()" name="setUp" is-config="true" duration-ms="163" started-at="2009-04-01T10:33:19Z" finished-at="2009-04-01T10:33:19Z">
+        </test-method>
+        <test-method status="FAIL" signature="testSingleAssignableUser()" name="testSingleAssignableUser" duration-ms="162" started-at="2009-04-01T10:33:19Z" finished-at="2009-04-01T10:33:20Z">
+          <exception class="org.apache.commons.lang.NotImplementedException">
+            <message>
+              <![CDATA[Code is not implemented]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.apache.commons.lang.NotImplementedException: Code is not implemented
+	at org.agilos.zendesk_jira_plugin.integrationtest.WebserviceFixture.assignableUsers(WebserviceFixture.java:61)
+	at it.org.zendesk_jira_plugin.WebserviceTest.testSingleAssignableUser(WebserviceTest.java:29)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.testng.internal.MethodHelper.invokeMethod(MethodHelper.java:580)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:478)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:617)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:885)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:110)
+	at org.testng.TestRunner.runWorkers(TestRunner.java:712)
+	at org.testng.TestRunner.privateRun(TestRunner.java:582)
+	at org.testng.TestRunner.run(TestRunner.java:477)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:324)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:292)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:198)
+	at org.testng.TestNG.createAndRunSuiteRunners(TestNG.java:823)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:790)
+	at org.testng.TestNG.run(TestNG.java:708)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
+]]>
+            </full-stacktrace>
+          </exception>
+        </test-method>
+        <test-method status="FAIL" signature="testNoAssignableUsers()" name="testNoAssignableUsers" duration-ms="5" started-at="2009-04-01T10:33:19Z" finished-at="2009-04-01T10:33:19Z">
+          <exception class="org.apache.commons.lang.NotImplementedException">
+            <message>
+              <![CDATA[Code is not implemented]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.apache.commons.lang.NotImplementedException: Code is not implemented
+	at org.agilos.zendesk_jira_plugin.integrationtest.WebserviceFixture.assignableUsers(WebserviceFixture.java:61)
+	at it.org.zendesk_jira_plugin.WebserviceTest.testNoAssignableUsers(WebserviceTest.java:22)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.testng.internal.MethodHelper.invokeMethod(MethodHelper.java:580)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:478)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:617)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:885)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:110)
+	at org.testng.TestRunner.runWorkers(TestRunner.java:712)
+	at org.testng.TestRunner.privateRun(TestRunner.java:582)
+	at org.testng.TestRunner.run(TestRunner.java:477)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:324)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:292)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:198)
+	at org.testng.TestNG.createAndRunSuiteRunners(TestNG.java:823)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:790)
+	at org.testng.TestNG.run(TestNG.java:708)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
+]]>
+            </full-stacktrace>
+          </exception>
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>

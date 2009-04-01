@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="it.org.zendesk_jira_plugin.WebserviceTest" failures="2" tests="2" time="1.782" errors="0">
+  <properties/>
+  <testcase name="testNoAssignableUsers" time="0.0050" classname="it.org.zendesk_jira_plugin.WebserviceTest">
+    <failure type="org.apache.commons.lang.NotImplementedException" message="Code is not implemented">
+      <![CDATA[org.apache.commons.lang.NotImplementedException: Code is not implemented
+	at org.agilos.zendesk_jira_plugin.integrationtest.WebserviceFixture.assignableUsers(WebserviceFixture.java:61)
+	at it.org.zendesk_jira_plugin.WebserviceTest.testNoAssignableUsers(WebserviceTest.java:22)
+... Removed 22 stack frames]]>
+    </failure>
+  </testcase>
+  <testcase name="testSingleAssignableUser" time="0.162" classname="it.org.zendesk_jira_plugin.WebserviceTest">
+    <failure type="org.apache.commons.lang.NotImplementedException" message="Code is not implemented">
+      <![CDATA[org.apache.commons.lang.NotImplementedException: Code is not implemented
+	at org.agilos.zendesk_jira_plugin.integrationtest.WebserviceFixture.assignableUsers(WebserviceFixture.java:61)
+	at it.org.zendesk_jira_plugin.WebserviceTest.testSingleAssignableUser(WebserviceTest.java:29)
+... Removed 22 stack frames]]>
+    </failure>
+  </testcase>
+</testsuite>

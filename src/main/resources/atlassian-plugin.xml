@@ -1,0 +1,24 @@
+<atlassian-plugin key="org.agilos.jira.ext.rpc" i18n-name-key="agilos.admin.web.rpc.plugin.name" name="Zendesk JIRA Plugin">
+    <plugin-info>
+        <description key="agilos.admin.web.rpc.plugin.desc">The zendesk JIRA SOAP services.</description>
+        <version>0.1</version>
+        <application-version min="3.13" max="3.13"/>
+        <vendor name="Agilos Open Source Foundation" url="http://agilos.org"/>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n" location="com.atlassian.jira.ext.rpc.rpc_plugin" />
+    
+    <component system="true" key="tokenManager" i18n-name-key="admin.web.rpc.plugin.token.manager.name" name="Token Manager" class="com.atlassian.jira.rpc.auth.TokenManagerImpl">
+        <interface>com.atlassian.jira.rpc.auth.TokenManager</interface>
+    </component>
+    
+    <component system="true" key="userService" name="User Service" class="org.agilos.jira.service.UserServiceImpl">
+        <interface>org.agilos.jira.service.UserService</interface>
+    </component>
+
+    <rpc-soap key="soap" name="Zendesk SOAP Services" class="org.agilos.jira.ws.JiraSoapServiceImpl">
+        <description>The Zendesk JIRA SOAP services.</description>
+        <service-path>agilossoapservice-v1</service-path>
+        <published-interface>org.agilos.jira.ws.JiraSoapService</published-interface>
+    </rpc-soap>
+</atlassian-plugin>

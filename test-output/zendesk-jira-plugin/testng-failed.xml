@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [zendesk-jira-plugin]" junit="false" annotations="JDK">
+  <test name="it.org.zendesk_jira_plugin.WebserviceTest(failed)" junit="false" annotations="JDK">
+    <classes>
+      <class name="it.org.zendesk_jira_plugin.WebserviceTest">
+        <methods>
+          <include name="testNoAssignableUsers"/>
+          <include name="setUp"/>
+          <include name="testSingleAssignableUser"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

@@ -39,7 +39,7 @@ public class WebserviceFixture {
 		jiraSoapService.deleteProject(token, PROJECT_KEY);
 	}
 
-	public void addUser(String name) throws Exception  {
+	public void createUserWithName(String name) throws Exception  {
 		jiraSoapService.createUser(token, name, name+"-pw", "Test User "+name, name+"@nowhere.test");
 	}
 
@@ -57,7 +57,7 @@ public class WebserviceFixture {
 		throw new NotImplementedException();
 	}
 
-	public Set getAssignableUsers() throws Exception {
+	public Set assignableUsers() throws Exception {
 		throw new NotImplementedException();
 	}
 }
