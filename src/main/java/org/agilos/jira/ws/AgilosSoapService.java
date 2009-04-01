@@ -1,13 +1,13 @@
 package org.agilos.jira.ws;
 
-import org.agilos.jira.soapclient.RemoteAuthenticationException;
-import org.agilos.jira.soapclient.RemoteException;
-import org.agilos.jira.soapclient.RemotePermissionException;
-import org.agilos.jira.soapclient.RemoteUser;
+import com.atlassian.jira.notification.type.RemoteUser;
+import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
+import com.atlassian.jira.rpc.exception.RemoteException;
+import com.atlassian.jira.rpc.exception.RemotePermissionException;
 
 public interface AgilosSoapService {
 	/**
-     * Returns an array of all user which can be assigned to a project.
+     * Returns an array of all users which can be assigned to a project.
      *
      * @param token the SOAP authentication token.
      * @param projectKey the key of the requested project

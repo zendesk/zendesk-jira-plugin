@@ -16,25 +16,31 @@
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
-	
-    <licenses>
+
+	<licenses>
 		<license>
 			<name>Apache License V2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<scm>
 		<connection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</connection>
 		<developerConnection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</developerConnection>
 		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin</url>
 	</scm>
-	
+
 	<issueManagement>
 		<system>JIRA</system>
 		<url>http://jira.agilos.org/browse/ZEN</url>
 	</issueManagement>
+
+	<organization>
+		<name>Agilos</name>
+		<url>http://agilos.org</url>
+	</organization>
+
 
 	<developers>
 		<developer>
@@ -91,23 +97,57 @@
             	<historyDir>${user.home}/history/${project.artifact}</historyDir>
             	</configuration>
       		</plugin>
-      		<plugin>
-      		<groupId>org.codehaus.mojo</groupId>
-      		<artifactId>axistools-maven-plugin</artifactId>
-      		<executions>
-      		<execution>
-      		<goals>
-      		<goal>wsdl2java</goal>
-      		</goals>
-      		<configuration>
-      		<packageSpace>org.agilos.jira.soapclient</packageSpace>
-      		</configuration>
-      		</execution>
-      		</executions>
-      		</plugin>
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>axistools-maven-plugin</artifactId>
+		<executions>
+			<execution>
+				<goals>
+					<goal>wsdl2java</goal>
+				</goals>
+				<configuration>
+					<packageSpace>org.agilos.jira.soapclient</packageSpace>
+					</configuration>
+			</execution>
+		</executions>
+	</plugin>
+	<plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-plugin-artifact</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy file="${project.artifact.file}" todir="${tmp.webapp.dir}/WEB-INF/lib/"/>
+                                <echo file="${project.build.directory}/test-classes/localtest.properties">
+                                    jira.protocol=http
+                                    jira.host=localhost
+                                    jira.context=/jira
+                                    jira.tmp=target/test-tmp/
+                                    jira.xml.data.location=src/test/xml/
+                                    jira.port=${http.port}
+                                    jira.edition=enterprise
+                                </echo>
+					</tasks>
+					</configuration>
+				</execution>
+			<execution>
+			<id>post-integration-test-user-ant-tasks</id>
+			<configuration>
+				<tasks>
+					<echo message="Ant task _after_ integration tests." />
+				</tasks>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
     </plugins>
   </build>
   <properties>  
-      <jira.start>false</jira.start>
+      <jira.start>true</jira.start>
   </properties>
 </project>

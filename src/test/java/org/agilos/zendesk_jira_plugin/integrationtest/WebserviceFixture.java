@@ -6,7 +6,12 @@ import java.util.Set;
 
 import javax.xml.rpc.ServiceException;
 
-import org.agilos.jira.soapclient.*;
+import org.agilos.jira.soapclient.JiraSoapService;
+import org.agilos.jira.soapclient.JiraSoapServiceService;
+import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
+import org.agilos.jira.soapclient.RemotePermissionScheme;
+import org.agilos.jira.soapclient.RemoteProject;
+import org.agilos.jira.soapclient.RemoteProjectRole;
 import org.apache.commons.lang.NotImplementedException;
 
 public class WebserviceFixture {
@@ -23,9 +28,7 @@ public class WebserviceFixture {
 	static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();
 	static final String PROJECT_LEAD = "bamboo";
 
-	public WebserviceFixture() throws ServiceException,
-			RemoteAuthenticationException,
-			org.agilos.jira.soapclient.RemoteException, RemoteException {
+	public WebserviceFixture() throws ServiceException, RemoteException {
 		JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
 		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2();
 		token = jiraSoapService.login(LOGIN_NAME, LOGIN_PASSWORD);

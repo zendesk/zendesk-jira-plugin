@@ -16,9 +16,9 @@
         <interface>org.agilos.jira.service.UserService</interface>
     </component>
 
-    <rpc-soap key="soap" name="Zendesk SOAP Services" class="org.agilos.jira.ws.JiraSoapServiceImpl">
+    <rpc-soap key="soap" name="Zendesk SOAP Services" class="org.agilos.jira.ws.AgilosSoapServiceImpl">
         <description>The Zendesk JIRA SOAP services.</description>
         <service-path>agilossoapservice-v1</service-path>
-        <published-interface>org.agilos.jira.ws.JiraSoapService</published-interface>
+        <published-interface>org.agilos.jira.ws.AgilosSoapService</published-interface>
     </rpc-soap>
 </atlassian-plugin>
