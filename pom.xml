@@ -46,6 +46,7 @@
 		<developer>
 			<name>Mikis Seth Sørensen</name>
 			<organization>Agilis Software ApS</organization>
+			<organizationUrl>http:</organizationUrl>
 		</developer>
 	</developers>
 
@@ -61,9 +62,12 @@
 			<groupId>atlassian</groupId>
 			<artifactId>atlassian-jira-rpc-plugin</artifactId>
 			<version>3.13.1-1</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<reporting>
+		<plugins>
+		</plugins>
+	</reporting>
 
 	<distributionManagement>
 		<site>
@@ -135,6 +139,7 @@
 					</tasks>
 					</configuration>
 				</execution>
+				
 			<execution>
 			<id>post-integration-test-user-ant-tasks</id>
 			<configuration>
@@ -143,11 +148,33 @@
 				</tasks>
 			</configuration>
 		</execution>
+	    <execution>
+	        <id>deploy-to-testserver</id>
+	        <phase>install</phase>
+	        <goals>
+		        <goal>run</goal>
+	        </goals>
+	        <configuration>
+		    <tasks>
+		         <scp file="target/zendesk-jira-plugin-1.0-SNAPSHOT.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997"/>
+		         <sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh"/>
+		    </tasks>
+	</configuration>
+</execution>
 	</executions>
+	<dependencies>
+          <dependency>
+    <groupId>ant</groupId>
+    <artifactId>ant-jsch</artifactId>
+    <version>1.6.5</version>
+</dependency> 
+         </dependencies>
+	
 </plugin>
     </plugins>
   </build>
   <properties>  
       <jira.start>true</jira.start>
+      <jira.wait>false</jira.wait>
   </properties>
 </project>
