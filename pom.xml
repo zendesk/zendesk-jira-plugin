@@ -75,9 +75,26 @@
 			<url>sftp://agilos.org/maven/zendesk/current</url>
 		</site>
 	</distributionManagement>
-
+    <profiles>
+    	<profile>
+    		<id>regression-test</id>
+    		<build>
+    			<plugins>
+    				<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+    					<artifactId>maven-surefire-plugin</artifactId>
+    					<configuration>      
+    						<suiteXmlFiles>
+    							<suiteXmlFile>src/test/ressources/testng.xml</suiteXmlFile>
+      						</suiteXmlFiles>
+    					</configuration>
+					</plugin>	
+    			</plugins>
+    		</build>
+    	</profile>
+    </profiles>
 	<build>
-		<plugins>
+		<plugins>					
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>RELEASE</version>
@@ -110,6 +127,10 @@
 					<goal>wsdl2java</goal>
 				</goals>
 				<configuration>
+					<urls>
+                        <url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
+                        <url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
+                  	</urls>					
 					<packageSpace>org.agilos.jira.soapclient</packageSpace>
 					</configuration>
 			</execution>
@@ -174,7 +195,7 @@
     </plugins>
   </build>
   <properties>  
-      <jira.start>true</jira.start>
+      <jira.start>false</jira.start>
       <jira.wait>false</jira.wait>
   </properties>
 </project>
