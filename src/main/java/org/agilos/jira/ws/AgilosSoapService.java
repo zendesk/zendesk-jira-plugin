@@ -1,9 +1,9 @@
 package org.agilos.jira.ws;
 
-import com.atlassian.jira.notification.type.RemoteUser;
 import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
 import com.atlassian.jira.rpc.exception.RemoteException;
 import com.atlassian.jira.rpc.exception.RemotePermissionException;
+import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 
 public interface AgilosSoapService {
 	/**

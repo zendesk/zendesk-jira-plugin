@@ -5,15 +5,19 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class WebserviceTest {
+
+	static final String JIRA_URL = "http://localhost:1990/jira";
+	static final String LOGIN_NAME = "test";
+	static final String LOGIN_PASSWORD = "test";	
 	
     public WebserviceFixture fixture;
     private static final String user1 = "brian";
     private static final String user2 = "ole";
     
 	@BeforeMethod
-    protected void setUp() throws Exception {
-        fixture = new WebserviceFixture();
-        cleanData();
+    void setup() throws Exception {
+		fixture = new WebserviceFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
+		cleanData();
         fixture.createProject();        
     }
 

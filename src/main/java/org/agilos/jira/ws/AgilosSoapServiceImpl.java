@@ -2,11 +2,11 @@ package org.agilos.jira.ws;
 
 import org.agilos.jira.service.UserService;
 
-import com.atlassian.jira.notification.type.RemoteUser;
 import com.atlassian.jira.rpc.auth.TokenManager;
 import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
 import com.atlassian.jira.rpc.exception.RemoteException;
 import com.atlassian.jira.rpc.exception.RemotePermissionException;
+import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.opensymphony.user.User;
 
 public class AgilosSoapServiceImpl implements AgilosSoapService {

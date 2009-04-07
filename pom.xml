@@ -85,7 +85,7 @@
     					<artifactId>maven-surefire-plugin</artifactId>
     					<configuration>      
     						<suiteXmlFiles>
-    							<suiteXmlFile>src/test/ressources/testng.xml</suiteXmlFile>
+    							<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
       						</suiteXmlFiles>
     					</configuration>
 					</plugin>	
@@ -193,6 +193,15 @@
 	
 </plugin>
     </plugins>
+    <testResources>
+    <testResource>
+       <directory>src/test/resources</directory>
+       <includes>
+         <include>log4j.properties</include>
+       </includes>
+     </testResource>
+   </testResources>
+    
   </build>
   <properties>  
       <jira.start>false</jira.start>

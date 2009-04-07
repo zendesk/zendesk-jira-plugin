@@ -1,13 +1,12 @@
 package org.agilos.zendesk_jira_plugin.integrationtest;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Date;
 
 import javax.xml.rpc.ServiceException;
 
-import org.agilos.jira.soapclient.AgilosSoapService;
-import org.agilos.jira.soapclient.AgilosSoapServiceService;
-import org.agilos.jira.soapclient.AgilosSoapServiceServiceLocator;
 import org.agilos.jira.soapclient.JiraSoapService;
 import org.agilos.jira.soapclient.JiraSoapServiceService;
 import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
@@ -16,6 +15,7 @@ import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteProjectRole;
 import org.agilos.jira.soapclient.RemoteUser;
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.log4j.Logger;
 
 public class WebserviceFixture {
 	private final JiraSoapService jiraSoapService;
@@ -31,19 +31,28 @@ public class WebserviceFixture {
 	static final String PROJECT_NAME = "Test Project";
 	static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();
 	static final String PROJECT_LEAD = "bamboo";
+	
+	private Logger log = Logger.getLogger(WebserviceFixture.class.getName());
 
-	public WebserviceFixture() throws ServiceException, RemoteException {
+	public WebserviceFixture() throws ServiceException, RemoteException, MalformedURLException {
+			this(JIRA_URL, LOGIN_NAME, LOGIN_PASSWORD);
+	}
+	
+	public WebserviceFixture(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
 		JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
-		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2();
-		jiraSoapToken = jiraSoapService.login(LOGIN_NAME, LOGIN_PASSWORD);		
+		log.debug("Retriving jira soap service from "+new URL(jiraUrl));
+		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(new URL(jiraUrl));
+		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
+		jiraSoapToken = jiraSoapService.login(loginName, loginPassword);		
 
-		zendeskWSClient = new ZendeskWSClient(JIRA_URL, LOGIN_NAME, LOGIN_PASSWORD);
+		zendeskWSClient = new ZendeskWSClient(jiraUrl, loginName, loginPassword);
 		
 		cleanData();
 	}
 
 	public void createProject() throws Exception {
-		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, PROJECT_LEAD, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);	
+		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, PROJECT_LEAD, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);
+		log.info("Created project: "+project);
 	}
 
 	public void removeProject() throws Exception {

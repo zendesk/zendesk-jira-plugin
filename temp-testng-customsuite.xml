@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="zendesk-jira-plugin">
-  <test verbose="2" name="it.org.zendesk_jira_plugin.WebserviceTest" annotations="JDK">
-    <classes>
-      <class name="it.org.zendesk_jira_plugin.WebserviceTest"/>
-    </classes>
-  </test>
-</suite>
