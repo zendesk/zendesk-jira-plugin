@@ -1,8 +1,8 @@
 package it.org.zendesk_jira_plugin;
 
-import org.testng.annotations.*;
 import org.agilos.zendesk_jira_plugin.integrationtest.WebserviceFixture;
-import com.atlassian.jira.functest.framework.FuncTestCase;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 public class WebserviceTest {
 	
@@ -14,19 +14,19 @@ public class WebserviceTest {
     protected void setUp() throws Exception {
         fixture = new WebserviceFixture();
         cleanData();
-        fixture.createProject();
+        fixture.createProject();        
     }
 
-	@Test
+	@Test (groups = {"testfirst"} )
 	public void testNoAssignableUsers() throws Exception  {
-		assert fixture.assignableUsers().size() == 0;
+		assert fixture.assignableUsers().length == 0;
 	}
 	
-	@Test
+	@Test (groups = {"testfirst"} )
 	public void testSingleAssignableUser() throws Exception  {
-		fixture.createUserWithName(user1);
+		fixture.createUserWithUsername(user1);
 		fixture.assignUserToProject(user1);
-		assert fixture.assignableUsers().size() == 1;
+		assert fixture.assignableUsers().length == 1;
 		fixture.unassignUserFromProject(user1);
 	}
 	
@@ -42,5 +42,4 @@ public class WebserviceTest {
 			fixture.removeUser(user2);
 		} catch (Exception e) {}
 	}
-
 }

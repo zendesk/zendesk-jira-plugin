@@ -18,4 +18,8 @@ public interface AgilosSoapService {
      */
     RemoteUser[] getAssignableUsers(String token, String projectKey)
             throws RemotePermissionException, RemoteAuthenticationException, RemoteException;
+    
+    
+    String login(String username, String password) 
+    		throws RemoteException, RemoteAuthenticationException, RemoteException;
 }

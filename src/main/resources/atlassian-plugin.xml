@@ -9,10 +9,12 @@
     <resource type="i18n" name="i18n" location="com.atlassian.jira.ext.rpc.rpc_plugin" />
     
     <component system="true" key="tokenManager" i18n-name-key="admin.web.rpc.plugin.token.manager.name" name="Token Manager" class="com.atlassian.jira.rpc.auth.TokenManagerImpl">
+        <description>Permission handling.</description>
         <interface>com.atlassian.jira.rpc.auth.TokenManager</interface>
     </component>
     
     <component system="true" key="userService" name="User Service" class="org.agilos.jira.service.UserServiceImpl">
+        <description>User management functionalities.</description>
         <interface>org.agilos.jira.service.UserService</interface>
     </component>
 
