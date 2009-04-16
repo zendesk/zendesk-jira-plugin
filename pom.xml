@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>0.5</version>
+	<version>0.6-SNAPSHOT</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -46,7 +46,7 @@
 		<developer>
 			<name>Mikis Seth Sørensen</name>
 			<organization>Agilis Software ApS</organization>
-			<organizationUrl>http:</organizationUrl>
+			<organizationUrl>http://agilis-software.dk</organizationUrl>
 		</developer>
 	</developers>
 
@@ -62,6 +62,12 @@
 			<groupId>atlassian</groupId>
 			<artifactId>atlassian-jira-rpc-plugin</artifactId>
 			<version>3.13.1-1</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.restlet</groupId>
+			<artifactId>org.restlet</artifactId>
+			<version>1.2-M2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<reporting>
@@ -71,8 +77,8 @@
 
 	<distributionManagement>
 		<site>
-			<id>agilos.com</id>
-			<url>sftp://agilos.org/</url>
+			<id>agilos.org</id>
+			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
 	
@@ -133,7 +139,8 @@
                         <url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
                   	</urls>					
 					<packageSpace>org.agilos.jira.soapclient</packageSpace>
-					</configuration>
+					<testSourceDirectory>${basedir}/target/generated-sources/axistools/wsdl2java</testSourceDirectory>
+				</configuration>
 			</execution>
 		</executions>
 	</plugin>
@@ -204,6 +211,24 @@
    </testResources>
     
   </build>
+  <repositories>
+  <repository>
+   <id>maven-restlet</id>
+   <name>Public online Restlet repository</name>
+   <url>http://maven.restlet.org</url>
+  </repository>
+  </repositories>
+  <pluginRepositories>
+<pluginRepository>
+<id>atlassian-m2-contrib</id>
+<name>Atlassian Maven 2 Contributor Repository</name>
+<url>http://svn.atlassian.com/svn/public/contrib/
+repository/maven2/</url>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</pluginRepository>
+</pluginRepositories>
   <properties>  
       <jira.start>false</jira.start>
       <jira.wait>false</jira.wait>

@@ -1,36 +1,25 @@
-package org.agilos.zendesk_jira_plugin.integrationtest;
+package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Date;
 
 import javax.xml.rpc.ServiceException;
 
-import org.agilos.jira.soapclient.JiraSoapService;
-import org.agilos.jira.soapclient.JiraSoapServiceService;
-import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.agilos.jira.soapclient.RemotePermissionScheme;
-import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteProjectRole;
 import org.agilos.jira.soapclient.RemoteUser;
+import org.agilos.zendesk_jira_plugin.integrationtest.ZendeskWSClient;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 
-public class WebserviceFixture {
-	private final JiraSoapService jiraSoapService;
-	private String jiraSoapToken;
-	private RemoteProject project;
-	private final ZendeskWSClient zendeskWSClient;
-
-	static final String LOGIN_NAME = "bamboo";
-	static final String LOGIN_PASSWORD = "bamboo2997";
-
-	static final String JIRA_URL = "http://192.168.0.100:8080";
+public class WebserviceFixture extends JIRAFixture {
 	static final String PROJECT_KEY = "TST";
 	static final String PROJECT_NAME = "Test Project";
 	static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();
 	static final String PROJECT_LEAD = "bamboo";
+
+	protected ZendeskWSClient zendeskWSClient;
 	
 	private Logger log = Logger.getLogger(WebserviceFixture.class.getName());
 
@@ -39,11 +28,7 @@ public class WebserviceFixture {
 	}
 	
 	public WebserviceFixture(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
-		JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
-		log.debug("Retriving jira soap service from "+new URL(jiraUrl));
-		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(new URL(jiraUrl));
-		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
-		jiraSoapToken = jiraSoapService.login(loginName, loginPassword);		
+		super(jiraUrl, loginName, loginPassword);
 
 		zendeskWSClient = new ZendeskWSClient(jiraUrl, loginName, loginPassword);
 		

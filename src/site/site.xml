@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Dataentity">
-  <bannerRight>
-    <src>http://maven.apache.org/images/logo_maven.jpg</src>
-  </bannerRight>
+<project name="Zendesk JIRA plugin">
   <publishDate format="yyyy-MM-dd HH:mm"/>
   
   <poweredBy>
@@ -19,7 +16,6 @@
       <item name="Introduction" href="introduction.html"/>
     </menu>    
     
-    <menu ref="modules" inherit="bottom"/>
     ${reports}
   </body>
 </project>

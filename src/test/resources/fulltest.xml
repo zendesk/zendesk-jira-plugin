@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="5" skipfailedinvocationCounts="false" verbose="0" name="Command line suite" junit="false" annotations="JDK">
+  <test name="Command line test" junit="false">
+    <classes>
+      <class name="WebserviceTest"/>
+    </classes>
+  </test>
+</suite> 
+
