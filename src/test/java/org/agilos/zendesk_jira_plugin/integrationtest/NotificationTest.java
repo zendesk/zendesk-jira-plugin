@@ -12,19 +12,18 @@ public class NotificationTest {
 	static final String LOGIN_PASSWORD = "test";	
 	
     public NotificationFixture fixture;
-    private static final String user1 = "brian";
-    private static final String user2 = "ole";
+    private String issueKey;
     
 	@BeforeMethod
     void setup() throws Exception {
 		fixture = new NotificationFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
 		cleanData();
-        fixture.createIssue();        
+		issueKey = fixture.createIssue();        
     }
 
 	@Test (groups = {"testfirst"} )
-	public void testCommentAdded() throws Exception  {
-		assert fixture.assignableUsers().length == 0;
+	public void testCommentAdded(String comment) throws Exception  {
+		fixture.updateIssueWithComment(issueKey, comment);
 	}
 	
 	

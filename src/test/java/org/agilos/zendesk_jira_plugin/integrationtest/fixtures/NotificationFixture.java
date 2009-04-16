@@ -2,19 +2,15 @@ package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
 
 import javax.xml.rpc.ServiceException;
 
 import org.agilos.jira.soapclient.RemoteIssue;
-import org.agilos.jira.soapclient.RemotePermissionScheme;
-import org.agilos.zendesk_jira_plugin.integrationtest.notifications.MessageQueue;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
-import org.restlet.data.Request;
 
 public class NotificationFixture extends JIRAFixture {
 	
@@ -59,7 +55,7 @@ public NotificationFixture(String jiraUrl, String loginName, String loginPasswor
 			return createdIssue.getKey();
 	}
 	
-	public void updateIssueWithComment (int ID, String comment){
+	public void updateIssueWithComment (String ID, String comment){
 			throw new NotImplementedException();
 	}
 	
