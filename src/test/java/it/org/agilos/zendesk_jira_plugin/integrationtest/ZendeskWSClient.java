@@ -1,4 +1,4 @@
-package org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import java.net.MalformedURLException;
 import java.net.URL;

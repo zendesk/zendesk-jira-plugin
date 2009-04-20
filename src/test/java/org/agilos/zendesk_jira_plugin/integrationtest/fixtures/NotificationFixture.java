@@ -5,9 +5,9 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
+import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
@@ -46,17 +46,19 @@ public NotificationFixture(String jiraUrl, String loginName, String loginPasswor
 		    }
 	}
 	
-	public String createIssue() throws Exception {
+	public RemoteIssue createIssue() throws Exception {
+			createProject();
 		    RemoteIssue newIssue = new RemoteIssue();
 		    newIssue.setType("bug");
+		    newIssue.setProject(PROJECT_KEY);
 		    newIssue.setSummary("TestIssue");
 			RemoteIssue createdIssue = jiraSoapService.createIssue(jiraSoapToken, newIssue);
 			log.info("Created project: "+project);
-			return createdIssue.getKey();
+			return createdIssue;
 	}
 	
-	public void updateIssueWithComment (String ID, String comment){
-			throw new NotImplementedException();
+	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
+		jiraSoapService.addComment(jiraSoapToken, issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
 	}
 	
 	public String getNextRequest() {

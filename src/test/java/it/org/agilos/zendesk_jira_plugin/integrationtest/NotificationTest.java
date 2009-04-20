@@ -1,7 +1,6 @@
-package org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
-import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.WebserviceFixture;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,12 +17,12 @@ public class NotificationTest {
     void setup() throws Exception {
 		fixture = new NotificationFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
 		cleanData();
-		issueKey = fixture.createIssue();        
+		issueKey = fixture.createIssue().getKey();        
     }
 
 	@Test (groups = {"testfirst"} )
-	public void testCommentAdded(String comment) throws Exception  {
-		fixture.updateIssueWithComment(issueKey, comment);
+	public void testCommentAdded() throws Exception  {
+		fixture.updateIssueWithComment(issueKey, "Test comment");
 	}
 	
 	

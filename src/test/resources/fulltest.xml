@@ -3,6 +3,7 @@
   <test name="Command line test" junit="false">
     <classes>
       <class name="WebserviceTest"/>
+      <class name="NotificationTest"/>
     </classes>
   </test>
 </suite> 

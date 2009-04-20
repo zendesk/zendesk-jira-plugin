@@ -1,24 +1,18 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.ZendeskWSClient;
+
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-import java.util.Date;
 
 import javax.xml.rpc.ServiceException;
 
-import org.agilos.jira.soapclient.RemotePermissionScheme;
 import org.agilos.jira.soapclient.RemoteProjectRole;
 import org.agilos.jira.soapclient.RemoteUser;
-import org.agilos.zendesk_jira_plugin.integrationtest.ZendeskWSClient;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 
 public class WebserviceFixture extends JIRAFixture {
-	static final String PROJECT_KEY = "TST";
-	static final String PROJECT_NAME = "Test Project";
-	static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();
-	static final String PROJECT_LEAD = "bamboo";
-
 	protected ZendeskWSClient zendeskWSClient;
 	
 	private Logger log = Logger.getLogger(WebserviceFixture.class.getName());
@@ -33,15 +27,6 @@ public class WebserviceFixture extends JIRAFixture {
 		zendeskWSClient = new ZendeskWSClient(jiraUrl, loginName, loginPassword);
 		
 		cleanData();
-	}
-
-	public void createProject() throws Exception {
-		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, PROJECT_LEAD, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);
-		log.info("Created project: "+project);
-	}
-
-	public void removeProject() throws Exception {
-		jiraSoapService.deleteProject(jiraSoapToken, PROJECT_KEY);
 	}
 
 	public void createUserWithUsername(String name) throws Exception  {

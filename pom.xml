@@ -148,7 +148,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-plugin-artifact</id>
+                        <id>deploy-to-local.jira</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>run</goal>
@@ -168,18 +168,9 @@
 					</tasks>
 					</configuration>
 				</execution>
-				
-			<execution>
-			<id>post-integration-test-user-ant-tasks</id>
-			<configuration>
-				<tasks>
-					<echo message="Ant task _after_ integration tests." />
-				</tasks>
-			</configuration>
-		</execution>
-	    <execution>
+				  <execution>
 	        <id>deploy-to-testserver</id>
-	        <phase>install</phase>
+            <phase>pre-integration-test</phase>
 	        <goals>
 		        <goal>run</goal>
 	        </goals>
@@ -190,6 +181,15 @@
 		    </tasks>
 	</configuration>
 </execution>
+			<execution>
+			<id>post-integration-test-user-ant-tasks</id>
+			<configuration>
+				<tasks>
+					<echo message="Ant task _after_ integration tests." />
+				</tasks>
+			</configuration>
+		</execution>
+	  
 	</executions>
 	<dependencies>
           <dependency>

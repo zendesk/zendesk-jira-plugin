@@ -1,4 +1,4 @@
-package org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.WebserviceFixture;
 import org.testng.annotations.BeforeMethod;
