@@ -130,6 +130,7 @@
 		<artifactId>axistools-maven-plugin</artifactId>
 		<executions>
 			<execution>
+				<phase>generate-test-resources</phase>			
 				<goals>
 					<goal>wsdl2java</goal>
 				</goals>
@@ -139,7 +140,6 @@
                         <url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
                   	</urls>					
 					<packageSpace>org.agilos.jira.soapclient</packageSpace>
-					<testSourceDirectory>${basedir}/target/generated-sources/axistools/wsdl2java</testSourceDirectory>
 				</configuration>
 			</execution>
 		</executions>
@@ -185,7 +185,7 @@
 	        </goals>
 	        <configuration>
 		    <tasks>
-		         <scp file="target/zendesk-jira-plugin-1.0-SNAPSHOT.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997"/>
+		         <scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997"/>
 		         <sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh"/>
 		    </tasks>
 	</configuration>
@@ -218,17 +218,6 @@
    <url>http://maven.restlet.org</url>
   </repository>
   </repositories>
-  <pluginRepositories>
-<pluginRepository>
-<id>atlassian-m2-contrib</id>
-<name>Atlassian Maven 2 Contributor Repository</name>
-<url>http://svn.atlassian.com/svn/public/contrib/
-repository/maven2/</url>
-<snapshots>
-<enabled>true</enabled>
-</snapshots>
-</pluginRepository>
-</pluginRepositories>
   <properties>  
       <jira.start>false</jira.start>
       <jira.wait>false</jira.wait>
