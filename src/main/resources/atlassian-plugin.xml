@@ -17,6 +17,10 @@
         <description>User management functionalities.</description>
         <interface>org.agilos.jira.service.UserService</interface>
     </component>
+    
+    <component system="true" key="zendeskNotifier" name="Zendesk notifier" class="org.agilos.jira.zendesk.ZendeskNotifier">
+        <description>Produces notifications for a Zendesk instance when issues changes</description>        
+    </component>
 
     <rpc-soap key="soap" name="Zendesk SOAP Services" class="org.agilos.jira.ws.AgilosSoapServiceImpl">
         <description>The Zendesk JIRA SOAP services.</description>

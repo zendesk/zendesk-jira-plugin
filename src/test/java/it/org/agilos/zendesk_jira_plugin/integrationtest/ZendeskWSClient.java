@@ -25,12 +25,13 @@ public class ZendeskWSClient {
 
 	public ZendeskWSClient(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
 		this.jiraUrl = jiraUrl;
-		this.loginName = loginName;
-		
+		this.loginName = loginName;		
 		this.loginPassword = loginPassword;
+		
 		AgilosSoapServiceService agilosSoapServiceGetter = new AgilosSoapServiceServiceLocator();
-		log.debug("Retriving jira soap service from "+new URL(jiraUrl));
-		agilosSoapService = agilosSoapServiceGetter.getAgilossoapserviceV1();
+		URL agilosSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/agilossoapservice-v1");
+		log.debug("Retriving jira soap service from "+agilosSOAPServiceUrl);
+		agilosSoapService = agilosSoapServiceGetter.getAgilossoapserviceV1(agilosSOAPServiceUrl);
 		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
 		agilosSoapToken = agilosSoapService.login(loginName, loginPassword);
 	}

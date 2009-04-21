@@ -47,13 +47,12 @@ public NotificationFixture(String jiraUrl, String loginName, String loginPasswor
 	}
 	
 	public RemoteIssue createIssue() throws Exception {
-			createProject();
 		    RemoteIssue newIssue = new RemoteIssue();
-		    newIssue.setType("bug");
+		    newIssue.setType("1");
 		    newIssue.setProject(PROJECT_KEY);
 		    newIssue.setSummary("TestIssue");
 			RemoteIssue createdIssue = jiraSoapService.createIssue(jiraSoapToken, newIssue);
-			log.info("Created project: "+project);
+			log.info("Created issue: "+newIssue.getId());
 			return createdIssue;
 	}
 	

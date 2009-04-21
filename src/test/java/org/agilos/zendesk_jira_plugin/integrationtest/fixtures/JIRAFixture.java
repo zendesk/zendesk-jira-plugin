@@ -29,20 +29,20 @@ public class JIRAFixture {
 	protected static final String PROJECT_KEY = "TST";
 	protected static final String PROJECT_NAME = "Test Project";
 	protected static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();
-	protected static final String PROJECT_LEAD = "bamboo";
 
 	private Logger log = Logger.getLogger(JIRAFixture.class.getName());
 	
 	public JIRAFixture(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
+		URL jiraSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/jirasoapservice-v2");
 		JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
-		log.debug("Retriving jira soap service from "+new URL(jiraUrl));
-		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(new URL(jiraUrl));
+		log.debug("Retriving jira soap service from "+jiraSOAPServiceUrl);
+		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(jiraSOAPServiceUrl);
 		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
 		jiraSoapToken = jiraSoapService.login(loginName, loginPassword);		
 	}
 	
-	public void createProject() throws Exception {
-		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, PROJECT_LEAD, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);
+	public void createProject(String ProjectLead) throws Exception {
+		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, ProjectLead, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);
 		log.info("Created project: "+project);
 	}
 

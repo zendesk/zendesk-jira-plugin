@@ -21,8 +21,9 @@ public class NotificationTest {
     }
 
 	@Test (groups = {"testfirst"} )
-	public void testCommentAdded() throws Exception  {
+	public void testCommentAddedNotification() throws Exception  {
 		fixture.updateIssueWithComment(issueKey, "Test comment");
+		assert fixture.getNextRequest().equals(TestDataFactory.getSoapResponse("testCommentAddedNotification.1"));
 	}
 	
 	

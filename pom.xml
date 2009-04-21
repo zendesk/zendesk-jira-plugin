@@ -62,7 +62,7 @@
 			<groupId>atlassian</groupId>
 			<artifactId>atlassian-jira-rpc-plugin</artifactId>
 			<version>3.13.1-1</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet</artifactId>
@@ -81,27 +81,54 @@
 			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
-	
-    <profiles>
-    	<profile>
-    		<id>regression-test</id>
-    		<build>
-    			<plugins>
-    				<plugin>
+
+	<profiles>
+		<profile>
+			<id>regression-test</id>
+			<build>
+				<plugins>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-    					<artifactId>maven-surefire-plugin</artifactId>
-    					<configuration>      
-    						<suiteXmlFiles>
-    							<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-      						</suiteXmlFiles>
-    					</configuration>
-					</plugin>	
-    			</plugins>
-    		</build>
-    	</profile>
-    </profiles>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+			<profile>
+			<id>deploy2test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>deploy-to-testserver</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
+											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo"
+											password="bamboo2997" command="~/deployjira.sh" />
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	<build>
-		<plugins>					
+		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>RELEASE</version>
@@ -125,101 +152,78 @@
             	<historyDir>${user.home}/history/${project.artifact}</historyDir>
             	</configuration>
       		</plugin>
-	<plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>axistools-maven-plugin</artifactId>
-		<executions>
-			<execution>
-				<!--phase>generate-test-resources</phase-->			
-				<goals>
-					<goal>wsdl2java</goal>
-				</goals>
-				<configuration>
-					<urls>
-                        <url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
-                        <url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
-                  	</urls>					
-					<packageSpace>org.agilos.jira.soapclient</packageSpace>
-				</configuration>
-			</execution>
-		</executions>
-	</plugin>
-	<plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>deploy-to-local.jira</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <copy file="${project.artifact.file}" todir="${tmp.webapp.dir}/WEB-INF/lib/"/>
-                                <echo file="${project.build.directory}/test-classes/localtest.properties">
-                                    jira.protocol=http
-                                    jira.host=localhost
-                                    jira.context=/jira
-                                    jira.tmp=target/test-tmp/
-                                    jira.xml.data.location=src/test/xml/
-                                    jira.port=${http.port}
-                                    jira.edition=enterprise
-                                </echo>
-					</tasks>
-					</configuration>
-				</execution>
-				  <execution>
-	        <id>deploy-to-testserver</id>
-            <phase>pre-integration-test</phase>
-	        <goals>
-		        <goal>run</goal>
-	        </goals>
-	        <configuration>
-		    <tasks>
-		         <scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997"/>
-		         <sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh"/>
-		    </tasks>
-	</configuration>
-</execution>
-			<execution>
-			<id>post-integration-test-user-ant-tasks</id>
-			<configuration>
-				<tasks>
-					<echo message="Ant task _after_ integration tests." />
-				</tasks>
-			</configuration>
-		</execution>
-	  
-	</executions>
-	<dependencies>
-          <dependency>
-    <groupId>ant</groupId>
-    <artifactId>ant-jsch</artifactId>
-    <version>1.6.5</version>
-</dependency> 
-         </dependencies>
-	
-</plugin>
-    </plugins>
-    <testResources>
-    <testResource>
-       <directory>src/test/resources</directory>
-       <includes>
-         <include>log4j.properties</include>
-       </includes>
-     </testResource>
-   </testResources>
-    
-  </build>
-  <repositories>
-  <repository>
-   <id>maven-restlet</id>
-   <name>Public online Restlet repository</name>
-   <url>http://maven.restlet.org</url>
-  </repository>
-  </repositories>
-  <properties>  
-      <jira.start>false</jira.start>
-      <jira.wait>false</jira.wait>
-  </properties>
+			<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+				<artifactId>axistools-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<!--phase>generate-test-resources</phase-->
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+						<configuration>
+							<urls>
+								<url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
+								<url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
+							</urls>
+							<packageSpace>org.agilos.jira.soapclient</packageSpace>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>deploy-to-local.jira</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<copy file="${project.artifact.file}" todir="${tmp.webapp.dir}/WEB-INF/lib/" />
+								<echo
+									file="${project.build.directory}/test-classes/localtest.properties">
+									jira.protocol=http
+									jira.host=localhost
+									jira.context=/jira
+									jira.tmp=target/test-tmp/
+									jira.xml.data.location=src/test/xml/
+									jira.port=${http.port}
+									jira.edition=enterprise
+								</echo>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-jsch</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</testResource>
+		</testResources>    
+	</build>
+	<repositories>
+		<repository>
+			<id>maven-restlet</id>
+			<name>Public online Restlet repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
+	</repositories>
+	<properties>
+		<jira.start>true</jira.start>
+		<jira.wait>true</jira.wait>
+	</properties>
 </project>

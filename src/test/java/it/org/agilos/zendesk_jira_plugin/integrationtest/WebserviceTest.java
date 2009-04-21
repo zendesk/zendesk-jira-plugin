@@ -18,7 +18,7 @@ public class WebserviceTest {
     void setup() throws Exception {
 		fixture = new WebserviceFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
 		cleanData();
-        fixture.createProject();        
+        fixture.createProject("test");        
     }
 
 	@Test (groups = {"testfirst"} )
