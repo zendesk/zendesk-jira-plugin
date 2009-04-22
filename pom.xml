@@ -67,7 +67,6 @@
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet</artifactId>
 			<version>1.2-M2</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<reporting>
@@ -99,7 +98,7 @@
 				</plugins>
 			</build>
 		</profile>
-			<profile>
+		<profile>
 			<id>deploy2test</id>
 			<build>
 				<plugins>
@@ -224,6 +223,6 @@
 	</repositories>
 	<properties>
 		<jira.start>true</jira.start>
-		<jira.wait>false</jira.wait>
+		<jira.test-lib.exports.path>d:/projects/Agilos/zendesk-jira-plugin/src/test/xml/</jira.test-lib.exports.path>
 	</properties>
 </project>

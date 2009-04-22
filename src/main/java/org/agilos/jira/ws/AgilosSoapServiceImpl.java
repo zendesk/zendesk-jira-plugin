@@ -27,7 +27,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      * This ability to resolve a token into a user name is used by the JIRA logging and is not exposed on the SOAP
      * service interface itself.
      *
-     * @param token the given out previously via {@link @#login}
+     * @param token the given out previously via {@link #login}
      * @return the user name behind that token or null if the token is not valid
      * @throws RemotePermissionException 
      * @throws RemoteAuthenticationException 

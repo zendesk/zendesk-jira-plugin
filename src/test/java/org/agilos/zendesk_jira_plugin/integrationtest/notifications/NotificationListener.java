@@ -6,8 +6,10 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.restlet.Application;
 import org.restlet.Restlet;
+import org.restlet.data.ChallengeScheme;
 import org.restlet.data.Request;
 import org.restlet.routing.Router;
+import org.restlet.security.Guard;
 
 public class NotificationListener extends Application {
 	public static final LinkedBlockingQueue<Request> messageQueue = new LinkedBlockingQueue<Request>();
@@ -21,12 +23,17 @@ public class NotificationListener extends Application {
     public synchronized Restlet createRoot() {
         // Create a router Restlet that routes each call to a
         // new instance of the NotificationHandler.
+		
         Router router = new Router(getContext());
 
         // Defines only one route
         router.attachDefault(NotificationHandler.class);
-
-        return router;
+        
+        Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
+		guard.getSecrets().put("mikis", "Zentril.2".toCharArray());		
+		guard.setNext(router);
+        
+        return guard;
     }
 	
 	public String getNextRequest() {
@@ -37,5 +44,14 @@ public class NotificationListener extends Application {
 			e.printStackTrace();
 		}
 		return response; 
+	}
+	
+
+	private void setAuthetication(String user, String password) {
+		// Create a Guard
+		Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
+		guard.getSecrets().put(user, password.toCharArray());
+		
+		guard.setNext(this);
 	}
 }

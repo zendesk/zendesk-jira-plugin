@@ -8,7 +8,6 @@ public class NotificationHandler extends ServerResource {
 	
 	private Logger log = Logger.getLogger(NotificationHandler.class.getName());
 
-	@SuppressWarnings("unchecked")
 	@Get
 	public String represent() {
 		log.info("Received request from "+getReference()+" with method: " + getRequest().getMethod() +" and entity "+getRequest().getEntityAsText());

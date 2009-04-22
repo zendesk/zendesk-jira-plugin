@@ -52,7 +52,7 @@ public NotificationFixture(String jiraUrl, String loginName, String loginPasswor
 		    newIssue.setProject(PROJECT_KEY);
 		    newIssue.setSummary("TestIssue");
 			RemoteIssue createdIssue = jiraSoapService.createIssue(jiraSoapToken, newIssue);
-			log.info("Created issue: "+newIssue.getId());
+			log.info("Created issue: "+createdIssue.getId()+" "+createdIssue.getSummary());
 			return createdIssue;
 	}
 	

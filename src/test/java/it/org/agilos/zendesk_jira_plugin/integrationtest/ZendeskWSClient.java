@@ -9,7 +9,6 @@ import javax.xml.rpc.ServiceException;
 import org.agilos.jira.soapclient.AgilosSoapService;
 import org.agilos.jira.soapclient.AgilosSoapServiceService;
 import org.agilos.jira.soapclient.AgilosSoapServiceServiceLocator;
-import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteUser;
 import org.apache.log4j.Logger;
 
