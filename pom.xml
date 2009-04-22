@@ -224,6 +224,6 @@
 	</repositories>
 	<properties>
 		<jira.start>true</jira.start>
-		<jira.wait>true</jira.wait>
+		<jira.wait>false</jira.wait>
 	</properties>
 </project>
