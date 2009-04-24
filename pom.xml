@@ -209,7 +209,7 @@
 			<testResource>
 				<directory>src/test/resources</directory>
 				<includes>
-					<include>log4j.properties</include>
+					<include>*.properties</include>
 				</includes>
 			</testResource>
 		</testResources>    
@@ -222,7 +222,7 @@
 		</repository>
 	</repositories>
 	<properties>
-		<jira.start>true</jira.start>
+		<jira.start>false</jira.start>
 		<jira.test-lib.exports.path>d:/projects/Agilos/zendesk-jira-plugin/src/test/xml/</jira.test-lib.exports.path>
 	</properties>
 </project>

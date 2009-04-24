@@ -1,14 +1,16 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
+import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.testng.AssertJUnit.*;
 
 public class NotificationTest {
 
-	static final String JIRA_URL = "http://localhost:1990/jira";
-	static final String LOGIN_NAME = "test";
-	static final String LOGIN_PASSWORD = "test";	
+	static final String JIRA_URL = "http://192.168.0.100:8080";
+	static final String LOGIN_NAME = "bamboo";
+	static final String LOGIN_PASSWORD = "bamboo2997";	
 	
     public NotificationFixture fixture;
     private String issueKey;
@@ -20,12 +22,11 @@ public class NotificationTest {
 		issueKey = fixture.createIssue().getKey();        
     }
 
-	@Test (groups = {"testfirst"} )
 	public void testCommentAddedNotification() throws Exception  {
 		fixture.updateIssueWithComment(issueKey, "Test comment");
-		assert fixture.getNextRequest().equals(TestDataFactory.getSoapResponse("testCommentAddedNotification.1"));
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), request.getEntityAsText());
 	}
-	
 	
 	//Needs to exterminate all data before each test to ensure a stable test environment
 	private void cleanData() {

@@ -36,22 +36,13 @@ public class NotificationListener extends Application {
         return guard;
     }
 	
-	public String getNextRequest() {
-		String response = null;
+	public Request getNextRequest() {
+		Request request = null;
 		try {
-			response = messageQueue.poll(10l, TimeUnit.SECONDS).toString();
+			request = messageQueue.poll(10l, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.info("No response received in 10 seconds");
 		}
-		return response; 
-	}
-	
-
-	private void setAuthetication(String user, String password) {
-		// Create a Guard
-		Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
-		guard.getSecrets().put(user, password.toCharArray());
-		
-		guard.setNext(this);
+		return request; 
 	}
 }
