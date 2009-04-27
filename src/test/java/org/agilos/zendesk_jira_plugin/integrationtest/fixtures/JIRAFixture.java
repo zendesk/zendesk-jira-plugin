@@ -41,9 +41,10 @@ public class JIRAFixture {
 		jiraSoapToken = jiraSoapService.login(loginName, loginPassword);		
 	}
 	
-	public void createProject(String ProjectLead) throws Exception {
+	public RemoteProject createProject(String ProjectLead) throws Exception {
 		project = jiraSoapService.createProject(jiraSoapToken, PROJECT_KEY, PROJECT_NAME, PROJECT_DESCRIPTION, null, ProjectLead, new RemotePermissionScheme(null, new Long(0), null, null, null), null, null);
 		log.info("Created project: "+project);
+		return project;
 	}
 
 	public void removeProject() throws Exception {

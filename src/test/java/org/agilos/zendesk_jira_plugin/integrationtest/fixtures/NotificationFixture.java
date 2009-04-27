@@ -1,5 +1,7 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.RestServer;
+
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 
@@ -7,12 +9,13 @@ import javax.xml.rpc.ServiceException;
 
 import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteCustomFieldValue;
+import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
 import org.apache.log4j.Logger;
-import org.restlet.Component;
-import org.restlet.data.Protocol;
 import org.restlet.data.Request;
+
+import com.atlassian.jira.issue.IssueFieldConstants;
 
 public class NotificationFixture extends JIRAFixture {
 
@@ -30,24 +33,7 @@ public class NotificationFixture extends JIRAFixture {
 	throws ServiceException, RemoteException, MalformedURLException {
 		super(jiraUrl, loginName, loginPassword);
 
-		try {
-			// Create a new Component.
-			Component component = new Component();
-
-			// Add a new HTTP server listening on port 8182.
-			log.info("Adding rest server on port 8182");
-			component.getServers().add(Protocol.HTTP, 8182);
-
-			// Attach the sample application.
-			log.info("Adding Notification listener");
-			component.getDefaultHost().attach(notificationListener);
-
-			// Start the component.
-			log.info("Starting rest server");
-			component.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		RestServer.getInstance().setListener(notificationListener);
 	}
 
 	public RemoteIssue createIssue() throws Exception {
@@ -62,11 +48,39 @@ public class NotificationFixture extends JIRAFixture {
 		return createdIssue;
 	}
 
-	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
-		jiraSoapService.addComment(jiraSoapToken, issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
+	public void updateIssueWithSummary(String issueKey, String summary)throws Exception {
+		log.info("Changing summery on issue "+ issueKey + " to "+summary);
+		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
+	}
+	
+	public void updateIssueWithDescription (String issueKey, String description) throws Exception {
+		log.info("Changing description on issue "+ issueKey + " to "+description);
+		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
+	}
+	
+	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
+		log.info("Changing description on issue "+ issueKey + " to "+description);
+		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { 
+				new RemoteFieldValue("description", new String[] { description }),
+				new RemoteFieldValue("comment", new String[] { description } ) });
 	}
 
+	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
+		log.info("Adding comment "+ comment + " to issue "+issueKey);
+		jiraSoapService.addComment(jiraSoapToken, issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
+	}
+	
 	public Request getNextRequest() {
 		return notificationListener.getNextRequest();
+	}
+
+	/**
+	 * 
+	 * @param issueKey
+	 * @param projectKey
+	 * @return The new issueKey
+	 */
+	public String moveIssue(String issueKey, String projectKey) {
+		return null;
 	}
 }

@@ -13,11 +13,13 @@ import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.event.issue.IssueEvent;
+import com.atlassian.jira.event.type.EventType;
 import com.atlassian.jira.issue.fields.CustomField;
 
 public class NotificationDispatcher {	
@@ -46,12 +48,14 @@ public class NotificationDispatcher {
 		try {
 			Representation representation = getRepresentation(issueEvent);
 			log.debug("Dispatching: put "+representation.getText());
-			resource.put(getRepresentation(issueEvent));
+			resource.put(representation);
 			if (resource.getStatus().isSuccess()
 	                && resource.getResponseEntity().isAvailable()) {
 				log.debug("Received response"+resource.getResponseEntity());
+	        } else if (resource.getResponseEntity() != null && resource.getResponseEntity().isAvailable()){
+	        	log.warn("No success in sending notification, response was:\n"+resource.getResponseEntity().getText());
 	        } else {
-	        	log.debug("No success in sending notification");
+	        	log.warn("No response received");
 	        }
 
 		} catch (ResourceException e) {
@@ -66,33 +70,63 @@ public class NotificationDispatcher {
         return ap.getString(APKeys.JIRA_BASEURL);
     }
 	
+	/**
+	 * Generates a REST representation of the issue change
+	 * @param issueEvent
+	 * @return The REST representation of the issue change if any relevant changes are found, else null;
+	 * @throws ResourceException
+	 * @throws IOException
+	 */
     private Representation getRepresentation(IssueEvent issueEvent) throws ResourceException, IOException {
-    	DomRepresentation representation = new DomRepresentation(MediaType.TEXT_XML);           
+    	DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML);           
 	    representation.setCharacterSet(CharacterSet.UTF_8);	      	
 	    
     	Document xml = representation.getDocument();
+    	Node commentRoot = xml;
+
+    	if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID) {
+    		Element ticket = representation.getDocument().createElement("ticket");
+    		xml.appendChild(ticket);
+
+    		if (issueEvent.getIssue().getSummary() != null) {
+            	Element subject = xml.createElement("subject");
+            	subject.setTextContent(issueEvent.getIssue().getSummary());
+    			ticket.appendChild(subject);
+    		}
+    		
+    		if (issueEvent.getIssue().getDescription() != null) {
+            	Element description = xml.createElement("description");
+            	description.setTextContent(issueEvent.getIssue().getDescription());
+    			ticket.appendChild(description);
+    		}
+    		
+    		if (issueEvent.getComment() != null) {
+    			Element comments = xml.createElement("comments");
+    			comments.setAttribute("type", "array");
+    			ticket.appendChild(comments);
+    			commentRoot = comments;
+    		}
+    		
+    		// If no relevant changes have been added to the tcket root node, exit.
+    		if (ticket.getChildNodes().getLength() > 0 ) return representation;
+    		else return null;
+    	}
     	
-        Element ticket = representation.getDocument().createElement("ticket");
-        xml.appendChild(ticket);
-        
-        if (issueEvent.getComment() != null) {
-        	Element comments = xml.createElement("comments");
-        	comments.setAttribute("type", "array");
-        	ticket.appendChild(comments);
-        	
+    	else if (issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
         	Element comment = xml.createElement("comment");
-        	comments.appendChild(comment);
+        	commentRoot.appendChild(comment);
         	
         	Element isPublic = xml.createElement("is-public");
-        	isPublic.setNodeValue("true");
+        	isPublic.setTextContent("true");
         	comment.appendChild(isPublic);
         	
         	Element value = xml.createElement("value");
         	value.setTextContent(issueEvent.getComment().getBody());
         	comment.appendChild(value);
+            return representation;        	
         }
-        
-	    return representation;    	
+    	
+    	else return null;
     }
 
 	public void setTicketFieldValue(String ticketFieldName) {

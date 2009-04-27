@@ -26,7 +26,6 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	 * When detecting a <code>ISSUE_COMMENTED</code>, <code>ISSUE_COMMENTED</code> or <code>ISSUE_COMMENT_EDITED_ID</code> calls the <code>@link NotificationDispatcher</code>. 
 	 */
 	public void workflowEvent(IssueEvent issueEvent) {
-		log.info("Received issue change notification("+issueEvent.getEventTypeId()+"):"+issueEvent);
 		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID ||
 				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID||
 				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENT_EDITED_ID ) {
