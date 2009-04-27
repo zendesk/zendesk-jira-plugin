@@ -1,5 +1,7 @@
 package org.agilos.jira.zendesk;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -41,12 +43,13 @@ public class NotificationDispatcher {
 	}
 	
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
-		ClientResource resource = new ClientResource(zendeskServerURL+"/ticket/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
+		ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
 		resource.setReferrerRef(getBaseUrl());
 		resource.setChallengeResponse(authentication);
 		
 		try {
 			Representation representation = getRepresentation(issueEvent);
+			setSize(representation);
 			log.debug("Dispatching: put "+representation.getText());
 			resource.put(representation);
 			if (resource.getStatus().isSuccess()
@@ -135,5 +138,11 @@ public class NotificationDispatcher {
     
     private String getTicketID(String issueKey) {
     	return (String)ManagerFactory.getIssueManager().getIssueObject(issueKey).getCustomFieldValue(ticketField);
+    }
+    
+    private void setSize(Representation representation) throws IOException {
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	representation.write(out);
+    	representation.setSize(out.size());
     }
 }
