@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
@@ -12,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.6</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -26,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</connection>
-		<developerConnection>http://svn.agilos.org/svn/public/zendesk-jira-plugin/</developerConnection>
-		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin</url>
+		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</connection>
+		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</url>
 	</scm>
 
 	<issueManagement>
@@ -113,10 +110,8 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo"
-											password="bamboo2997" command="~/deployjira.sh" />
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -182,8 +177,7 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.artifact.file}" todir="${tmp.webapp.dir}/WEB-INF/lib/" />
-								<echo
-									file="${project.build.directory}/test-classes/localtest.properties">
+								<echo file="${project.build.directory}/test-classes/localtest.properties">
 									jira.protocol=http
 									jira.host=localhost
 									jira.context=/jira
