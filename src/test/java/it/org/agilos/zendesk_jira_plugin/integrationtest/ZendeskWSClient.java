@@ -15,18 +15,10 @@ import org.apache.log4j.Logger;
 public class ZendeskWSClient {
 	private final AgilosSoapService agilosSoapService;
 	private String agilosSoapToken;
-	
-	private final String jiraUrl;
-	private final String loginName;
-	private final String loginPassword;
 
 	private Logger log = Logger.getLogger(ZendeskWSClient.class.getName());
 
-	public ZendeskWSClient(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
-		this.jiraUrl = jiraUrl;
-		this.loginName = loginName;		
-		this.loginPassword = loginPassword;
-		
+	public ZendeskWSClient(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {		
 		AgilosSoapServiceService agilosSoapServiceGetter = new AgilosSoapServiceServiceLocator();
 		URL agilosSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/agilossoapservice-v1");
 		log.debug("Retriving jira soap service from "+agilosSOAPServiceUrl);

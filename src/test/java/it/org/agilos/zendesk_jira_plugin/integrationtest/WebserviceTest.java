@@ -1,49 +1,53 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
+import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.WebserviceFixture;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class WebserviceTest {
+public class WebserviceTest extends JIRATest {
 
-	static final String JIRA_URL = "http://localhost:1990/jira";
-	static final String LOGIN_NAME = "test";
-	static final String LOGIN_PASSWORD = "test";	
-	
-    public WebserviceFixture fixture;
-    private static final String user1 = "brian";
-    private static final String user2 = "ole";
+    private WebserviceFixture fixture;
     
-	@BeforeMethod
+	@BeforeMethod (alwaysRun = true)
     void setup() throws Exception {
 		fixture = new WebserviceFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
-		cleanData();
-        fixture.createProject("test");        
+		fixture.createUserWithUsername(USER_ID);
+	    fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID);  
     }
-
-	@Test (groups = {"testfirst"} )
+   /**
+   * Validates that different unassignable roles according to the default permission scheme, doesn't cause the number of assignable user to rise.
+   * Instead of presuming 0 assignable users, which is pretty fragile, we calibrate the testcase from the initial number of assignable users. 
+   * @throws Exception
+   */
+	@Test (groups = {"regressionTests"} )
 	public void testNoAssignableUsers() throws Exception  {
-		assert fixture.assignableUsers().length == 0;
+		int intialNumberOfAssignableUers = fixture.assignableUsers(PROJECT_KEY).length; 
+		String user2 = "nonassignableuser";
+		fixture.createUserWithUsername(user2);
+		//Because users are initially enrolled in the 'developer' group, the new user will initially be assignable
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers+1;
+		fixture.removeUserFromGroup(user2, JIRAFixture.JIRA_DEVELOPERS);
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers;
+		fixture.addUserToGroup(user2, JIRAFixture.JIRA_ADMINISTRATORS); 
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers;
 	}
 	
-	@Test (groups = {"testfirst"} )
+	@Test (groups = {"regressionTests"} )
 	public void testSingleAssignableUser() throws Exception  {
-		fixture.createUserWithUsername(user1);
-		fixture.assignUserToProject(user1);
-		assert fixture.assignableUsers().length == 1;
-		fixture.unassignUserFromProject(user1);
+		int intialNumberOfAssignableUers = fixture.assignableUsers(PROJECT_KEY).length; 
+		String user2 = "assignableuser";
+		fixture.createUserWithUsername(user2);
+		fixture.removeUserFromGroup(user2, JIRAFixture.JIRA_DEVELOPERS);
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers;
+		fixture.assignUserToProject(user2, PROJECT_KEY);
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers+1;
+		fixture.unassignUserFromProject(user2);
+		assert fixture.assignableUsers(PROJECT_KEY).length == intialNumberOfAssignableUers;
 	}
-	
-	//Needs to exterminate all data before each test to ensure a stable test environment
-	private void cleanData() {
-		try {
-    	fixture.removeProject();
-		} catch (Exception e) {}
-		try {
-		fixture.removeUser(user1);
-		} catch (Exception e) {}
-		try {
-			fixture.removeUser(user2);
-		} catch (Exception e) {}
+
+	@Override
+	protected JIRAFixture getFixture() {
+		return fixture;
 	}
 }

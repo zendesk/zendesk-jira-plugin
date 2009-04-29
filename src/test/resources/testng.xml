@@ -4,9 +4,12 @@
 	<test name="Regression test">
 		<groups>
 			<run>
-				<exclude name="testfirst" />
+			 	<include name="regressionTests" />
 			</run>
 		</groups>
+		<packages>
+      		<package name="it.org.agilos.*" />
+   		</packages>		
 	</test>
 </suite>
 

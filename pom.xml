@@ -38,7 +38,6 @@
 		<url>http://agilos.org</url>
 	</organization>
 
-
 	<developers>
 		<developer>
 			<name>Mikis Seth Sørensen</name>
@@ -89,7 +88,7 @@
 						<configuration>
 							<suiteXmlFiles>
 								<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-							</suiteXmlFiles>
+							</suiteXmlFiles>							
 						</configuration>
 					</plugin>
 				</plugins>

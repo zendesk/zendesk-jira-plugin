@@ -25,53 +25,49 @@ public class NotificationFixture extends JIRAFixture {
 	public static final String MESSAGELIST = "Messagelist";	
 	private String ticketID ="215";
 
-	public NotificationFixture() throws ServiceException, RemoteException, MalformedURLException {
-		this(JIRA_URL, LOGIN_NAME, LOGIN_PASSWORD);
-	}
-
-	public NotificationFixture(String jiraUrl, String loginName, String loginPassword) 
+	public NotificationFixture() 
 	throws ServiceException, RemoteException, MalformedURLException {
-		super(jiraUrl, loginName, loginPassword);
-
 		RestServer.getInstance().setListener(notificationListener);
 	}
 
-	public RemoteIssue createIssue() throws Exception {
+	public RemoteIssue createIssue(String project) throws Exception {
 		RemoteIssue newIssue = new RemoteIssue();
 		newIssue.setType("1");
-		newIssue.setProject(PROJECT_KEY);
+		newIssue.setProject(project);
 		newIssue.setSummary("TestIssue");
 		RemoteCustomFieldValue[] customFieldValues = new RemoteCustomFieldValue[] { new RemoteCustomFieldValue("customfield_10000","", new String[] { ticketID })};
 		newIssue.setCustomFieldValues(customFieldValues);
-		RemoteIssue createdIssue = jiraSoapService.createIssue(jiraSoapToken, newIssue);
+		RemoteIssue createdIssue = jiraClient.getService().createIssue(jiraClient.getToken(), newIssue);
 		log.info("Created issue: "+createdIssue.getId()+" "+createdIssue.getSummary());
 		return createdIssue;
 	}
 
 	public void updateIssueWithSummary(String issueKey, String summary)throws Exception {
 		log.info("Changing summery on issue "+ issueKey + " to "+summary);
-		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
+		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
 	}
 	
 	public void updateIssueWithDescription (String issueKey, String description) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description);
-		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
+		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
 	}
 	
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description);
-		jiraSoapService.updateIssue(jiraSoapToken, issueKey, new RemoteFieldValue[] { 
+		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
 				new RemoteFieldValue("description", new String[] { description }),
 				new RemoteFieldValue("comment", new String[] { description } ) });
 	}
 
 	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
 		log.info("Adding comment "+ comment + " to issue "+issueKey);
-		jiraSoapService.addComment(jiraSoapToken, issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
+		jiraClient.getService().addComment(jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
 	}
 	
 	public Request getNextRequest() {
-		return notificationListener.getNextRequest();
+		Request nextRequest = notificationListener.getNextRequest();
+		if (nextRequest == null) throw new RuntimeException("No notification received");
+		return nextRequest;
 	}
 
 	/**
