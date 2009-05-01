@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
 		<artifactId>jira-plugin-base</artifactId>
-		<version>13</version>
+		<version>15</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -71,6 +72,18 @@
 	</reporting>
 
 	<distributionManagement>
+		<repository>
+			<id>agilos.org</id>
+			<name>Agilos Repo</name>
+			<url>scp://agilos.org/var/www/repo</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>agilos.org</id>
+			<name>Agilos Snapshot Repo</name>
+			<url>scp://agilos.org/var/www/repo-snapshot</url>
+		</snapshotRepository>
+
 		<site>
 			<id>agilos.org</id>
 			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
@@ -88,7 +101,7 @@
 						<configuration>
 							<suiteXmlFiles>
 								<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-							</suiteXmlFiles>							
+							</suiteXmlFiles>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -109,8 +122,10 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh" />
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
+											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo"
+											password="bamboo2997" command="~/deployjira.sh" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -118,6 +133,12 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>localetest</id>
+			<properties>
+				<zendesk.jira.url>http://localhost:1990/jira</zendesk.jira.url>
+			</properties>
 		</profile>
 	</profiles>
 	<build>
@@ -141,8 +162,8 @@
 				<configuration>
 					<targetPercentage>50%</targetPercentage>
             		<generateHistorical>true</generateHistorical>
-            		<licenseLocation>clover.license</licenseLocation>
-            	<historyDir>${user.home}/history/${project.artifact}</historyDir>
+            		<licenseLocation>${basedir}/clover.license</licenseLocation>
+            		<historyDir>${user.home}/history/${project.artifact}</historyDir>
             	</configuration>
       		</plugin>
 			<plugin>
@@ -165,38 +186,32 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>deploy-to-local.jira</id>
-						<phase>pre-integration-test</phase>
+						<id>attach-javadocs</id>
+						<phase>install</phase>
 						<goals>
-							<goal>run</goal>
+							<goal>jar</goal>
 						</goals>
-						<configuration>
-							<tasks>
-								<copy file="${project.artifact.file}" todir="${tmp.webapp.dir}/WEB-INF/lib/" />
-								<echo file="${project.build.directory}/test-classes/localtest.properties">
-									jira.protocol=http
-									jira.host=localhost
-									jira.context=/jira
-									jira.tmp=target/test-tmp/
-									jira.xml.data.location=src/test/xml/
-									jira.port=${http.port}
-									jira.edition=enterprise
-								</echo>
-							</tasks>
-						</configuration>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>ant</groupId>
-						<artifactId>ant-jsch</artifactId>
-						<version>1.6.5</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+			</plugin> 
+			  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>			
 		</plugins>
 		<testResources>
 			<testResource>
@@ -205,7 +220,7 @@
 					<include>*.properties</include>
 				</includes>
 			</testResource>
-		</testResources>    
+		</testResources>
 	</build>
 	<repositories>
 		<repository>
@@ -215,7 +230,7 @@
 		</repository>
 	</repositories>
 	<properties>
-		<jira.start>false</jira.start>
-		<jira.test-lib.exports.path>d:/projects/Agilos/zendesk-jira-plugin/src/test/xml/</jira.test-lib.exports.path>
+		<jira.start>true</jira.start>
+		<jira.test-lib.exports.path>d:\projects\Agilos\zendesk-jira-plugin\src\test\xml\</jira.test-lib.exports.path><!-- Does currently work, see http://jira.agilos.org/browse/ZEN-27 -->
 	</properties>
 </project>
