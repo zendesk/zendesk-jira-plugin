@@ -30,15 +30,6 @@ public class JIRAFixture {
 	public static final String JIRA_DEVELOPERS = "jira-developers";
 	public static final String JIRA_USERS = "jira-users";
 
-	//	public JIRAFixture(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
-	//		URL jiraSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/jirasoapservice-v2");
-	//		JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
-	//		log.debug("Retrieving jira soap service from "+jiraSOAPServiceUrl);
-	//		jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(jiraSOAPServiceUrl);
-	//		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
-	//		jiraSoapToken = jiraSoapService.login(loginName, loginPassword);	
-	//	}
-
 	public RemoteProject createProjectWithKeyAndNameAndLead(String key, String projectName, String ProjectLead) throws Exception {
 		log.info("Creating project: "+key+" "+projectName);
 		try {

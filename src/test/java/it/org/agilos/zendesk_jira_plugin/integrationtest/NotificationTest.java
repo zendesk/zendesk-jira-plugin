@@ -52,13 +52,14 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received after changing desciption", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), request.getEntityAsText());		
 	}
 	
-//	@Test
-//	public void testIssueMoveNotification() throws Exception  {
-//        fixture.createProject("testMovingIssue");
-//		fixture.moveIssue(issueKey, "second project");
-//		Request request = fixture.getNextRequest(); 
-//		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), request.getEntityAsText());		
-//	}
+	@Test
+	public void testIssueMoveNotification() throws Exception  {
+		String newProjectKey = "IMN";
+    	fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  
+		//fixture.moveIssue(issueKey, newProjectKey);
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testIssueMoveNotification.1"), request.getEntityAsText());		
+	}
 	
 	/**
 	 * ZEN-18 Content-length not set in notification http headers, http://jira.agilos.org/browse/ZEN-18
@@ -69,7 +70,6 @@ public class NotificationTest extends JIRATest {
 		HttpRequest request = (HttpRequest)fixture.getNextRequest();
 		Series<Parameter> headers = request.getHeaders();
 		assertTrue("No content-length in headers of request received", headers.getValues(HttpConstants.HEADER_CONTENT_LENGTH) != null);
-//		assertTrue("Wrong content-length received", headers.getValues(HttpConstants.HEADER_CONTENT_LENGTH) > 0; 
 	}
     
 	@Override

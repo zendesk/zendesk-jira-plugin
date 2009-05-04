@@ -12,6 +12,7 @@ import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.restlet.data.Request;
 
@@ -77,6 +78,6 @@ public class NotificationFixture extends JIRAFixture {
 	 * @return The new issueKey
 	 */
 	public String moveIssue(String issueKey, String projectKey) {
-		return null;
+		throw new NotImplementedException();
 	}
 }

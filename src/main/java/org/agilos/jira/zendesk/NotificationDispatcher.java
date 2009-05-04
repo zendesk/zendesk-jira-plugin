@@ -100,7 +100,8 @@ public class NotificationDispatcher {
 
 		Node commentRoot = document;
 
-		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID) {
+		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID ||
+				issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID) {
 			Element ticket = document.createElement("ticket");
 			document.appendChild(ticket);
 
@@ -116,6 +117,12 @@ public class NotificationDispatcher {
 				ticket.appendChild(description);
 			}
 
+			if (issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID) {
+				Element newIssueKey = document.createElement("external-id");
+				newIssueKey.setTextContent(issueEvent.getIssue().getKey());
+				ticket.appendChild(newIssueKey);
+			}
+			
 			if (issueEvent.getComment() != null) {
 				Element comments = document.createElement("comments");
 				comments.setAttribute("type", "array");
@@ -138,7 +145,7 @@ public class NotificationDispatcher {
 			value.setTextContent(issueEvent.getComment().getBody());
 			comment.appendChild(value);   	
 		}
-
+		
 		else {
 			return null; //Unknown event type
 		}

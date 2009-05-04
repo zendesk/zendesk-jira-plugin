@@ -28,7 +28,8 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	public void workflowEvent(IssueEvent issueEvent) {
 		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID ||
 				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID||
-				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENT_EDITED_ID ) {
+				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENT_EDITED_ID ||
+				issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID ) {
 			dispatcher.sendIssueChangeNotification(issueEvent);
 		}
 	}
