@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Regression test" verbose="1">
+	<test name="Regression test">
+		<groups>
+			<run>
+			 	<include name="regressionTests" />
+			</run>
+		</groups>
+		<packages>
+      		<package name="org.agilos.*" />
+   		</packages>		
+	</test>
+</suite>
+

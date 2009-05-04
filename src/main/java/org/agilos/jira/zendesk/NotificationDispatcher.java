@@ -1,8 +1,11 @@
 package org.agilos.jira.zendesk;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.restlet.data.ChallengeResponse;
@@ -13,6 +16,7 @@ import org.restlet.representation.DomRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -29,37 +33,37 @@ public class NotificationDispatcher {
 	private String zendeskServerURL;
 	private CustomField ticketField;
 	private ChallengeResponse authentication;
-	
+
 	void setZendeskServerURL(String url) {
 		zendeskServerURL = url;
 		log.info("Zendesk url set to "+url);
 	}
-	
+
 	void setAuthentication(String user, String password) {
 		log.info("Using HTTP basic authentication for Zendesk access with user "+user+" and password "+password);
 		ChallengeScheme scheme = ChallengeScheme.HTTP_BASIC;
 		authentication = new ChallengeResponse(scheme,
 				user, password);
 	}
-	
+
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
 		ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
 		resource.setReferrerRef(getBaseUrl());
 		resource.setChallengeResponse(authentication);
-		
+
 		try {
 			Representation representation = getRepresentation(issueEvent);
 			setSize(representation);
 			log.debug("Dispatching: put "+representation.getText());
 			resource.put(representation);
 			if (resource.getStatus().isSuccess()
-	                && resource.getResponseEntity().isAvailable()) {
+					&& resource.getResponseEntity().isAvailable()) {
 				log.debug("Received response"+resource.getResponseEntity());
-	        } else if (resource.getResponseEntity() != null && resource.getResponseEntity().isAvailable()){
-	        	log.warn("No success in sending notification, response was:\n"+resource.getResponseEntity().getText());
-	        } else {
-	        	log.warn("No response received");
-	        }
+			} else if (resource.getResponseEntity() != null && resource.getResponseEntity().isAvailable()){
+				log.warn("No success in sending notification, response was:\n"+resource.getResponseEntity().getText());
+			} else {
+				log.warn("No response received");
+			}
 
 		} catch (ResourceException e) {
 			log.error("Failed to send issue change notification", e);
@@ -67,82 +71,94 @@ public class NotificationDispatcher {
 			log.warn("Failed to represent request as text", e);
 		}
 	}
-	
+
 	private String getBaseUrl() {
-        final ApplicationProperties ap = ManagerFactory.getApplicationProperties();
-        return ap.getString(APKeys.JIRA_BASEURL);
-    }
-	
+		final ApplicationProperties ap = ManagerFactory.getApplicationProperties();
+		return ap.getString(APKeys.JIRA_BASEURL);
+	}
+
 	/**
 	 * Generates a REST representation of the issue change
 	 * @param issueEvent
 	 * @return The REST representation of the issue change if any relevant changes are found, else null;
+	 * @throws ParserConfigurationException 
 	 * @throws ResourceException
 	 * @throws IOException
 	 */
-    private Representation getRepresentation(IssueEvent issueEvent) throws ResourceException, IOException {
-    	DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML);           
-	    representation.setCharacterSet(CharacterSet.UTF_8);	      	
-	    
-    	Document xml = representation.getDocument();
-    	Node commentRoot = xml;
+	private Representation getRepresentation(IssueEvent issueEvent) {	    
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			log.error(e);
+			return null;
+		}
+		DOMImplementation impl = builder.getDOMImplementation();
 
-    	if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID) {
-    		Element ticket = representation.getDocument().createElement("ticket");
-    		xml.appendChild(ticket);
+		Document document = impl.createDocument(null,null,null);
 
-    		if (issueEvent.getIssue().getSummary() != null) {
-            	Element subject = xml.createElement("subject");
-            	subject.setTextContent(issueEvent.getIssue().getSummary());
-    			ticket.appendChild(subject);
-    		}
-    		
-    		if (issueEvent.getIssue().getDescription() != null) {
-            	Element description = xml.createElement("description");
-            	description.setTextContent(issueEvent.getIssue().getDescription());
-    			ticket.appendChild(description);
-    		}
-    		
-    		if (issueEvent.getComment() != null) {
-    			Element comments = xml.createElement("comments");
-    			comments.setAttribute("type", "array");
-    			ticket.appendChild(comments);
-    			commentRoot = comments;
-    		}
-    		
-    		// If no relevant changes have been added to the tcket root node, exit.
-    		if (ticket.getChildNodes().getLength() > 0 ) return representation;
-    		else return null;
-    	}
-    	
-    	else if (issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
-        	Element comment = xml.createElement("comment");
-        	commentRoot.appendChild(comment);
-        	
-        	Element isPublic = xml.createElement("is-public");
-        	isPublic.setTextContent("true");
-        	comment.appendChild(isPublic);
-        	
-        	Element value = xml.createElement("value");
-        	value.setTextContent(issueEvent.getComment().getBody());
-        	comment.appendChild(value);
-            return representation;        	
-        }
-    	
-    	else return null;
-    }
+		Node commentRoot = document;
+
+		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID) {
+			Element ticket = document.createElement("ticket");
+			document.appendChild(ticket);
+
+			if (issueEvent.getIssue().getSummary() != null) {
+				Element subject = document.createElement("subject");
+				subject.setTextContent(issueEvent.getIssue().getSummary());
+				ticket.appendChild(subject);
+			}
+
+			if (issueEvent.getIssue().getDescription() != null) {
+				Element description = document.createElement("description");
+				description.setTextContent(issueEvent.getIssue().getDescription());
+				ticket.appendChild(description);
+			}
+
+			if (issueEvent.getComment() != null) {
+				Element comments = document.createElement("comments");
+				comments.setAttribute("type", "array");
+				ticket.appendChild(comments);
+				commentRoot = comments;
+			}
+			// If no relevant changes have been added to the ticket root node, exit.
+			if (ticket.getChildNodes().getLength() == 0 ) return null;
+		}
+
+		else if (issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
+			Element comment = document.createElement("comment");
+			commentRoot.appendChild(comment);
+
+			Element isPublic = document.createElement("is-public");
+			isPublic.setTextContent("true");
+			comment.appendChild(isPublic);
+
+			Element value = document.createElement("value");
+			value.setTextContent(issueEvent.getComment().getBody());
+			comment.appendChild(value);   	
+		}
+
+		else {
+			return null; //Unknown event type
+		}
+
+		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, document);           
+		representation.setCharacterSet(CharacterSet.UTF_8);	      	
+		return representation;
+	}
 
 	public void setTicketFieldValue(String ticketFieldName) {
 		ticketField = ManagerFactory.getCustomFieldManager().getCustomFieldObjectByName(ticketFieldName);		
 	}
-    
-    private String getTicketID(String issueKey) {
-    	return (String)ManagerFactory.getIssueManager().getIssueObject(issueKey).getCustomFieldValue(ticketField);
-    }
-    
-    private void setSize(Representation representation) throws IOException {
-    	ByteArrayOutputStream out = new ByteArrayOutputStream();
-    	representation.write(out);
-    	representation.setSize(out.size());
-    }
+
+	private String getTicketID(String issueKey) {
+		return (String)ManagerFactory.getIssueManager().getIssueObject(issueKey).getCustomFieldValue(ticketField);
+	}
+
+	private void setSize(Representation representation) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		representation.write(out);
+		representation.setSize(out.size());
+	}
 }

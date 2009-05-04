@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Regression test" verbose="1">
-	<test name="Regression test">
+<suite name="Regression integretion test" verbose="1">
+	<test name="Regression integration test">
 		<groups>
 			<run>
 			 	<include name="regressionTests" />
