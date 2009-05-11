@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeTest;
 
 public abstract class JIRATest {
 

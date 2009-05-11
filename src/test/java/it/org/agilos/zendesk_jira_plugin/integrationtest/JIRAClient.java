@@ -4,10 +4,17 @@ import java.net.URL;
 
 import javax.xml.ws.WebServiceException;
 
+import net.sourceforge.jwebunit.WebTester;
+
 import org.agilos.jira.soapclient.JiraSoapService;
 import org.agilos.jira.soapclient.JiraSoapServiceService;
 import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.apache.log4j.Logger;
+
+import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
+import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
+import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
+import com.meterware.httpunit.HttpUnitOptions;
 
 /**
  * Wraps the implementation details of how to connect to JIRA and login.
@@ -28,8 +35,23 @@ public class JIRAClient {
 	protected String jiraSoapToken;
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
+	
+	private static FuncTestHelperFactory fthFatory;
+	
+	public FuncTestHelperFactory getFuncTestHelperFactory() {
+		return fthFatory;
+	}
 
 	private JIRAClient() {
+		WebTester tester = new WebTester();
+		LocalTestEnvironmentData environmentData = new LocalTestEnvironmentData();
+
+		initWebTester(tester, environmentData);
+		
+		fthFatory = new FuncTestHelperFactory(tester, environmentData);
+	}
+	
+	public void login() {
 		String jiraUrl = System.getProperty("zendesk.jira.url","http://192.168.0.100:8080");
 		String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
 		String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
@@ -39,7 +61,8 @@ public class JIRAClient {
 			log.debug("Retriving jira soap service from "+jiraSOAPServiceUrl);
 			jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(jiraSOAPServiceUrl);
 			log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
-			jiraSoapToken = jiraSoapService.login(loginName, loginPassword);
+			jiraSoapToken = jiraSoapService.login(loginName, loginPassword); //Soap login
+			fthFatory.getNavigation().login(loginName, loginPassword);// GUI login
 		} catch (Exception e) {
 			log.error("Unable login to JIRA SOAP RPC service", e);
 		}
@@ -66,4 +89,11 @@ public class JIRAClient {
 		if (jiraSoapToken == null) throw new WebServiceException("Haven't been able to login to the JIRA server, see log for further details");
 		return jiraSoapToken;
 	}
+	
+	private void initWebTester(WebTester tester, JIRAEnvironmentData environmentData) { 
+        tester.getTestContext().setBaseUrl(environmentData.getBaseUrl().toExternalForm());
+        HttpUnitOptions.setExceptionsThrownOnScriptError(false);
+        tester.beginAt("/");
+        HttpUnitOptions.setScriptingEnabled(false);
+    }
 }

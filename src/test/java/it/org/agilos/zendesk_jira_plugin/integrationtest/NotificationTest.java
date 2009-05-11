@@ -5,6 +5,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Calendar;
 
+import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
 import org.restlet.data.Parameter;
@@ -21,16 +22,18 @@ public class NotificationTest extends JIRATest {
     private String issueKey;
     
     @BeforeMethod (alwaysRun = true)
-    void setup() throws Exception {
+    void setUpTest() throws Exception {
     	fixture = new NotificationFixture();
+    	getFixture().loadData("restoreData.xml");
+    	getFixture().connect();
     	getFixture().createUserWithUsername(USER_ID);
     	fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID);  
     	issueKey = fixture.createIssue(PROJECT_KEY).getKey();        
     }
 
-	@Test (groups = {"regressionTests"} )
-	public void testCommentAddedNotification() throws Exception  {
-		fixture.updateIssueWithComment(issueKey, "Test comment");
+    @Test (groups = {"regressionTests"} )
+    public void testCommentAddedNotification() throws Exception  {
+    	fixture.updateIssueWithComment(issueKey, "Test comment");
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), request.getEntityAsText());
 	}
@@ -52,11 +55,11 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received after changing desciption", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), request.getEntityAsText());		
 	}
 	
-	@Test
+	//@Test
 	public void testIssueMoveNotification() throws Exception  {
 		String newProjectKey = "IMN";
-    	fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  
-		//fixture.moveIssue(issueKey, newProjectKey);
+    	RemoteProject project = fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  
+		fixture.moveIssue(issueKey, project);
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testIssueMoveNotification.1"), request.getEntityAsText());		
 	}

@@ -10,7 +10,7 @@ public class WebserviceTest extends JIRATest {
     private WebserviceFixture fixture;
     
 	@BeforeMethod (alwaysRun = true)
-    void setup() throws Exception {
+    void setUpTest() throws Exception {
 		fixture = new WebserviceFixture(JIRA_URL,LOGIN_NAME,LOGIN_PASSWORD);
 		fixture.createUserWithUsername(USER_ID);
 	    fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID);  

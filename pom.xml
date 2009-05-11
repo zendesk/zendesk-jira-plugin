@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
@@ -137,12 +138,26 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh" />
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
+											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo"
+											password="bamboo2997" command="~/deployjira.sh" />
 									</tasks>
 								</configuration>
 							</execution>
 						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+							<dependency>
+								<groupId>jsch</groupId>
+								<artifactId>jsch</artifactId>
+								<version>0.1.25</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>

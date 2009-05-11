@@ -7,12 +7,14 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
+import junit.framework.AssertionFailedError;
+
 import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
+import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
-import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.restlet.data.Request;
 
@@ -77,7 +79,27 @@ public class NotificationFixture extends JIRAFixture {
 	 * @param projectKey
 	 * @return The new issueKey
 	 */
-	public String moveIssue(String issueKey, String projectKey) {
-		throw new NotImplementedException();
-	}
+	public String moveIssue(String issueKey, RemoteProject newProjectName) {
+		try {
+			tester.gotoPage("browse/"+issueKey);
+			tester.clickLink("move_issue");
+			tester.assertTextPresent("Move Issue: "+issueKey);
+			
+			tester.setWorkingForm("jiraform");
+			tester.selectOption("project", newProjectName.getName());
+			tester.submit();
+			
+			tester.assertTextPresent("Move Issue: Update Fields");
+			tester.submit();
+			
+			tester.assertTextPresent("Move Issue: Confirm"); 
+			tester.submit();
+			
+			tester.assertTitleEquals("");
+			
+		} catch (AssertionFailedError e) {
+			throw new AssertionError("Failed to move issue");
+		}
+		return null;
+	} 
 }
