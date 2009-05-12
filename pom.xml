@@ -271,7 +271,7 @@
 	</repositories>
 	<properties>
 		<jira.start>true</jira.start>
-		<jira.test-lib.exports.path>src\test\xml\</jira.test-lib.exports.path>
+		<jira.test-lib.exports.path>src/test/xml/</jira.test-lib.exports.path>
 		    <atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
 	        <atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
 	        <atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
