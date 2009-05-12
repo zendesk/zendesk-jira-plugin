@@ -160,7 +160,7 @@ public class JIRAFixture {
 			} 
 			log.info("Restored data from '" + filePath + "'");
 		} catch(AssertionFailedError e) {
-			throw new AssertionError("Your project failed to import successfully. See logs for details");
+			throw new RuntimeException("Your project failed to import successfully. See logs for details", e);
 		} 
 	}
 }

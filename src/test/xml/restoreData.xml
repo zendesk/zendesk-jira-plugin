@@ -4,7 +4,7 @@
 
 ___ Exported on ___________________
 
-     on                                  : 7. maj 2009 16:41:31 CEST
+     on                                  : 12. maj 2009 11:32:27 CEST
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
@@ -12,20 +12,20 @@ ___ Environment _________________
      JIRA Build                          : Enterprise Edition, Version: 3.13.2-#335
      JIRA Installation Type              : Source
      Java Version                        : 1.6.0_11 - Sun Microsystems Inc.
-     Current Working Directory           : D:\projects\Agilos\zendesk-jira-plugin
+     Current Working Directory           : D:\projects\agilos\zendesk-jira-plugin
      Maximum Allowable Memory            : 559MB
      Total Memory                        : 127MB
-     Free Memory                         : 75MB
-     Used Memory                         : 52MB
+     Free Memory                         : 102MB
+     Used Memory                         : 25MB
      Total PermGen Memory                : 288MB
-     Free PermGen Memory                 : 246MB
-     Used PermGen Memory                 : 41MB
-     JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx564m -Djira.home=d:\projects\Agilos\zendesk-jira-plugin\target/jira-home -Dcargo.logging=debug -Dcargo.datasource.datasource=cargo.datasource.url=jdbc:hsqldb:d:\projects\Agilos\zendesk-jira-plugin\target\jira\jira-config/jira-home/database|
+     Free PermGen Memory                 : 257MB
+     Used PermGen Memory                 : 30MB
+     JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx564m -Djira.home=d:\projects\agilos\zendesk-jira-plugin\target/jira-home -Dcargo.logging=debug -Dcargo.datasource.datasource=cargo.datasource.url=jdbc:hsqldb:d:\projects\agilos\zendesk-jira-plugin\target\jira\jira-config/jira-home/database|
 		cargo.datasource.driver=org.hsqldb.jdbcDriver|
 		cargo.datasource.username=sa|
 		cargo.datasource.password=|
 		cargo.datasource.type=javax.sql.DataSource|
-		cargo.datasource.jndi=jdbc/JiraDS -Dcatalina.home=d:\projects\Agilos\zendesk-jira-plugin\target\apache-tomcat-5.5.23-jdk14 -Dcatalina.base=d:\projects\Agilos\zendesk-jira-plugin\target\jira\tomcat5x -Djava.io.tmpdir=d:\projects\Agilos\zendesk-jira-plugin\target\jira\tomcat5x\temp
+		cargo.datasource.jndi=jdbc/JiraDS -Dcatalina.home=d:\projects\agilos\zendesk-jira-plugin\target\apache-tomcat-5.5.23-jdk14 -Dcatalina.base=d:\projects\agilos\zendesk-jira-plugin\target\jira\tomcat5x -Djava.io.tmpdir=d:\projects\agilos\zendesk-jira-plugin\target\jira\tomcat5x\temp
 
 ___ Database Configuration ______
 
@@ -35,7 +35,7 @@ ___ Database Configuration ______
      Entity model schema name            : PUBLIC
      Database Version                    : HSQL Database Engine - 1.8.0
      Database Driver                     : HSQL Database Engine Driver - 1.8.0
-     Database URL                        : jdbc:hsqldb:d:projectsAgiloszendesk-jira-plugin argetjirajira-config/jira-home/database
+     Database URL                        : jdbc:hsqldb:d:projectsagiloszendesk-jira-plugin argetjirajira-config/jira-home/database
      Database JNDI address               : java:comp/env/jdbc/JiraDS
 
 ___ Application Properties ______
@@ -52,16 +52,16 @@ ___ Application Properties ______
 ___ Database Statistics _________
 
      Issues                              : 0
-     Projects                            : 1
+     Projects                            : 2
      Custom Fields                       : 1
      Workflows                           : 0
-     Users                               : 5
+     Users                               : 6
      Groups                              : 3
 
 ___ File Paths __________________
 
-     Location of atlassian-jira.log      : D:\projects\Agilos\zendesk-jira-plugin\atlassian-jira.log
-     Index Path                          : C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes
+     Location of atlassian-jira.log      : D:\projects\agilos\zendesk-jira-plugin\atlassian-jira.log
+     Index Path                          : d:\projects\agilos\zendesk-jira-plugin\target\jira\jira-config/jira-home/indexes
      Attachment Path                     : /home/bamboo/atlassian-jira-enterprise-3.13.2-standalone/attachments
 
 ___ Plugins _____________________
@@ -104,7 +104,7 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 07-05-09 16:40
+     Last Run                            : 12-05-09 11:32
 
 ___ Trusted Applications ________
 
@@ -175,9 +175,11 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10040" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10060" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
+    <NodeAssociation sourceNodeId="10240" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
+    <NodeAssociation sourceNodeId="10240" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
     <Notification id="10001" scheme="10000" eventTypeId="1" type="Current_Reporter"/>
     <Notification id="10002" scheme="10000" eventTypeId="1" type="All_Watchers"/>
@@ -256,9 +258,13 @@ ___ Trusted Applications ________
     <OSMembership id="10011" userName="bamboo" groupName="jira-users"/>
     <OSMembership id="10012" userName="bamboo" groupName="jira-administrators"/>
     <OSMembership id="10013" userName="greenpepper" groupName="jira-administrators"/>
-    <OSMembership id="10060" userName="mikis@agilis-software.dk" groupName="jira-users"/>
-    <OSMembership id="10070" userName="tester" groupName="jira-users"/>
     <OSMembership id="10092" userName="bamboo" groupName="jira-developers"/>
+    <OSMembership id="10470" userName="admin" groupName="jira-users"/>
+    <OSMembership id="10471" userName="admin" groupName="jira-developers"/>
+    <OSMembership id="10472" userName="admin" groupName="jira-administrators"/>
+    <OSMembership id="10480" userName="integration" groupName="jira-users"/>
+    <OSMembership id="10481" userName="integration" groupName="jira-developers"/>
+    <OSMembership id="10482" userName="assignableuser" groupName="jira-users"/>
     <OSPropertyEntry id="10000" entityName="user.format.mapping" entityId="1" propertyKey="profileLink" type="5"/>
     <OSPropertyEntry id="10001" entityName="user.format.mapping" entityId="1" propertyKey="fullName" type="5"/>
     <OSPropertyEntry id="10002" entityName="user.format.mapping" entityId="1" propertyKey="profileLinkSearcher" type="5"/>
@@ -317,12 +323,14 @@ ___ Trusted Applications ________
     <OSPropertyEntry id="10160" entityName="ListenerConfig" entityId="10020" propertyKey="LoginName" type="5"/>
     <OSPropertyEntry id="10161" entityName="ListenerConfig" entityId="10020" propertyKey="LoginPassword" type="5"/>
     <OSPropertyEntry id="10170" entityName="ListenerConfig" entityId="10020" propertyKey="TicketIDField" type="5"/>
-    <OSPropertyEntry id="10180" entityName="OSUser" entityId="10060" propertyKey="email" type="5"/>
-    <OSPropertyEntry id="10181" entityName="OSUser" entityId="10060" propertyKey="fullName" type="5"/>
-    <OSPropertyEntry id="10190" entityName="OSUser" entityId="10070" propertyKey="email" type="5"/>
-    <OSPropertyEntry id="10191" entityName="OSUser" entityId="10070" propertyKey="fullName" type="5"/>
     <OSPropertyEntry id="10570" entityName="jira.properties" entityId="1" propertyKey="jira.lf.edit.version" type="5"/>
     <OSPropertyEntry id="10580" entityName="jira.properties" entityId="1" propertyKey="jira.i18n.default.locale" type="5"/>
+    <OSPropertyEntry id="10600" entityName="OSUser" entityId="10270" propertyKey="email" type="5"/>
+    <OSPropertyEntry id="10601" entityName="OSUser" entityId="10270" propertyKey="fullName" type="5"/>
+    <OSPropertyEntry id="10610" entityName="OSUser" entityId="10280" propertyKey="email" type="5"/>
+    <OSPropertyEntry id="10611" entityName="OSUser" entityId="10280" propertyKey="fullName" type="5"/>
+    <OSPropertyEntry id="10612" entityName="OSUser" entityId="10281" propertyKey="email" type="5"/>
+    <OSPropertyEntry id="10613" entityName="OSUser" entityId="10281" propertyKey="fullName" type="5"/>
     <OSPropertyNumber id="10013" value="1"/>
     <OSPropertyNumber id="10016" value="0"/>
     <OSPropertyNumber id="10023" value="1"/>
@@ -352,7 +360,7 @@ ___ Trusted Applications ________
     <OSPropertyString id="10010" value="Agilis Test JIRA"/>
     <OSPropertyString id="10011" value="http://192.168.0.100:8080"/>
     <OSPropertyString id="10012" value="private"/>
-    <OSPropertyString id="10014" value="C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes"/>
+    <OSPropertyString id="10014" value="d:\projects\agilos\zendesk-jira-plugin\target\jira\jira-config/jira-home/indexes"/>
     <OSPropertyString id="10015" value="/home/bamboo/atlassian-jira-enterprise-3.13.2-standalone/attachments"/>
     <OSPropertyString id="10019" value="enterprise"/>
     <OSPropertyString id="10020" value="mikis@agilos-software.dk"/>
@@ -383,19 +391,22 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="mikis"/>
     <OSPropertyString id="10161" value="Zentril.2"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10180" value="mikis@agilis-software.dk"/>
-    <OSPropertyString id="10181" value="Mikis Seth Sørensen"/>
-    <OSPropertyString id="10190" value="Tester@nowhere.test"/>
-    <OSPropertyString id="10191" value="Test User Tester"/>
-    <OSPropertyString id="10570" value="5"/>
+    <OSPropertyString id="10570" value="31"/>
     <OSPropertyString id="10580" value="en_UK"/>
+    <OSPropertyString id="10600" value="admin@nowhere.org"/>
+    <OSPropertyString id="10601" value="Integration test admin user"/>
+    <OSPropertyString id="10610" value="integration@nowhere.test"/>
+    <OSPropertyString id="10611" value="Test User integration"/>
+    <OSPropertyString id="10612" value="assignableuser@nowhere.test"/>
+    <OSPropertyString id="10613" value="Test User assignableuser"/>
     <OSPropertyText id="10017" value="NQqxSpNqPMnQPQOnorVtrnrqmPNnOqMPPwsSssuwWMvWvUTtvUQUuwoooUUnoptpunommmmmUUnoptpunommmmmUU1dfifpWJlcqtXobW1mJ"/>
     <OSPropertyText id="10018" value="pOMmvRKtgnFraUPalHeqGcCkQoVsOfvoUBSsEvXPwVwELWmi2Ka0m&gt;AynVnIWdvQYRBArt2K2GVPP1JXDXsjQekELAqv"/>
     <OSUser id="10000" name="mikis" passwordHash="vxK9iURNYzD68MLbeFRwuL6FiNH6ShKul4JCqc8LCp5x6Sn6hSzuiVlePkB1D2l1xPrZEv3XbvkOr8RlalVwGw=="/>
     <OSUser id="10010" name="greenpepper" passwordHash="plyERCxq2ii1vTKizVSGDwYQk8tSPZ6b011IjwOX//aCIZSBD92zidpZJ3EzA2jXZCBjnqBjeJKdZxsvG4NcVA=="/>
     <OSUser id="10011" name="bamboo" passwordHash="pbrolOj7IBXvMB7xS505RHbJjSR+42segx+Lh2wzZ/ClKHW/74MR8xzmJCRiPOLyK3k78ePXbBxX0sKCc37ghQ=="/>
-    <OSUser id="10060" name="mikis@agilis-software.dk" passwordHash="vxK9iURNYzD68MLbeFRwuL6FiNH6ShKul4JCqc8LCp5x6Sn6hSzuiVlePkB1D2l1xPrZEv3XbvkOr8RlalVwGw=="/>
-    <OSUser id="10070" name="tester" passwordHash="V4zpgHtj6BPfN10F+ESzY/dBraGPIFdFSZfeZQXJzk4tOySaHy5G906RvbacjmOc/+kquU7wFjYdbbSWA3Fo0Q=="/>
+    <OSUser id="10270" name="admin" passwordHash="x61Ey612Kl2gpFL56FT9weDnpSo4AV8j8+qx2AuTHdRyY036xxzTTrw10Wq3+4qQyB+XURPWx1ONxp3Y3pB37A=="/>
+    <OSUser id="10280" name="integration" passwordHash="ArCo35NBRkCPHO/vsANQ5DksXTtorkf5EhyiWGp6rzFtqBn+y9NtmZkUz4vUZZbja87qLzMirIZp17xYOCLx/w=="/>
+    <OSUser id="10281" name="assignableuser" passwordHash="gbu3X7YK377TteKiCgIxk/78Em0fiGOUA+pnuuNhQrsm1Snqf9tpuWAN8C0aD1np0lLXyoYGylF6ZpQbSKaQ+g=="/>
     <OptionConfiguration id="10000" fieldid="issuetype" optionid="1" fieldconfig="10000" sequence="0"/>
     <OptionConfiguration id="10001" fieldid="issuetype" optionid="2" fieldconfig="10000" sequence="1"/>
     <OptionConfiguration id="10002" fieldid="issuetype" optionid="3" fieldconfig="10000" sequence="2"/>
@@ -441,6 +452,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <Priority id="4" sequence="4" name="Minor" description="Minor loss of function, or other problem where easy workaround is present." iconurl="/images/icons/priority_minor.gif" statusColor="#006600"/>
     <Priority id="5" sequence="5" name="Trivial" description="Cosmetic problem like misspelt words or misaligned text." iconurl="/images/icons/priority_trivial.gif" statusColor="#003300"/>
     <Project id="10090" name="Manuel Test Project" url="" lead="mikis" description="" key="MTP" counter="0" assigneetype="2"/>
+    <Project id="10240" name="WebserviceTest project" lead="integration" description="" key="WST" counter="0"/>
     <ProjectRole id="10000" name="Users" description="A project role that represents users in a project"/>
     <ProjectRole id="10001" name="Developers" description="A project role that represents developers in a project"/>
     <ProjectRole id="10002" name="Administrators" description="A project role that represents administrators in a project"/>
@@ -450,6 +462,12 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <ProjectRoleActor id="10290" pid="10090" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
     <ProjectRoleActor id="10291" pid="10090" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
     <ProjectRoleActor id="10292" pid="10090" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
+    <ProjectRoleActor id="10730" pid="10230" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
+    <ProjectRoleActor id="10731" pid="10230" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
+    <ProjectRoleActor id="10732" pid="10230" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
+    <ProjectRoleActor id="10740" pid="10240" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
+    <ProjectRoleActor id="10741" pid="10240" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
+    <ProjectRoleActor id="10742" pid="10240" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
     <Resolution id="1" sequence="1" name="Fixed" description="A fix for this issue is checked into the tree and tested."/>
     <Resolution id="2" sequence="2" name="Won&apos;t Fix" description="The problem described is an issue which will never be fixed."/>
     <Resolution id="3" sequence="3" name="Duplicate" description="The problem is a duplicate of an existing issue."/>
@@ -508,22 +526,22 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10050"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10070"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>
     <SequenceValueItem seqName="OSGroup" seqId="10010"/>
-    <SequenceValueItem seqName="OSMembership" seqId="10460"/>
-    <SequenceValueItem seqName="OSPropertyEntry" seqId="10590"/>
-    <SequenceValueItem seqName="OSUser" seqId="10260"/>
+    <SequenceValueItem seqName="OSMembership" seqId="10490"/>
+    <SequenceValueItem seqName="OSPropertyEntry" seqId="10620"/>
+    <SequenceValueItem seqName="OSUser" seqId="10290"/>
     <SequenceValueItem seqName="OSWorkflowEntry" seqId="10370"/>
     <SequenceValueItem seqName="OptionConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="PluginVersion" seqId="10050"/>
     <SequenceValueItem seqName="PortalPage" seqId="10010"/>
     <SequenceValueItem seqName="PortletConfiguration" seqId="10010"/>
-    <SequenceValueItem seqName="Project" seqId="10230"/>
+    <SequenceValueItem seqName="Project" seqId="10250"/>
     <SequenceValueItem seqName="ProjectRole" seqId="10010"/>
-    <SequenceValueItem seqName="ProjectRoleActor" seqId="10730"/>
+    <SequenceValueItem seqName="ProjectRoleActor" seqId="10750"/>
     <SequenceValueItem seqName="SchemePermissions" seqId="10050"/>
     <SequenceValueItem seqName="ServiceConfig" seqId="10020"/>
     <SequenceValueItem seqName="SharePermissions" seqId="10010"/>
@@ -570,7 +588,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
 
 ___ Entities ______________________
 
-     Total                               : 448
+     Total                               : 466
 
      ConfigurationContext                : 2
      CustomField                         : 1
@@ -588,27 +606,27 @@ ___ Entities ______________________
      IssueTypeScreenScheme               : 1
      IssueTypeScreenSchemeEntity         : 1
      ListenerConfig                      : 4
-     NodeAssociation                     : 2
+     NodeAssociation                     : 4
      Notification                        : 48
      NotificationScheme                  : 1
      OSCurrentStepPrev                   : 10
      OSGroup                             : 3
      OSHistoryStepPrev                   : 9
-     OSMembership                        : 10
-     OSPropertyEntry                     : 64
+     OSMembership                        : 14
+     OSPropertyEntry                     : 66
      OSPropertyNumber                    : 16
-     OSPropertyString                    : 46
+     OSPropertyString                    : 48
      OSPropertyText                      : 2
-     OSUser                              : 5
+     OSUser                              : 6
      OptionConfiguration                 : 4
      PermissionScheme                    : 1
      PluginVersion                       : 26
      PortalPage                          : 1
      PortletConfiguration                : 7
      Priority                            : 5
-     Project                             : 1
+     Project                             : 2
      ProjectRole                         : 3
-     ProjectRoleActor                    : 6
+     ProjectRoleActor                    : 12
      Resolution                          : 5
      SchemePermissions                   : 36
      SequenceValueItem                   : 37
