@@ -27,7 +27,7 @@ public class NotificationTest extends JIRATest {
     	getFixture().loadData("restoreData.xml");
     	getFixture().connect();
     	getFixture().createUserWithUsername(USER_ID);
-    	fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID);  
+    	fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "NotificationTest project", USER_ID);  
     	issueKey = fixture.createIssue(PROJECT_KEY).getKey();        
     }
 

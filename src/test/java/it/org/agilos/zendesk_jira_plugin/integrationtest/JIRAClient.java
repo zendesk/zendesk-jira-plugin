@@ -52,7 +52,7 @@ public class JIRAClient {
 	}
 	
 	public void login() {
-		String jiraUrl = System.getProperty("zendesk.jira.url","http://192.168.0.100:8080");
+		String jiraUrl = System.getProperty("zendesk.jira.url","http://localhost:1990/jira");
 		String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
 		String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
 		try {

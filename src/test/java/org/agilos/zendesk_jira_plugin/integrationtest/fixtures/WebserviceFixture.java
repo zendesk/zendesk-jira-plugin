@@ -18,10 +18,8 @@ public class WebserviceFixture extends JIRAFixture {
 	
 	private Logger log = Logger.getLogger(WebserviceFixture.class.getName());
 
-	public WebserviceFixture(String jiraUrl, String loginName, String loginPassword) throws ServiceException, RemoteException, MalformedURLException {
-//		super(jiraUrl, loginName, loginPassword);
-
-		zendeskWSClient = new ZendeskWSClient(jiraUrl, loginName, loginPassword);
+	public WebserviceFixture() throws ServiceException, RemoteException, MalformedURLException {
+		zendeskWSClient = new ZendeskWSClient();
 		
 		cleanData();
 	}
