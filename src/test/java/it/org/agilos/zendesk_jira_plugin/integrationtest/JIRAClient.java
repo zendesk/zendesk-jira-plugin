@@ -33,6 +33,10 @@ public class JIRAClient {
 	
 	protected JiraSoapService jiraSoapService;
 	protected String jiraSoapToken;
+	
+	public static final String jiraUrl = System.getProperty("zendesk.jira.url","http://localhost:1990/jira");
+	public static final String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
+	public static final String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
@@ -51,10 +55,7 @@ public class JIRAClient {
 		fthFatory = new FuncTestHelperFactory(tester, environmentData);
 	}
 	
-	public void login() {
-		String jiraUrl = System.getProperty("zendesk.jira.url","http://localhost:1990/jira");
-		String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
-		String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
+	public void login() {		
 		try {
 			URL jiraSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/jirasoapservice-v2");
 			JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
@@ -74,7 +75,6 @@ public class JIRAClient {
 	
 	/**
 	 * Returns the JIRA service instance the client uses to connect to JIRA.
-	 * @return
 	 */
 	public JiraSoapService getService() {
 		if (jiraSoapService == null) throw new WebServiceException("Haven't been able to connect to the JIRA server, see log for further details");
@@ -83,7 +83,6 @@ public class JIRAClient {
 	
 	/**
 	 * The login token needed in all SOAP calls to JIRA
-	 * @return
 	 */
 	public String getToken() {
 		if (jiraSoapToken == null) throw new WebServiceException("Haven't been able to login to the JIRA server, see log for further details");

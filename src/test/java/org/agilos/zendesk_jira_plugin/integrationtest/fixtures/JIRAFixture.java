@@ -17,10 +17,6 @@ import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteUser;
 import org.apache.log4j.Logger;
 
-import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
-import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
-import com.meterware.httpunit.HttpUnitOptions;
-
 /**
  * Parent fixture for access to a JIRA instance.
  */
@@ -155,7 +151,7 @@ public class JIRAFixture {
 				tester.submit();
 				tester.assertTextPresent("Setup is now complete.");
 			} else {
-				connect();
+				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin");// GUI login with default user
 				tester.gotoPage("secure/admin/XmlRestore!default.jspa");
 				tester.setWorkingForm("jiraform");
 				tester.setFormElement("filename", filePath);
