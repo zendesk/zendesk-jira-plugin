@@ -160,6 +160,7 @@ public class JIRAFixture {
 			} 
 			log.info("Restored data from '" + filePath + "'");
 		} catch(AssertionFailedError e) {
+			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
 			throw new RuntimeException("Your project failed to import successfully. See logs for details", e);
 		} 
 	}
