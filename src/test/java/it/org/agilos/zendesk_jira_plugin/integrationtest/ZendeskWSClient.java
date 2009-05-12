@@ -18,17 +18,13 @@ public class ZendeskWSClient {
 
 	private Logger log = Logger.getLogger(ZendeskWSClient.class.getName());
 
-	public ZendeskWSClient() throws ServiceException, RemoteException, MalformedURLException {		
-		String jiraUrl = System.getProperty("zendesk.jira.url","http://localhost:1990/jira");
-		String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
-		String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
-		
+	public ZendeskWSClient() throws ServiceException, RemoteException, MalformedURLException {	
 		AgilosSoapServiceService agilosSoapServiceGetter = new AgilosSoapServiceServiceLocator();
-		URL agilosSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/agilossoapservice-v1");
+		URL agilosSOAPServiceUrl = new URL(JIRAClient.jiraUrl+"/rpc/soap/agilossoapservice-v1");
 		log.debug("Retriving jira soap service from "+agilosSOAPServiceUrl);
 		agilosSoapService = agilosSoapServiceGetter.getAgilossoapserviceV1(agilosSOAPServiceUrl);
-		log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
-		agilosSoapToken = agilosSoapService.login(loginName, loginPassword);
+		log.debug("Logging in with user: "+JIRAClient.loginName+" and password: "+JIRAClient.loginPassword);
+		agilosSoapToken = agilosSoapService.login(JIRAClient.loginName, JIRAClient.loginPassword);
 	}
 	
 	public RemoteUser[] assignableUsers(String projectKey) throws Exception {

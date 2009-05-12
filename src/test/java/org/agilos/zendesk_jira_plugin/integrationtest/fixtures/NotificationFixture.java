@@ -76,7 +76,7 @@ public class NotificationFixture extends JIRAFixture {
 	/**
 	 * 
 	 * @param issueKey
-	 * @param projectKey
+	 * @param newProjectName The project the issue should be moved to.
 	 * @return The new issueKey
 	 */
 	public String moveIssue(String issueKey, RemoteProject newProjectName) {
