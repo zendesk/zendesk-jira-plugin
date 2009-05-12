@@ -64,7 +64,7 @@ public class JIRAClient {
 			jiraSoapToken = jiraSoapService.login(loginName, loginPassword); //Soap login
 			fthFatory.getNavigation().login(loginName, loginPassword);// GUI login
 		} catch (Exception e) {
-			log.error("Unable login to JIRA SOAP RPC service", e);
+			log.error("Unable login to JIRA SOAP RPC service on jiraUrl", e);
 		}
 	}
 	
