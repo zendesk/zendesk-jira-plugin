@@ -65,6 +65,11 @@
 			<artifactId>org.restlet</artifactId>
 			<version>1.2-M2</version>
 		</dependency>
+		<dependency>
+		 <groupId>com.cenqua.clover</groupId>
+         <artifactId>clover</artifactId>  
+			<version>2.4.2</version>              
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
@@ -175,13 +180,22 @@
 			</plugin>
 			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>
+				<artifactId>maven-clover2-plugin</artifactId>     
 				<configuration>
-					<targetPercentage>50%</targetPercentage>
+					<targetPercentage>80%</targetPercentage>
             		<generateHistorical>true</generateHistorical>
             		<licenseLocation>${basedir}/clover.license</licenseLocation>
             		<historyDir>${user.home}/history/${project.artifact}</historyDir>
+            		<jdk>1.5</jdk>            		
             	</configuration>
+            	<executions>
+					<execution>
+						<phase>pre-site</phase>
+						<goals>
+							<goal>instrument</goal>
+						</goals>
+					</execution>
+				</executions>            	
       		</plugin>
 			<plugin>
 			<groupId>org.codehaus.mojo</groupId>
