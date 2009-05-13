@@ -31,7 +31,7 @@
 
 	<issueManagement>
 		<system>JIRA</system>
-		<url>http://svn.agilos.org/svn/public/zendesk-jira-plugin</url>
+		<url>http://jira.agilos.org/browse/ZEN</url>
 	</issueManagement>
 
 	<organization>
@@ -66,10 +66,6 @@
 			<version>1.2-M2</version>
 		</dependency>
 	</dependencies>
-	<reporting>
-		<plugins>
-		</plugins>
-	</reporting>
 
 	<distributionManagement>
 		<repository>
@@ -83,7 +79,6 @@
 			<name>Agilos Snapshot Repo</name>
 			<url>scp://agilos.org/var/www/repo-snapshot</url>
 		</snapshotRepository>
-
 		<site>
 			<id>agilos.org</id>
 			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
@@ -132,7 +127,7 @@
 						<executions>
 							<execution>
 								<id>deploy-to-testserver</id>
-								<phase>pre-integration-test</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -161,12 +156,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>localtest</id>
-			<properties>
-				<zendesk.jira.url>http://localhost:1990/jira</zendesk.jira.url>
-			</properties>
 		</profile>
 	</profiles>
 	<build>

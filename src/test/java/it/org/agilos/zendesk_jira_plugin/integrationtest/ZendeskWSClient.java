@@ -13,8 +13,16 @@ import org.agilos.jira.soapclient.RemoteUser;
 import org.apache.log4j.Logger;
 
 public class ZendeskWSClient {
-	private final AgilosSoapService agilosSoapService;
-	private String agilosSoapToken;
+	private static AgilosSoapService agilosSoapService;
+	private static String agilosSoapToken;
+
+	public static AgilosSoapService getSoapService() {
+		return agilosSoapService;
+	}
+
+	public static String getSoapToken() {
+		return agilosSoapToken;
+	}
 
 	private Logger log = Logger.getLogger(ZendeskWSClient.class.getName());
 

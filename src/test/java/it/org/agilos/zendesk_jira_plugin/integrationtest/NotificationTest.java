@@ -48,14 +48,14 @@ public class NotificationTest extends JIRATest {
 	/**
 	 * ZEN-19 Unable to correctly detect changed parameters, http://jira.agilos.org/browse/ZEN-19
 	 */
-	@Test (groups = {"testfirst"} )	
+	@Test (groups = {"regressionTests"} )	
 	public void testDescriptionChangedNotification() throws Exception  {
 		fixture.updateIssueWithDescription(issueKey, "This is a changed description");
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after changing desciption", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), request.getEntityAsText());		
 	}
 	
-	//@Test
+	//@Test  (groups = {"regressionTests"} )
 	public void testIssueMoveNotification() throws Exception  {
 		String newProjectKey = "IMN";
     	RemoteProject project = fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  

@@ -32,8 +32,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      * @throws RemotePermissionException 
      * @throws RemoteAuthenticationException 
      */
-    public String resolveTokenToUserName(final String token) throws RemoteAuthenticationException, RemotePermissionException
-    {
+    public String resolveTokenToUserName(final String token) throws RemoteAuthenticationException, RemotePermissionException {
             User user = tokenManager.retrieveUserNoPermissionCheck(token);
             return user == null ? null : user.getName();
     }
@@ -44,22 +43,20 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      * @param operationName the name of the SOAP operation
      * @return the parameter index of the user token
      */
-    public int getTokenParameterIndex(final String operationName)
-    {
+    public int getTokenParameterIndex(final String operationName) {
         return 0;
     }
 
-    public String login(String username, String password) throws RemoteException, com.atlassian.jira.rpc.exception.RemoteAuthenticationException, com.atlassian.jira.rpc.exception.RemoteException
-    {
+    public String login(String username, String password) throws RemoteException, com.atlassian.jira.rpc.exception.RemoteAuthenticationException, com.atlassian.jira.rpc.exception.RemoteException {
         return tokenManager.login(username, password);
     }
 
-    public boolean logout(String token)
-    {
+    public boolean logout(String token) {
         return tokenManager.logout(token);
     }
     
-	public RemoteUser[] getAssignableUsers(String token, String projectKey) {
+	public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteAuthenticationException, RemotePermissionException {
+		User user = tokenManager.retrieveUserNoPermissionCheck(token);
 		return userService.getAssignableUsers(projectKey);
 	}
 }

@@ -18,7 +18,7 @@ public abstract class JIRATest {
 	
 	@AfterMethod (alwaysRun = true)
 	public void TearDown() {
-		getFixture().cleanData();
+	//	getFixture().cleanData();
 	}
 	
 	protected abstract JIRAFixture getFixture();

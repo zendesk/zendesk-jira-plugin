@@ -7,8 +7,6 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
-import junit.framework.AssertionFailedError;
-
 import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteFieldValue;
@@ -49,24 +47,24 @@ public class NotificationFixture extends JIRAFixture {
 		log.info("Changing summery on issue "+ issueKey + " to "+summary);
 		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
 	}
-	
+
 	public void updateIssueWithDescription (String issueKey, String description) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description);
 		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
 	}
-	
+
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description);
 		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
-				new RemoteFieldValue("description", new String[] { description }),
-				new RemoteFieldValue("comment", new String[] { description } ) });
+			new RemoteFieldValue("description", new String[] { description }),
+			new RemoteFieldValue("comment", new String[] { description } ) });
 	}
 
 	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
 		log.info("Adding comment "+ comment + " to issue "+issueKey);
 		jiraClient.getService().addComment(jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
 	}
-	
+
 	public Request getNextRequest() {
 		Request nextRequest = notificationListener.getNextRequest();
 		if (nextRequest == null) throw new RuntimeException("No notification received");
@@ -80,26 +78,23 @@ public class NotificationFixture extends JIRAFixture {
 	 * @return The new issueKey
 	 */
 	public String moveIssue(String issueKey, RemoteProject newProjectName) {
-		try {
-			tester.gotoPage("browse/"+issueKey);
-			tester.clickLink("move_issue");
-			tester.assertTextPresent("Move Issue: "+issueKey);
-			
-			tester.setWorkingForm("jiraform");
-			tester.selectOption("project", newProjectName.getName());
-			tester.submit();
-			
-			tester.assertTextPresent("Move Issue: Update Fields");
-			tester.submit();
-			
-			tester.assertTextPresent("Move Issue: Confirm"); 
-			tester.submit();
-			
-			tester.assertTitleEquals("");
-			
-		} catch (AssertionFailedError e) {
-			throw new AssertionError("Failed to move issue");
-		}
+		tester.gotoPage("browse/"+issueKey);
+		tester.clickLink("move_issue");
+		
+		tester.assertTextPresent("Move Issue: "+issueKey);
+		tester.setWorkingForm("jiraform");
+		tester.selectOption("pid", newProjectName.getName());
+		tester.submit();
+		
+		tester.assertTextPresent("Move Issue: Update Fields");
+		tester.setWorkingForm("jiraform");
+		tester.submit();
+
+		tester.setWorkingForm("jiraform");
+		tester.assertTextPresent("Move Issue: Confirm"); 
+		tester.submit();
+
+		tester.assertTitleEquals("");
 		return null;
 	} 
 }
