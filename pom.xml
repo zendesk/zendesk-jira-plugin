@@ -24,9 +24,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</connection>
-		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</developerConnection>
-		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/tags/zendesk-jira-plugin-0.6</url>
+		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</connection>
+		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/trunk</url>
 	</scm>
 
 	<issueManagement>
@@ -66,8 +66,8 @@
 			<version>1.2-M2</version>
 		</dependency>
 		<dependency>
-		 <groupId>com.cenqua.clover</groupId>
-         <artifactId>clover</artifactId>  
+			<groupId>com.cenqua.clover</groupId>
+			<artifactId>clover</artifactId>
 			<version>2.4.2</version>              
 		</dependency>
 	</dependencies>
@@ -180,22 +180,15 @@
 			</plugin>
 			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>     
+				<artifactId>maven-clover2-plugin</artifactId>    				
+				<version>2.4.2</version>            
 				<configuration>
 					<targetPercentage>80%</targetPercentage>
             		<generateHistorical>true</generateHistorical>
             		<licenseLocation>${basedir}/clover.license</licenseLocation>
             		<historyDir>${user.home}/history/${project.artifact}</historyDir>
             		<jdk>1.5</jdk>            		
-            	</configuration>
-            	<executions>
-					<execution>
-						<phase>pre-site</phase>
-						<goals>
-							<goal>instrument</goal>
-						</goals>
-					</execution>
-				</executions>            	
+            	</configuration>	
       		</plugin>
 			<plugin>
 			<groupId>org.codehaus.mojo</groupId>
