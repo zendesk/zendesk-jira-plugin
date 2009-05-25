@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://jira-dev/rpc/soap/agilossoapservice-v1" xmlns:types="http://jira-dev/rpc/soap/agilossoapservice-v1/encodedTypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soap:Body soap:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <q1:getAssignableUsers xmlns:q1="http://ws.jira.agilos.org">
+      <in0 xsi:type="xsd:string">070BcLQz09</in0>
+      <in1 xsi:type="xsd:string">MTP</in1>
+    </q1:getAssignableUsers>
+  </soap:Body>
+</soap:Envelope>
