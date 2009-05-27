@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
@@ -10,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -24,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</connection>
-		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</developerConnection>
-		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/trunk</url>
+		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</connection>
+		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</url>
 	</scm>
 
 	<issueManagement>
@@ -138,10 +137,8 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo"
-											password="bamboo2997" command="~/deployjira.sh" />
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -201,8 +198,8 @@
 						</goals>
 						<configuration>
 							<urls>
-								<url>http://192.168.0.100:8080/rpc/soap/jirasoapservice-v2?wsdl</url>
-								<url>http://192.168.0.100:8080/rpc/soap/agilossoapservice-v1?wsdl</url>
+								<url>http://192.168.0.100:8180/rpc/soap/jirasoapservice-v2?wsdl</url>
+								<url>http://192.168.0.100:8180/rpc/soap/agilossoapservice-v1?wsdl</url>
 							</urls>
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
