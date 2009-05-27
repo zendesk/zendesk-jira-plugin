@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>1.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</connection>
-		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</developerConnection>
-		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/tags/zendesk-jira-plugin-1.0</url>
+		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</connection>
+		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</developerConnection>
+		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/trunk</url>
 	</scm>
 
 	<issueManagement>
