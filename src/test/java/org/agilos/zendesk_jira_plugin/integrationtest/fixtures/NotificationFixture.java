@@ -67,7 +67,6 @@ public class NotificationFixture extends JIRAFixture {
 
 	public Request getNextRequest() {
 		Request nextRequest = notificationListener.getNextRequest();
-		if (nextRequest == null) throw new RuntimeException("No notification received");
 		return nextRequest;
 	}
 

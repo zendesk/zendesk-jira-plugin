@@ -13,6 +13,10 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	public static final String ZENDESK_LOGIN_NAME_PARAMETER = "LoginName";
 	public static final String ZENDESK_LOGIN_PASSWORD_PARAMETER = "LoginPassword";
 	public static final String ZENDESK_TICKET_CUSTOMFIELD = "TicketIDField";
+	/**
+	 * No notification will be sent for issue changes made by the indicated user. This is done to avoid Zendesk<-> Jira notification loops.
+	 */
+	public static final String ZENDESK_APPLICATION_LOGIN = "ZendeskApplicationLogin";
 	
 	private Logger log = Logger.getLogger(ZendeskNotifier.class.getName());
 	private final static NotificationDispatcher dispatcher = new NotificationDispatcher();
@@ -45,11 +49,12 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 					(String)params.get(ZENDESK_LOGIN_PASSWORD_PARAMETER));
 		}
 		if(params.containsKey(ZENDESK_TICKET_CUSTOMFIELD)) dispatcher.setTicketFieldValue((String)params.get(ZENDESK_TICKET_CUSTOMFIELD));
+		if(params.containsKey(ZENDESK_APPLICATION_LOGIN)) dispatcher.setSuppressNotificationFor((String)params.get(ZENDESK_APPLICATION_LOGIN));
     }
 	
 	@Override
     public String[] getAcceptedParams() {
-        return new String[] {ZENDESK_URL_PARAMETER,ZENDESK_LOGIN_NAME_PARAMETER,ZENDESK_LOGIN_PASSWORD_PARAMETER,ZENDESK_TICKET_CUSTOMFIELD};
+        return new String[] {ZENDESK_URL_PARAMETER,ZENDESK_LOGIN_NAME_PARAMETER,ZENDESK_LOGIN_PASSWORD_PARAMETER,ZENDESK_TICKET_CUSTOMFIELD, ZENDESK_APPLICATION_LOGIN};
     }
 
 	@Override

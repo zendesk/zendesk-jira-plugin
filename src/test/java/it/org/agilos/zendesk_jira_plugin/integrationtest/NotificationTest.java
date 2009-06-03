@@ -81,6 +81,10 @@ public class NotificationTest extends JIRATest {
 	@Test (groups = {"regressionTests"} )
 	public void testNotificationLoops()throws Exception  {
 		getFixture().getJiraClient().login("zendesk","zendeskpw");
+
+		fixture.updateIssueWithDescription(issueKey, "This is a changed description");
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Notification received for Zendesk user update", null, request);
 	}
     
 	@Override

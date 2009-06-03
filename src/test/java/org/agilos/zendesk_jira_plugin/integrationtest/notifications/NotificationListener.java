@@ -30,7 +30,7 @@ public class NotificationListener extends Application {
         router.attachDefault(NotificationHandler.class);
         
         Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
-		guard.getSecrets().put("mikis", "Zentril.2".toCharArray());		
+		guard.getSecrets().put("jira", "jira".toCharArray());		
 		guard.setNext(router);
         
         return guard;

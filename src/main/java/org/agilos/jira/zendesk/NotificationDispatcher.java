@@ -31,12 +31,22 @@ import com.atlassian.jira.issue.fields.CustomField;
 public class NotificationDispatcher {	
 	private Logger log = Logger.getLogger(NotificationDispatcher.class.getName());
 	private String zendeskServerURL;
+	private String suppressNotificationFor;
 	private CustomField ticketField;
 	private ChallengeResponse authentication;
 
 	void setZendeskServerURL(String url) {
 		zendeskServerURL = url;
 		log.info("Zendesk url set to "+url);
+	}
+	
+	/**
+	 * No notification will be sent for issue changes made by the indicated user.
+	 * @param supressNotificationFor
+	 */
+	public void setSuppressNotificationFor(String suppressNotificationFor) {
+		this.suppressNotificationFor = suppressNotificationFor;
+		log.info("Zendesk application login set to "+suppressNotificationFor);
 	}
 
 	void setAuthentication(String user, String password) {
@@ -47,6 +57,25 @@ public class NotificationDispatcher {
 	}
 
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
+		if (zendeskServerURL == null) {
+			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
+					"Zendesk server URL in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
+			return;
+		}
+		if (authentication == null) {
+			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
+					"valid Zendesk user and password in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
+			return;
+		}
+		if (suppressNotificationFor == null) {
+			log.warn("The Zendesk application login user hasn't been defined, no notification of the change will be sent to Zendesk (As this would " +
+					"cause a notification loop). Please specify the Zendesk application used to login into JIRA. This can be done in JIRA's " +
+					"administrativ interface under 'Listeners' -> ZendeskNotifier");
+			return;
+		} else if (issueEvent.getRemoteUser().getName().equals(suppressNotificationFor)) {
+			log.debug("Received notification for change made by zendesk application "+suppressNotificationFor+", supressing notification");
+			return;
+		}
 		ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
 		resource.setReferrerRef(getBaseUrl());
 		resource.setChallengeResponse(authentication);
