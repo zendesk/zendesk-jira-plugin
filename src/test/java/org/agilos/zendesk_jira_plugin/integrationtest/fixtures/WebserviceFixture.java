@@ -12,7 +12,7 @@ public class WebserviceFixture extends JIRAFixture {
 	private Logger log = Logger.getLogger(WebserviceFixture.class.getName());
 
 	@Override
-	public void connect() {
+	public void connect() throws Exception {
 		super.connect();
 		try {
 			zendeskWSClient = new ZendeskWSClient();

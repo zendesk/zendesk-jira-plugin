@@ -47,7 +47,7 @@ public class JIRAFixture {
 	/**
 	 * Connects to JIRA
 	 */
-	public void connect() {
+	public void connect() throws Exception {
 		jiraClient.login();
 	}
 
@@ -133,6 +133,11 @@ public class JIRAFixture {
 			}
 		}
 	}
+	
+	public JIRAClient getJiraClient() {
+		return jiraClient;
+	}
+
 	/**
 	 * Loads data from the indicated backup file into JIRA. The file should be located in the <code>jira.xml.data.location</code> directory indicated in the 
 	 * localtest.properties file (Generated during the pre-integration-test phase and located in the test-classes folder ).

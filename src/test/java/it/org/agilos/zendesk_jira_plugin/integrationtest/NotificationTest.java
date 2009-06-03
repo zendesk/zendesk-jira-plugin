@@ -74,6 +74,14 @@ public class NotificationTest extends JIRATest {
 		Series<Parameter> headers = request.getHeaders();
 		assertTrue("No content-length in headers of request received", headers.getValues(HttpConstants.HEADER_CONTENT_LENGTH) != null);
 	}
+	
+	/**
+	 * ZEN-32 Prevent Zendesk-JIRA notification loops, http://jira.agilos.org/browse/ZEN-32
+	 */
+	@Test (groups = {"regressionTests"} )
+	public void testNotificationLoops()throws Exception  {
+		getFixture().getJiraClient().login("zendesk","zendeskpw");
+	}
     
 	@Override
 	protected JIRAFixture getFixture() {

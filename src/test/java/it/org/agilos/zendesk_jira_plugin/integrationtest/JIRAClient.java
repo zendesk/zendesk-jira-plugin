@@ -55,18 +55,18 @@ public class JIRAClient {
 		fthFatory = new FuncTestHelperFactory(tester, environmentData);
 	}
 	
-	public void login() {		
-		try {
+	public void login() throws Exception {		
+		login(loginName, loginPassword);
+	}
+	
+	public void login(String user, String password) throws Exception {	
 			URL jiraSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/jirasoapservice-v2");
 			JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
 			log.debug("Retriving jira soap service from "+jiraSOAPServiceUrl);
 			jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(jiraSOAPServiceUrl);
-			log.debug("Logging in with user: "+loginName+" and password: "+loginPassword);
-			jiraSoapToken = jiraSoapService.login(loginName, loginPassword); //Soap login
-			fthFatory.getNavigation().login(loginName, loginPassword);// GUI login
-		} catch (Exception e) {
-			log.error("Unable login to JIRA SOAP RPC service on jiraUrl", e);
-		}
+			log.debug("Logging in with user: "+user+" and password: "+password);
+			jiraSoapToken = jiraSoapService.login(user, password); //Soap login
+			fthFatory.getNavigation().login(user, password);// GUI login
 	}
 	
 	public static JIRAClient instance() throws WebServiceException {
