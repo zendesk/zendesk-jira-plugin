@@ -45,6 +45,13 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testSummaryChangedNotification.1"), request.getEntityAsText());		
 	}
 	
+	@Test //(groups = {"regressionTests"} )
+	public void testStatusChangedNotification() throws Exception  {
+		fixture.setIssueToResolved(issueKey);
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Wrong response received after resolving issue", TestDataFactory.getSoapResponse("testStatusChangedNotification.1"), request.getEntityAsText());		
+	}
+	
 	/**
 	 * ZEN-19 Unable to correctly detect changed parameters, http://jira.agilos.org/browse/ZEN-19
 	 */

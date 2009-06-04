@@ -114,72 +114,8 @@ public class NotificationDispatcher {
 	 * @throws ResourceException
 	 * @throws IOException
 	 */
-	private Representation getRepresentation(IssueEvent issueEvent) {	    
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder;
-		try {
-			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			log.error(e);
-			return null;
-		}
-		DOMImplementation impl = builder.getDOMImplementation();
-
-		Document document = impl.createDocument(null,null,null);
-
-		Node commentRoot = document;
-
-		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID ||
-				issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID) {
-			Element ticket = document.createElement("ticket");
-			document.appendChild(ticket);
-
-			if (issueEvent.getIssue().getSummary() != null) {
-				Element subject = document.createElement("subject");
-				subject.setTextContent(issueEvent.getIssue().getSummary());
-				ticket.appendChild(subject);
-			}
-
-			if (issueEvent.getIssue().getDescription() != null) {
-				Element description = document.createElement("description");
-				description.setTextContent(issueEvent.getIssue().getDescription());
-				ticket.appendChild(description);
-			}
-
-			if (issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID) {
-				Element newIssueKey = document.createElement("external-id");
-				newIssueKey.setTextContent(issueEvent.getIssue().getKey());
-				ticket.appendChild(newIssueKey);
-			}
-			
-			if (issueEvent.getComment() != null) {
-				Element comments = document.createElement("comments");
-				comments.setAttribute("type", "array");
-				ticket.appendChild(comments);
-				commentRoot = comments;
-			}
-			// If no relevant changes have been added to the ticket root node, exit.
-			if (ticket.getChildNodes().getLength() == 0 ) return null;
-		}
-
-		else if (issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
-			Element comment = document.createElement("comment");
-			commentRoot.appendChild(comment);
-
-			Element isPublic = document.createElement("is-public");
-			isPublic.setTextContent("true");
-			comment.appendChild(isPublic);
-
-			Element value = document.createElement("value");
-			value.setTextContent(issueEvent.getComment().getBody());
-			comment.appendChild(value);   	
-		}
-		
-		else {
-			return null; //Unknown event type
-		}
-
-		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, document);           
+	private Representation getRepresentation(IssueEvent issueEvent) {
+		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, ChangeMessageBuilder.createChangeDocument(issueEvent));           
 		representation.setCharacterSet(CharacterSet.UTF_8);	      	
 		return representation;
 	}

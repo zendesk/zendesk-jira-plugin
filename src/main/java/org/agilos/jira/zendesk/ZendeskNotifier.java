@@ -33,7 +33,8 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 		if (issueEvent.getEventTypeId() == EventType.ISSUE_UPDATED_ID ||
 				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID||
 				issueEvent.getEventTypeId() == EventType.ISSUE_COMMENT_EDITED_ID ||
-				issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID ) {
+				issueEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID ||
+				issueEvent.getIssue().getStatusObject() != null) {
 			dispatcher.sendIssueChangeNotification(issueEvent);
 		}
 	}

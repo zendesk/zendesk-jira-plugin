@@ -64,6 +64,11 @@ public class NotificationFixture extends JIRAFixture {
 		log.info("Adding comment "+ comment + " to issue "+issueKey);
 		jiraClient.getService().addComment(jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
 	}
+	
+	public void setIssueToResolved(String issueKey) throws Exception {
+		log.info("Setting issue "+issueKey +" InProgress  ");
+		jiraClient.getService().progressWorkflowAction(jiraClient.getToken(), issueKey, 4, in3)(jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, null, null, null));
+	}
 
 	public Request getNextRequest() {
 		Request nextRequest = notificationListener.getNextRequest();
