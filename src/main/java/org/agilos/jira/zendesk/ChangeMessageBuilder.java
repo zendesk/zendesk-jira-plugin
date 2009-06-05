@@ -68,7 +68,8 @@ public abstract class ChangeMessageBuilder {
 			commentRoot.appendChild(createComment(document, changeEvent));
 		} 
 		
-		else if (changeEvent.getIssue().getStatusObject() != null) {
+		else if (changeEvent.getIssue().getStatusObject() != null &&
+				 !changeEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID)) { // Disregard newly created issues, this is not considered a status change
 			commentRoot.appendChild(createStatusChange(document, changeEvent));
 		}
 
@@ -101,7 +102,7 @@ public abstract class ChangeMessageBuilder {
 		Element isPublic = document.createElement("is-public");
 		isPublic.setTextContent("true");
 		comment.appendChild(isPublic);
-
+ 
 		Element value = document.createElement("value");
 		String commentText = changeEvent.getRemoteUser().getFullName()+" changed status to "+changeEvent.getIssue().getStatusObject().getName();
 		value.setTextContent(commentText);

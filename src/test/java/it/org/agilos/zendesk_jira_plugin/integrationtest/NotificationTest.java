@@ -45,7 +45,7 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testSummaryChangedNotification.1"), request.getEntityAsText());		
 	}
 	
-	@Test //(groups = {"regressionTests"} )
+	@Test (groups = {"regressionTests"} )
 	public void testStatusChangedNotification() throws Exception  {
 		fixture.setIssueToResolved(issueKey);
 		Request request = fixture.getNextRequest(); 
