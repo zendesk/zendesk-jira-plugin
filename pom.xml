@@ -23,9 +23,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</connection>
-		<developerConnection>scm:svn:http://svn.agilos.org/svn/public/zendesk-jira-plugin/trunk</developerConnection>
-		<url>http://fisheye.agilos.org/browse/Agilos/zendesk-jira-plugin/trunk</url>
+		<connection>scm:git://github.com/zendesk/zendesk-jira-plugin.git</connection>
+		<developerConnection>scm:git://github.com:username/zendesk/zendesk-jira-plugin.git</developerConnection>
+		<url>http://github.com/zendesk/zendesk-jira-plugin/tree/master</url>
 	</scm>
 
 	<issueManagement>
