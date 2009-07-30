@@ -1,22 +1,37 @@
 package org.agilos.jira.zendesk;
 
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.restlet.resource.ResourceException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.event.type.EventType;
 
-public abstract class ChangeMessageBuilder {
-	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());
+public class ChangeMessageBuilder {
+	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());	
 
-	public static Document createChangeDocument(IssueEvent changeEvent) {
+	private boolean publicComments = true;
+
+	/**
+	 * Generates a REST representation of the issue change
+	 * @param issueEvent
+	 * @return The REST representation of the issue change if any relevant changes are found, else null;
+	 * @throws ParserConfigurationException 
+	 * @throws ResourceException
+	 * @throws IOException
+	 * @throws NoSuchFieldException Throw in case of a changeEvent state, which the ChangeMessageBuilder is unable to handle.  
+	 */
+	public Document createChangeRepresentation(IssueEvent changeEvent) throws IOException, NoSuchFieldException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		try {
@@ -71,20 +86,37 @@ public abstract class ChangeMessageBuilder {
 		else if (changeEvent.getIssue().getStatusObject() != null &&
 				 !changeEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID)) { // Disregard newly created issues, this is not considered a status change
 			commentRoot.appendChild(createStatusChange(document, changeEvent));
-		}
-
-		else {
-			return null; //Unknown event type
-		}
+		}	
 		
+		else {
+			//The logging done here, instead of at the exception handling to avoid composing the log message when debug logging is disabled.
+			if (log.isDebugEnabled()) {
+				StringBuffer logMessage = new StringBuffer();
+				logMessage.append("No notification handle defined for event with ID "+changeEvent.getEventTypeId());
+				if (changeEvent.getIssue().getStatusObject() != null) {
+					logMessage.append(" and status"+changeEvent.getIssue().getStatusObject().getName()); 
+				}
+				log.debug(logMessage.toString());
+			}
+			throw new NoSuchFieldException();
+		}
 		return document;
 	}
 	
-	private static Element createComment(Document document, IssueEvent changeEvent) {
+
+	public void setPublicComments(boolean publicComments) {
+		this.publicComments = publicComments;
+	}
+	
+	private Element createComment(Document document, IssueEvent changeEvent) {
 		Element comment = document.createElement("comment");
 
 		Element isPublic = document.createElement("is-public");
-		isPublic.setTextContent("true");
+		if (publicComments) {
+			isPublic.setTextContent("true");
+		} else {
+			isPublic.setTextContent("false");
+		}
 		comment.appendChild(isPublic);
 
 		Element value = document.createElement("value");
@@ -96,7 +128,7 @@ public abstract class ChangeMessageBuilder {
 		return comment;
 	}
 	
-	private static Element createStatusChange(Document document, IssueEvent changeEvent) {
+	private Element createStatusChange(Document document, IssueEvent changeEvent) {
 		Element comment = document.createElement("comment");
 
 		Element isPublic = document.createElement("is-public");
@@ -106,7 +138,7 @@ public abstract class ChangeMessageBuilder {
 		Element value = document.createElement("value");
 		String commentText = changeEvent.getRemoteUser().getFullName()+" changed status to "+changeEvent.getIssue().getStatusObject().getName();
 		value.setTextContent(commentText);
-		comment.appendChild(value);   
+		comment.appendChild(value);
 		
 		return comment;
 	}

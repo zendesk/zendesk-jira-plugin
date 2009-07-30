@@ -16,6 +16,7 @@ public class NotificationListener extends Application {
 	private Logger log = Logger.getLogger(NotificationListener.class.getName());
 	
 	public NotificationListener() {
+		
 		createRoot();
 	}
 	
@@ -39,10 +40,14 @@ public class NotificationListener extends Application {
 	public Request getNextRequest() {
 		Request request = null;
 		try {
-			request = messageQueue.poll(10l, TimeUnit.SECONDS);
+			request = messageQueue.poll(10, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			log.info("No response received in 10 seconds");
 		}
 		return request; 
+	}
+	
+	public Request getNextRequestInstant() {
+		return messageQueue.poll();
 	}
 }

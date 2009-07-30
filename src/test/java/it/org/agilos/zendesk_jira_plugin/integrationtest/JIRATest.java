@@ -15,10 +15,5 @@ public abstract class JIRATest {
     protected static final String USER_ID = "integration";
 	protected static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();	 
 	
-	@AfterMethod (alwaysRun = true)
-	public void TearDown() {
-	//	getFixture().cleanData();
-	}
-	
 	protected abstract JIRAFixture getFixture();
 }

@@ -70,8 +70,20 @@ public class NotificationFixture extends JIRAFixture {
 		jiraClient.getService().progressWorkflowAction(jiraClient.getToken(), issueKey, "5", null);
 	}
 
+	/**
+	 * Polls the notification listener for the next message for 10 seconds, and returns this. 
+	 * If no notifications has been received during the 10 seconds, null is returned
+	 */
 	public Request getNextRequest() {
 		Request nextRequest = notificationListener.getNextRequest();
+		return nextRequest;
+	}
+	
+	/**
+	 * Return the next notification received or null if the queue is empty. 
+	 */
+	public Request getNextRequestInstant() {
+		Request nextRequest = notificationListener.getNextRequestInstant();
 		return nextRequest;
 	}
 

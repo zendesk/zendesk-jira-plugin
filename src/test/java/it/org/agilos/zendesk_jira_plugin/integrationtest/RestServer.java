@@ -25,7 +25,7 @@ public class RestServer {
 				component = new Component();
 
 				// Add a new HTTP server listening on port 8182.
-				log.info("Adding rest server on port 8182");
+				log.info("Adding HTTP rest server on port 8182");
 				component.getServers().add(Protocol.HTTP, 8182);
 
 				// Attach the sample application.

@@ -95,4 +95,26 @@ public class JIRAClient {
         tester.beginAt("/");
         HttpUnitOptions.setScriptingEnabled(false);
     }
+	
+	public void setZendeskUrl(String zendeskURL) {
+		gotoListenerConfiguration();
+		log.info("Updating Zendesk URL to "+zendeskURL);
+		fthFatory.getTester().setFormElement("ZendeskUrl", zendeskURL);
+		fthFatory.getTester().clickButton("Update");
+		fthFatory.getTester().assertTextPresent(zendeskURL);
+	}
+	
+	public void setCommentsPublic(String publicComments) {
+		gotoListenerConfiguration();
+		log.info("Setting public comment value to "+publicComments);
+		fthFatory.getTester().setFormElement("Public comments", publicComments);
+		fthFatory.getTester().clickButton("Update");
+		fthFatory.getTester().assertTextPresent(publicComments);
+	}
+	
+	private void gotoListenerConfiguration() {
+		fthFatory.getNavigation().gotoAdminSection("listeners");
+		fthFatory.getTester().clickLinkWithText("Edit");
+		fthFatory.getTester().assertTextPresent("ZendeskUrl");
+	}
 }
