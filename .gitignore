@@ -1,0 +1,11 @@
+
+/.classpath
+/.project
+/target
+/debug
+/temp-testng-customsuite.xml
+/projectsAgiloszendesk-jira-plugin argetjirajira-config
+/.settings
+/projectsAgiloszendesk-jira-plugindebugjirajira-config
+/attachments
+/atlassian-jira.log

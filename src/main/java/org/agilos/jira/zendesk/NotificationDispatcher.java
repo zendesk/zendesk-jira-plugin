@@ -3,8 +3,6 @@ package org.agilos.jira.zendesk;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
@@ -16,16 +14,11 @@ import org.restlet.representation.DomRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.config.properties.APKeys;
 import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.event.issue.IssueEvent;
-import com.atlassian.jira.event.type.EventType;
 import com.atlassian.jira.issue.fields.CustomField;
 
 public class NotificationDispatcher {	
@@ -34,6 +27,7 @@ public class NotificationDispatcher {
 	private String suppressNotificationFor;
 	private CustomField ticketField;
 	private ChallengeResponse authentication;
+	private ChangeMessageBuilder messageBuilder = new ChangeMessageBuilder();
 
 	void setZendeskServerURL(String url) {
 		zendeskServerURL = url;
@@ -56,6 +50,10 @@ public class NotificationDispatcher {
 				user, password);
 	}
 
+	public void setPublicComments(boolean publicComments) {
+		messageBuilder.setPublicComments(publicComments);
+	}
+	
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
 		if (zendeskServerURL == null) {
 			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
@@ -76,14 +74,15 @@ public class NotificationDispatcher {
 			log.debug("Received notification for change made by zendesk application "+suppressNotificationFor+", supressing notification");
 			return;
 		}
-		ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
-		resource.setReferrerRef(getBaseUrl());
-		resource.setChallengeResponse(authentication);
 
 		try {
 			Representation representation = getRepresentation(issueEvent);
 			setSize(representation);
-			log.debug("Dispatching: put "+representation.getText());
+			log.debug("Dispatching: put "+representation.getText());			
+
+			ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
+			resource.setReferrerRef(getBaseUrl());
+			resource.setChallengeResponse(authentication);
 			resource.put(representation);
 			if (resource.getStatus().isSuccess()
 					&& resource.getResponseEntity().isAvailable()) {
@@ -98,7 +97,9 @@ public class NotificationDispatcher {
 			log.error("Failed to send issue change notification", e);
 		} catch (IOException e) {
 			log.warn("Failed to represent request as text", e);
-		}
+		} catch (NoSuchFieldException e) {
+			// The event has already been debug logged by the mMessageBuilder
+		} 
 	}
 
 	private String getBaseUrl() {
@@ -110,12 +111,15 @@ public class NotificationDispatcher {
 	 * Generates a REST representation of the issue change
 	 * @param issueEvent
 	 * @return The REST representation of the issue change if any relevant changes are found, else null;
+	 * @throws IOException 
 	 * @throws ParserConfigurationException 
 	 * @throws ResourceException
 	 * @throws IOException
+	 * @throws NoSuchFieldException 
+	 * @throws NoSuchFieldException 
 	 */
-	private Representation getRepresentation(IssueEvent issueEvent) {
-		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, ChangeMessageBuilder.createChangeDocument(issueEvent));           
+	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException {
+		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, messageBuilder.createChangeRepresentation(issueEvent));           
 		representation.setCharacterSet(CharacterSet.UTF_8);	      	
 		return representation;
 	}

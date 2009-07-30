@@ -4,12 +4,16 @@
 	<test name="Regression test">
 		<groups>
 			<run>
-			 	<include name="regressionTests" />
+				<include name="regressionTests" />
 			</run>
 		</groups>
 		<packages>
-      		<package name="org.agilos.*" />
-   		</packages>		
+			<package name="org.agilos.*" />
+		</packages>
 	</test>
+	<listeners>
+		<listener class-name="it.org.agilos.zendesk_jira_plugin.integrationtest.JiraTestLogger" />
+	</listeners>
+
 </suite>
 
