@@ -8,7 +8,7 @@
 			</run>
 		</groups>
 		<packages>
-			<package name="org.agilos.*" />
+			<package name="it.org.agilos.*" />
    		</packages>		
 	</test>
 	<listeners>
