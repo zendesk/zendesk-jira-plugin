@@ -6,10 +6,13 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.restlet.Context;
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.data.CharacterSet;
 import org.restlet.data.MediaType;
+import org.restlet.data.Protocol;
+import org.restlet.data.Reference;
 import org.restlet.representation.DomRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
@@ -23,15 +26,27 @@ import com.atlassian.jira.issue.fields.CustomField;
 
 public class NotificationDispatcher {	
 	private Logger log = Logger.getLogger(NotificationDispatcher.class.getName());
-	private String zendeskServerURL;
+	private Protocol zendeskAccessProtocol;
+	private String zendeskHost;
 	private String suppressNotificationFor;
 	private CustomField ticketField;
 	private ChallengeResponse authentication;
 	private ChangeMessageBuilder messageBuilder = new ChangeMessageBuilder();
+	private Context context;
+
+	public NotificationDispatcher(Context context) {
+		this.context = context;
+	}
 
 	void setZendeskServerURL(String url) {
-		zendeskServerURL = url;
-		log.info("Zendesk url set to "+url);
+		int hostNameBegin = url.indexOf("//");
+		zendeskHost = url.substring(hostNameBegin+2);
+		log.info("Zendesk host set to "+zendeskHost);
+		
+		if (url.contains("http://")) zendeskAccessProtocol = Protocol.HTTP;
+		else if (url.contains("https://")) zendeskAccessProtocol = Protocol.HTTPS;
+		
+		log.info("Protocol for Zendesk access set to "+zendeskAccessProtocol);
 	}
 	
 	/**
@@ -55,7 +70,7 @@ public class NotificationDispatcher {
 	}
 	
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
-		if (zendeskServerURL == null) {
+		if (zendeskHost == null) {
 			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
 					"Zendesk server URL in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
 			return;
@@ -80,7 +95,8 @@ public class NotificationDispatcher {
 			setSize(representation);
 			log.debug("Dispatching: put "+representation.getText());			
 
-			ClientResource resource = new ClientResource(zendeskServerURL+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");
+			ClientResource resource = new ClientResource(context, new Reference(zendeskAccessProtocol, zendeskHost+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"));
+
 			resource.setReferrerRef(getBaseUrl());
 			resource.setChallengeResponse(authentication);
 			resource.put(representation);

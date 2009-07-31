@@ -120,7 +120,7 @@ public class ChangeMessageBuilder {
 		comment.appendChild(isPublic);
 
 		Element value = document.createElement("value");
-		String commentText = changeEvent.getRemoteUser().getFullName()+" added a comment\n"+
+		String commentText = changeEvent.getRemoteUser().getFullName()+" added a comment:\n"+
 							 changeEvent.getComment().getBody();
 		value.setTextContent(commentText);
 		comment.appendChild(value);   

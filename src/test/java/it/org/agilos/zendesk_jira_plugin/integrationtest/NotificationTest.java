@@ -5,8 +5,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Calendar;
 
-import junit.framework.AssertionFailedError;
-
 import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
