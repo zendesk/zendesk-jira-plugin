@@ -1,0 +1,28 @@
+ -----
+ Zendesk plugin installation
+ -----
+
+Installation
+ * Download from {{{http://downloads.agilos.org}downloads}}
+ 
+ * Copy into $JIRA_HOME/atlassian-jira/WEB-INF/lib/
+ 
+ * Restlet dependencies :
+  
+  * Download the {{{http://maven.restlet.org/org/restlet/org.restlet/1.2-M2/org.restlet-1.2-M2.jar}restlet-1.2m2 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+ 
+ * Restart JIRA
+ 
+ * Create a new Custom field of type <Text Field>_ for specifying the related Zendesk ticket.
+ 
+ * Add Zendesk notifier to listeners:
+  
+  * With a user with administrative permissions click on the <Administration> link in the top left corner.
+  
+  * Click on the <Listeners> link at the bottom left under the <System> category.
+  
+  * Add the ZendeskNotifier with class <org.agilos.jira.zendesk.ZendeskNotifier>.
+  
+  * Click <Add>.
+  
+ * See {{{configuration.html}Plugin configuration}} for further configuration. 

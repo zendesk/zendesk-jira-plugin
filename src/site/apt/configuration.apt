@@ -1,0 +1,20 @@
+ -----
+ Zendesk plugin configuration
+ -----
+
+Configuration
+
+ The Zendesk notifier settings are exposed through its listener. The access these goto the Listener configuration page in the JIRA administrativ interface at the bottom left.
+
+    * Insert the URL for the Zendesk application which should be notified of changes to tasks related to Zendesk issues, eg. http://helpdesk.zendesk.com.
+    
+    * Insert the username of the user which JIRA should connect to Zendesk as.
+    
+    * Insert the password for the user just specific.
+    
+    * Insert the name of the newly created CustomField containing the Zendesk ticket ID. Defaults to Zendesk TicketID
+    
+    * If the comments added to Zendesk should be private, write false in the Public comments field.
+    
+    * If https is used for access the Zendesk application, a password should be defined (defaults to changeit) for accessing the certificate keystore. 
+    See {{{https.html}Connecting to Zendesk via https}} 

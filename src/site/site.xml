@@ -13,7 +13,10 @@
     </links>
 
     <menu name="Zendesk JIRA plugin">
-      <item name="Introduction" href="introduction.html"/>
+      <item name="Introduction" href="introduction.html"/>      
+      <item name="Installation" href="installation.html"/>      
+      <item name="Configuration" href="configuration.html"/>          
+      <item name="Using https for Zendesk access" href="https.html"/>
     </menu>    
     
     ${reports}
