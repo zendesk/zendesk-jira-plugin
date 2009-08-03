@@ -23,9 +23,10 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/tags/zendesk-jira-plugin-1.1</connection>
-		<url>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/tags/zendesk-jira-plugin-1.1</url>
-	</scm>
+		<connection>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/</connection>
+	    <developerConnection>scm:git:git@github.com:zendesk/zendesk-jira-plugin.git/</developerConnection>
+		<url>http://github.com/zendesk/zendesk-jira-plugin.git/</url>
+  </scm>
 
 	<issueManagement>
 		<system>JIRA</system>
