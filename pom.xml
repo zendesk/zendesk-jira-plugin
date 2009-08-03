@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -23,9 +23,8 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git://github.com/zendesk/zendesk-jira-plugin.git</connection>
-		<developerConnection>scm:git://github.com:username/zendesk/zendesk-jira-plugin.git</developerConnection>
-		<url>http://github.com/zendesk/zendesk-jira-plugin/tree/master</url>
+		<connection>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/tags/zendesk-jira-plugin-1.1</connection>
+		<url>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/tags/zendesk-jira-plugin-1.1</url>
 	</scm>
 
 	<issueManagement>
@@ -67,7 +66,7 @@
 		<dependency>
 			<groupId>com.cenqua.clover</groupId>
 			<artifactId>clover</artifactId>
-			<version>2.4.2</version>              
+			<version>2.4.2</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -181,18 +180,18 @@
 			</plugin>
 			<plugin>
 				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>    				
-				<version>2.4.2</version>            
+				<artifactId>maven-clover2-plugin</artifactId>
+				<version>2.4.2</version>
 				<configuration>
 					<targetPercentage>80%</targetPercentage>
-            		<generateHistorical>true</generateHistorical>
-            		<licenseLocation>${basedir}/clover.license</licenseLocation>
-            		<historyDir>${user.home}/history/${project.artifact}</historyDir>
-            		<jdk>1.5</jdk>            		
-            	</configuration>	
-      		</plugin>
+					<generateHistorical>true</generateHistorical>
+					<licenseLocation>${basedir}/clover.license</licenseLocation>
+					<historyDir>${user.home}/history/${project.artifact}</historyDir>
+					<jdk>1.5</jdk>
+				</configuration>
+			</plugin>
 			<plugin>
-			<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>axistools-maven-plugin</artifactId>
 				<executions>
 					<execution>
@@ -223,8 +222,8 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> 
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
@@ -237,8 +236,8 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>	
-			 <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<executions>
@@ -248,7 +247,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>					
+			</plugin>	
 		</plugins>
 		<testResources>
 			<testResource>
@@ -269,8 +268,8 @@
 	<properties>
 		<jira.start>true</jira.start>
 		<jira.test-lib.exports.path>src/test/xml/</jira.test-lib.exports.path>
-		    <atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
-	        <atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
-	        <atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
+		<atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
+		<atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
+		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
 	</properties>
 </project>
