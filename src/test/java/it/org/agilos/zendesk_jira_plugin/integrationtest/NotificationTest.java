@@ -48,16 +48,16 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), request.getEntityAsText());
 	}
 	
-	@Test (groups = {"regressionTests"} )
-	public void testDescriptionAndCommentChangedNotification() throws Exception  {
-		IssueEditor ie = JIRAClient.getIssueEditor(issueKey);
-		ie.setSummery("This is a summary and comment change test");
-		ie.setComment("This is the comment part of the summery + comment change");
-		ie.submit();
-//		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
-		Request request = fixture.getNextRequest(); 
-		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), request.getEntityAsText());		
-	}
+//	@Test
+//	public void testDescriptionAndCommentChangedNotification() throws Exception  {
+//		IssueEditor ie = JIRAClient.getIssueEditor(issueKey);
+//		ie.setSummery("This is a summary and comment change test");
+//		ie.setComment("This is the comment part of the summery + comment change");
+//		ie.submit();
+////		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
+//		Request request = fixture.getNextRequest(); 
+//		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), request.getEntityAsText());		
+//	}
 	
 	@Test (groups = {"regressionTests"} )
 	public void testSummeryChangedNotification() throws Exception  {
