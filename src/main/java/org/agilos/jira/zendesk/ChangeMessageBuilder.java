@@ -74,6 +74,7 @@ public class ChangeMessageBuilder {
 				comments.setAttribute("type", "array");
 				ticket.appendChild(comments);
 				commentRoot = comments;
+				commentRoot.appendChild(createComment(document, changeEvent));
 			}
 			// If no relevant changes have been added to the ticket root node, exit.
 			if (ticket.getChildNodes().getLength() == 0 ) return null;
