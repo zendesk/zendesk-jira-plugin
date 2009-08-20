@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
@@ -9,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>1.1</version>
+	<version>1.1.1-SNAPSHOT</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -24,9 +25,9 @@
 
 	<scm>
 		<connection>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/</connection>
-	    <developerConnection>scm:git:git@github.com:zendesk/zendesk-jira-plugin.git/</developerConnection>
+		<developerConnection>scm:git:git@github.com:zendesk/zendesk-jira-plugin.git/</developerConnection>
 		<url>http://github.com/zendesk/zendesk-jira-plugin.git/</url>
-  </scm>
+	</scm>
 
 	<issueManagement>
 		<system>JIRA</system>
@@ -65,9 +66,29 @@
 			<version>1.2-M2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.restlet</groupId>
+			<artifactId>org.restlet.ext.ssl</artifactId>
+			<version>1.2-M2</version>
+		</dependency>
+		<dependency>
 			<groupId>com.cenqua.clover</groupId>
 			<artifactId>clover</artifactId>
 			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.5.6</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -141,8 +162,10 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar" todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo" password="bamboo2997" command="~/deployjira.sh" />
+										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
+											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.100" username="bamboo"
+											password="bamboo2997" command="~/deployjira.sh" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -248,7 +271,24 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>	
+			</plugin>
+			<!--plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin-->			
 		</plugins>
 		<testResources>
 			<testResource>
