@@ -28,7 +28,7 @@ public class HttpsNotificationTest extends JIRATest {
     /**
 	 * ZEN-37 Support for notifications over https, http://jira.agilos.org/browse/ZEN-37
 	 */
-	@Test 
+	@Test (groups = {"regressionTests"} )
 	public void testHttpsNotification() throws Exception  {		
     	fixture.updateIssueWithComment(issueKey, "Automatic systemtest generated comment");
     	Request request = fixture.getNextHttpsRequest(); 

@@ -118,7 +118,7 @@ public class NotificationTest extends JIRATest {
 	/**
 	 * ZEN-36 Option for private comments, http://jira.agilos.org/browse/ZEN-36
 	 */
-	@Test 
+	@Test (groups = {"regressionTests"} )
 	public void testPrivateNotification() throws Exception  {
 		getFixture().getJiraClient().setCommentsPublic("false");
 		
@@ -133,7 +133,7 @@ public class NotificationTest extends JIRATest {
 		assertEquals("Wrong response received for public comment notification", TestDataFactory.getSoapResponse("testPrivateNotification.2"), request.getEntityAsText());
 	}
 	
-	@Test 
+	@Test (groups = {"regressionTests"} )
 	public void testPrivateNotificationInvalidString()throws Exception {
 		getFixture().getJiraClient().setCommentsPublic("fllll");
 		

@@ -52,7 +52,7 @@ public class WebserviceTest extends JIRATest {
 	/**
 	 * Verifies that soap requests with invalid tokens are rejected
 	 */
-	@Test (groups = {"test-first"} )
+	@Test (groups = {"regressionTests"} )
 	public void testWSAuthentication() throws Exception   {
 		try {
 			ZendeskWSClient.getSoapService().getAssignableUsers("InvalidToken", PROJECT_KEY);
