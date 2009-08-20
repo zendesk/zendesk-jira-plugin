@@ -10,6 +10,13 @@ Installation
  * Restlet dependencies :
   
   * Download the {{{http://maven.restlet.org/org/restlet/org.restlet/1.2-M2/org.restlet-1.2-M2.jar}restlet-1.2m2 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+  
+  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/jul-to-slf4j/1.5.6/jul-to-slf4j-1.5.6.jar}jul-to-slf4j-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+  
+  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar}slf4j-log4j12-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+  
+  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar}slf4j-api-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+  
  
  * Restart JIRA
  

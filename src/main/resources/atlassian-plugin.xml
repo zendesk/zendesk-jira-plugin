@@ -1,7 +1,7 @@
 <atlassian-plugin key="org.agilos.jira" i18n-name-key="agilos.admin.web.rpc.plugin.name" name="Zendesk JIRA Plugin">
     <plugin-info>
         <description key="agilos.admin.web.rpc.plugin.desc">The Zendesk JIRA SOAP services.</description>
-        <version>1.0.2</version>
+        <version>1.1.1</version>
         <application-version min="3.13" max="3.13"/>
         <vendor name="Agilos Open Source Foundation" url="http://agilos.org"/>
     </plugin-info>
