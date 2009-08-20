@@ -1,24 +1,21 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.notifications;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.log4j.Logger;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
-import org.restlet.data.Request;
 import org.restlet.routing.Router;
 import org.restlet.security.Guard;
 
 public class NotificationListener extends Application {
-	public static final LinkedBlockingQueue<Request> messageQueue = new LinkedBlockingQueue<Request>();
 	private Logger log = Logger.getLogger(NotificationListener.class.getName());
+	private Class handler;
 	
-	public NotificationListener() {
-		
+	public NotificationListener(Class handler) {
+		this.handler = handler;
 		createRoot();
 	}
+	
 	
 	@Override
     public synchronized Restlet createRoot() {
@@ -28,26 +25,13 @@ public class NotificationListener extends Application {
         Router router = new Router(getContext());
 
         // Defines only one route
-        router.attachDefault(NotificationHandler.class);
-        
+        log.debug("Attaching handler "+handler);
+        router.attach("/tickets",handler);
+        	
         Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
 		guard.getSecrets().put("jira", "jira".toCharArray());		
 		guard.setNext(router);
         
         return guard;
     }
-	
-	public Request getNextRequest() {
-		Request request = null;
-		try {
-			request = messageQueue.poll(10, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			log.info("No response received in 10 seconds");
-		}
-		return request; 
-	}
-	
-	public Request getNextRequestInstant() {
-		return messageQueue.poll();
-	}
 }

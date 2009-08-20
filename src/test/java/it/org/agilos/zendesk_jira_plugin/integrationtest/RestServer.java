@@ -6,38 +6,30 @@ import org.restlet.Component;
 import org.restlet.data.Protocol;
 
 public class RestServer {
-	private static final RestServer instance = new RestServer();
-	public static RestServer getInstance() {
-		return instance;
-	}
 
 	private Logger log = Logger.getLogger(RestServer.class.getName());
 	private Component component;
 
-	private RestServer() {
-
-	}
-
-	public synchronized void setListener(NotificationListener notificationListener) {
+	public synchronized void setListener(NotificationListener notificationListener, Protocol protocol, int port) {
 		if (component == null) {
-			try {
-				// Create a new Component.
-				component = new Component();
 
-				// Add a new HTTP server listening on port 8182.
-				log.info("Adding HTTP rest server on port 8182");
-				component.getServers().add(Protocol.HTTP, 8182);
+			// Create a new Component.
+			component = new Component();
+		}
 
-				// Attach the sample application.
-				log.info("Adding Notification listener");
-				component.getDefaultHost().attach(notificationListener);
+		// Add a new HTTP server listening on the specific port. The https termination needs to be handled by another application. f.ex an Apache server
+		// redirecting to the indicated port.
+		log.info("Adding "+Protocol.HTTP+" server on port "+port);
+		component.getServers().add(Protocol.HTTP, port);
 
-				// Start the component.
-				log.info("Starting rest server");
-				component.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		component.getDefaultHost().attach(notificationListener);
+
+		// Start the component.
+		log.info("Starting rest server on port "+port);
+		try {
+			component.start();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

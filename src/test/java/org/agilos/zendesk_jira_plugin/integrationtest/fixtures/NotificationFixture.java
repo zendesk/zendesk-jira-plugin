@@ -4,6 +4,7 @@ import it.org.agilos.zendesk_jira_plugin.integrationtest.RestServer;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.rpc.ServiceException;
 
@@ -12,8 +13,11 @@ import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
+import org.agilos.zendesk_jira_plugin.integrationtest.notifications.HttpsNotificationHandler;
+import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationHandler;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
 import org.apache.log4j.Logger;
+import org.restlet.data.Protocol;
 import org.restlet.data.Request;
 
 import com.atlassian.jira.issue.IssueFieldConstants;
@@ -22,13 +26,17 @@ public class NotificationFixture extends JIRAFixture {
 
 	private Logger log = Logger.getLogger(NotificationFixture.class.getName());
 
-	private final NotificationListener notificationListener = new NotificationListener();
+	private static final NotificationListener notificationListener = new NotificationListener(NotificationHandler.class);
+	private static final NotificationListener httpsNotificationListener = new NotificationListener(HttpsNotificationHandler.class);
 	public static final String MESSAGELIST = "Messagelist";	
 	private String ticketID ="215";
-
-	public NotificationFixture() 
-	throws ServiceException, RemoteException, MalformedURLException {
-		RestServer.getInstance().setListener(notificationListener);
+	
+	private static final RestServer httpServer = new RestServer();
+	private static final RestServer httpsServer = new RestServer();
+	
+	static {
+		httpServer.setListener(notificationListener, Protocol.HTTP, 8182);	
+		httpsServer.setListener(httpsNotificationListener, Protocol.HTTPS, 8183);
 	}
 
 	public RemoteIssue createIssue(String project) throws Exception {
@@ -45,19 +53,21 @@ public class NotificationFixture extends JIRAFixture {
 
 	public void updateIssueWithSummary(String issueKey, String summary)throws Exception {
 		log.info("Changing summery on issue "+ issueKey + " to "+summary);
-		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
+		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
+			new RemoteFieldValue(IssueFieldConstants.SUMMARY, new String[] { summary } ) });		
 	}
 
 	public void updateIssueWithDescription (String issueKey, String description) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description);
-		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
+		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
+			new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description } ) });
 	}
 
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
-		log.info("Changing description on issue "+ issueKey + " to "+description);
+		log.info("Changing description on issue "+ issueKey + " to "+description +" and adding comment: "+comment);
 		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
-			new RemoteFieldValue("description", new String[] { description }),
-			new RemoteFieldValue("comment", new String[] { description } ) });
+			//new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description }),
+			new RemoteFieldValue(IssueFieldConstants.COMMENT, new String[] { comment } ) });
 	}
 
 	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
@@ -75,16 +85,31 @@ public class NotificationFixture extends JIRAFixture {
 	 * If no notifications has been received during the 10 seconds, null is returned
 	 */
 	public Request getNextRequest() {
-		Request nextRequest = notificationListener.getNextRequest();
-		return nextRequest;
+		Request request = null;
+		try {
+			request = NotificationHandler.getMessageQueue().poll(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			log.info("No response received in 10 seconds");
+		}
+		return request; 
 	}
+	
+
+	public Request getNextHttpsRequest() {
+		Request request = null;
+		try {
+			request = HttpsNotificationHandler.getMessageQueue().poll(10, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			log.info("No response received in 10 seconds");
+		}
+		return request; 
+	} 
 	
 	/**
 	 * Return the next notification received or null if the queue is empty. 
 	 */
 	public Request getNextRequestInstant() {
-		Request nextRequest = notificationListener.getNextRequestInstant();
-		return nextRequest;
+		return NotificationHandler.getMessageQueue().poll();
 	}
 
 	/**
@@ -112,5 +137,5 @@ public class NotificationFixture extends JIRAFixture {
 
 		tester.assertTitleEquals("");
 		return null;
-	} 
+	}
 }

@@ -12,6 +12,7 @@ import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.apache.log4j.Logger;
 
 import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
+import com.atlassian.jira.functest.framework.navigation.IssueNavigation;
 import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import com.meterware.httpunit.HttpUnitOptions;
@@ -42,8 +43,12 @@ public class JIRAClient {
 	
 	private static FuncTestHelperFactory fthFatory;
 	
-	public FuncTestHelperFactory getFuncTestHelperFactory() {
+	public static FuncTestHelperFactory getFuncTestHelperFactory() {
 		return fthFatory;
+	}
+	
+	public static IssueEditor getIssueEditor(String issuekey) {
+		return new IssueEditor(issuekey, fthFatory);
 	}
 
 	private JIRAClient() {
@@ -104,13 +109,23 @@ public class JIRAClient {
 		fthFatory.getTester().assertTextPresent(zendeskURL);
 	}
 	
+	public void setZendeskCredentials(String zendeskLogin, String zendeskPW) {
+		gotoListenerConfiguration();
+		log.info("Updating Zendesk log to "+zendeskLogin+" and zendesk PW to "+zendeskPW);
+		fthFatory.getTester().setFormElement("LoginName", zendeskLogin);
+		fthFatory.getTester().setFormElement("LoginPassword", zendeskPW);
+		fthFatory.getTester().clickButton("Update");
+		fthFatory.getTester().assertTextPresent(zendeskLogin);
+		fthFatory.getTester().assertTextPresent(zendeskPW);
+	}
+	
 	public void setCommentsPublic(String publicComments) {
 		gotoListenerConfiguration();
 		log.info("Setting public comment value to "+publicComments);
 		fthFatory.getTester().setFormElement("Public comments", publicComments);
 		fthFatory.getTester().clickButton("Update");
 		fthFatory.getTester().assertTextPresent(publicComments);
-	}
+	}	
 	
 	private void gotoListenerConfiguration() {
 		fthFatory.getNavigation().gotoAdminSection("listeners");
