@@ -93,7 +93,9 @@ public class NotificationDispatcher {
 		try {
 			Representation representation = getRepresentation(issueEvent);
 			setSize(representation);
-			log.debug("Dispatching: put "+representation.getText());			
+			if (log.isDebugEnabled()) {
+				log.debug("Dispatching: put "+representation.getText() + zendeskHost + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"+" using protocol "+zendeskAccessProtocol) ;	
+			}
 
 			ClientResource resource = new ClientResource(context, new Reference(zendeskAccessProtocol, zendeskHost+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"));
 

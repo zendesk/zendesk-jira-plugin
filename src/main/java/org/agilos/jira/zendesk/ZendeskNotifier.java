@@ -1,11 +1,10 @@
 package org.agilos.jira.zendesk;
 
-import java.io.File;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.restlet.Context;
-import org.restlet.data.Form;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.atlassian.jira.event.issue.AbstractIssueEventListener;
 import com.atlassian.jira.event.issue.IssueEvent;
@@ -32,6 +31,7 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	private static String ticketFieldName = "Zendesk TicketID";
 	
 	public ZendeskNotifier() {
+		SLF4JBridgeHandler.install();
 	}
 	
 	public static String getTicketFieldName() {
