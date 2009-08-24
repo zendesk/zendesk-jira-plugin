@@ -2,6 +2,7 @@ package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
 import it.org.agilos.zendesk_jira_plugin.integrationtest.RestServer;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeUnit;

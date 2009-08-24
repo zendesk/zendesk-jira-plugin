@@ -6,48 +6,22 @@ import static org.testng.AssertJUnit.assertTrue;
 import java.util.Calendar;
 
 import org.agilos.jira.soapclient.RemoteProject;
-import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
-import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
-import org.apache.log4j.Logger;
 import org.restlet.data.Parameter;
 import org.restlet.data.Request;
 import org.restlet.engine.http.HttpConstants;
 import org.restlet.engine.http.HttpRequest;
 import org.restlet.util.Series;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class NotificationTest extends JIRATest {
-
-	public NotificationFixture fixture;
-    private String issueKey;
-
-	private Logger log = Logger.getLogger(NotificationTest.class.getName());
-    
-    @BeforeMethod (alwaysRun = true)
-    void setUpTest() throws Exception {
-    	fixture = new NotificationFixture();
-    	getFixture().loadData("restoreData.xml");
-    	getFixture().connect();
-    	getFixture().createUserWithUsername(USER_ID);
-    	fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "NotificationTest project", USER_ID);  
-    	issueKey = fixture.createIssue(PROJECT_KEY).getKey();        
-    }
-    
-    @AfterMethod  (alwaysRun = true)
-    void tearDownTest() throws Exception {
-    	Request request = fixture.getNextRequestInstant();
-    	if (request != null) log.warn("Notification remains on message queue after testcase has finish" + request.getEntityAsText()); 
-    }
-
+public class NotificationTest extends AbstractNotificationTest {
+	
     @Test (groups = {"regressionTests"} )
     public void testCommentAddedNotification() throws Exception  {
     	fixture.updateIssueWithComment(issueKey, "Test comment");
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), request.getEntityAsText());
 	}
-	
+    
 //	@Test
 //	public void testDescriptionAndCommentChangedNotification() throws Exception  {
 //		IssueEditor ie = JIRAClient.getIssueEditor(issueKey);
@@ -147,10 +121,5 @@ public class NotificationTest extends JIRATest {
 		request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received for public comment notification", TestDataFactory.getSoapResponse("testPrivateNotificationInvalidString.2"), request.getEntityAsText());
 	
-	}
-    
-	@Override
-	protected JIRAFixture getFixture() {
-		return fixture;
 	}
 }

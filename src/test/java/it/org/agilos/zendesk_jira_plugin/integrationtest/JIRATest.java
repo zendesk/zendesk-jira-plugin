@@ -14,5 +14,5 @@ public abstract class JIRATest {
     protected static final String USER_ID = "integration";
 	protected static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();	 
 	
-	protected abstract JIRAFixture getFixture();
+	protected abstract JIRAFixture getFixture() throws Exception;
 }
