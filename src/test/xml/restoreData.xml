@@ -4,7 +4,7 @@
 
 ___ Exported on ___________________
 
-     on                                  : 3. juni 2009 11:37:42 CEST
+     on                                  : 24. august 2009 12:06:17 CEST
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
@@ -14,12 +14,12 @@ ___ Environment _________________
      Java Version                        : 1.6.0_11 - Sun Microsystems Inc.
      Current Working Directory           : D:\projects\Agilos\zendesk-jira-plugin
      Maximum Allowable Memory            : 559MB
-     Total Memory                        : 127MB
-     Free Memory                         : 66MB
-     Used Memory                         : 61MB
+     Total Memory                        : 173MB
+     Free Memory                         : 6MB
+     Used Memory                         : 167MB
      Total PermGen Memory                : 288MB
-     Free PermGen Memory                 : 242MB
-     Used PermGen Memory                 : 45MB
+     Free PermGen Memory                 : 238MB
+     Used PermGen Memory                 : 49MB
      JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx564m -Djira.home=d:\projects\Agilos\zendesk-jira-plugin\target/jira-home -Xdebug -Xnoagent -Xrunjdwp:server=y,transport=dt_socket,address=5006,suspend=n -Dcargo.logging=debug -Dcargo.datasource.datasource=cargo.datasource.url=jdbc:hsqldb:d:\projects\Agilos\zendesk-jira-plugin\debug\jira\jira-config/jira-home/database|
 		cargo.datasource.driver=org.hsqldb.jdbcDriver|
 		cargo.datasource.username=sa|
@@ -62,7 +62,7 @@ ___ File Paths __________________
 
      Location of atlassian-jira.log      : D:\projects\Agilos\zendesk-jira-plugin\atlassian-jira.log
      Index Path                          : C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes
-     Attachment Path                     : /home/bamboo/atlassian-jira-enterprise-3.13.2-standalone/attachments
+     Attachment Path                     : ~/test-jira-attachments
 
 ___ Plugins _____________________
 
@@ -79,7 +79,7 @@ ___ Plugins _____________________
           Description                         : This plugin renders a user in JIRA.
 
      Zendesk JIRA Plugin                 : org.agilos.jira
-          Version                             : 1.0.1
+          Version                             : 1.2
           Status                              : enabled
           Vendor                              : Agilos Open Source Foundation
           Description                         : The Zendesk JIRA SOAP services.
@@ -105,7 +105,7 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 03-06-09 11:37
+     Last Run                            : 24-08-09 12:06
 
 ___ Trusted Applications ________
 
@@ -176,7 +176,7 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10110" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10120" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -329,7 +329,7 @@ ___ Trusted Applications ________
     <OSPropertyEntry id="10631" entityName="OSUser" entityId="10300" propertyKey="fullName" type="5"/>
     <OSPropertyEntry id="10640" entityName="ListenerConfig" entityId="10020" propertyKey="ZendeskApplicationLogin" type="5"/>
     <OSPropertyNumber id="10013" value="1"/>
-    <OSPropertyNumber id="10016" value="0"/>
+    <OSPropertyNumber id="10016" value="1"/>
     <OSPropertyNumber id="10023" value="1"/>
     <OSPropertyNumber id="10024" value="0"/>
     <OSPropertyNumber id="10025" value="1"/>
@@ -358,7 +358,7 @@ ___ Trusted Applications ________
     <OSPropertyString id="10011" value="http://192.168.0.100:8080"/>
     <OSPropertyString id="10012" value="private"/>
     <OSPropertyString id="10014" value="C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes"/>
-    <OSPropertyString id="10015" value="/home/bamboo/atlassian-jira-enterprise-3.13.2-standalone/attachments"/>
+    <OSPropertyString id="10015" value="~/test-jira-attachments"/>
     <OSPropertyString id="10019" value="enterprise"/>
     <OSPropertyString id="10020" value="mikis@agilos-software.dk"/>
     <OSPropertyString id="10021" value="Mikis Seth Sørensen"/>
@@ -388,7 +388,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="jira"/>
     <OSPropertyString id="10161" value="jira"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10570" value="107"/>
+    <OSPropertyString id="10570" value="262"/>
     <OSPropertyString id="10580" value="en_UK"/>
     <OSPropertyString id="10600" value="admin@nowhere.org"/>
     <OSPropertyString id="10601" value="Integration test admin user"/>
@@ -432,7 +432,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <PluginVersion id="10024" name="View Project Operations Sections" key="jira.webfragments.view.project.operations" version="1.0" created="2009-03-24 13:54:17.012"/>
     <PluginVersion id="10025" name="Project Role Actors Plugin" key="com.atlassian.jira.plugin.system.projectroleactors" version="1.0" created="2009-03-24 13:54:17.013"/>
     <PluginVersion id="10026" name="JIRA Footer" key="jira.footer" version="1.0" created="2009-03-24 13:54:17.014"/>
-    <PluginVersion id="10040" name="Zendesk JIRA Plugin" key="org.agilos.jira" version="1.0.1" created="2009-06-03 11:34:06.643"/>
+    <PluginVersion id="10040" name="Zendesk JIRA Plugin" key="org.agilos.jira" version="1.2" created="2009-08-24 12:04:06.031"/>
     <PortalPage id="10000" pagename="System Dashboard" sequence="0" favCount="0"/>
     <PortletConfiguration id="10000" portalpage="10000" portletId="INTRODUCTION" columnNumber="0" position="0"/>
     <PortletConfiguration id="10001" portalpage="10000" portletId="PROJECTS" columnNumber="0" position="1"/>
@@ -517,7 +517,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10120"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10130"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>

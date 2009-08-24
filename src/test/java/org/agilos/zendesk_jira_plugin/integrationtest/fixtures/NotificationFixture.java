@@ -2,12 +2,11 @@ package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
 import it.org.agilos.zendesk_jira_plugin.integrationtest.RestServer;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.rpc.ServiceException;
 
 import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteCustomFieldValue;
@@ -17,6 +16,7 @@ import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.HttpsNotificationHandler;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationHandler;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.NotificationListener;
+import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 import org.restlet.data.Protocol;
 import org.restlet.data.Request;
@@ -81,6 +81,16 @@ public class NotificationFixture extends JIRAFixture {
 		jiraClient.getService().progressWorkflowAction(jiraClient.getToken(), issueKey, "5", null);
 	}
 
+	public void updateIssueWithAttachment(String issueKey, String[] names, File attachmentFiles[]) throws IOException {
+		byte[][] attachments = new byte[names.length][];
+		for (int attachmentInterator = 0; attachmentInterator < names.length ; attachmentInterator++) {
+			attachments[attachmentInterator] = getBytesArrayFile(attachmentFiles[attachmentInterator]);
+
+			log.info("Adding attachment "+attachmentFiles[attachmentInterator].getAbsolutePath() +" to issue "+issueKey + " as "+names[attachmentInterator]);
+		}
+		jiraClient.getService().addAttachmentsToIssue(jiraClient.getToken(), issueKey, names, attachments);
+	}
+
 	/**
 	 * Polls the notification listener for the next message for 10 seconds, and returns this. 
 	 * If no notifications has been received during the 10 seconds, null is returned
@@ -139,4 +149,37 @@ public class NotificationFixture extends JIRAFixture {
 		tester.assertTitleEquals("");
 		return null;
 	}
+	
+	 private static byte[] getBytesArrayFile(File file) throws IOException {
+	        InputStream is = new FileInputStream(file);
+	    
+	        // Get the size of the file
+	        long length = file.length();
+	    
+	        if (length > Integer.MAX_VALUE) {
+	            // File is too large
+	        }
+	    
+	        // Create the byte array to hold the data
+	        byte[] bytes = new byte[(int)length];
+	    
+	        // Read in the bytes
+	        int offset = 0;
+	        int numRead = 0;
+	        while (offset < bytes.length
+	               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+	            offset += numRead;
+	        }
+	    
+	        // Ensure all the bytes have been read in
+	        if (offset < bytes.length) {
+	            throw new IOException("Could not completely read file "+file.getName());
+	        }
+	    
+	        // Close the input stream and return bytes
+	        is.close();
+	        
+
+	        return bytes;
+	    }
 }
