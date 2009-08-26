@@ -1,26 +1,31 @@
 package org.agilos.jira.zendesk;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.ofbiz.core.entity.GenericEntityException;
+import org.ofbiz.core.entity.GenericValue;
 import org.restlet.resource.ResourceException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.event.type.EventType;
 
 public class ChangeMessageBuilder {
 	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());	
 
-	private boolean publicComments = true;
+	private static boolean publicComments = true;
 
 	/**
 	 * Generates a REST representation of the issue change
@@ -30,8 +35,9 @@ public class ChangeMessageBuilder {
 	 * @throws ResourceException
 	 * @throws IOException
 	 * @throws NoSuchFieldException Throw in case of a changeEvent state, which the ChangeMessageBuilder is unable to handle.  
+	 * @throws GenericEntityException 
 	 */
-	public Document createChangeRepresentation(IssueEvent changeEvent) throws IOException, NoSuchFieldException {
+	public Document createChangeRepresentation(IssueEvent changeEvent) throws IOException, NoSuchFieldException, GenericEntityException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		try {
@@ -50,6 +56,18 @@ public class ChangeMessageBuilder {
 				changeEvent.getEventTypeId() == EventType.ISSUE_MOVED_ID) {
 			Element ticket = document.createElement("ticket");
 			document.appendChild(ticket);
+			
+			List changes = changeEvent.getChangeLog().getRelated("ChildChangeItem");
+			Map<String, GenericValue> changeMap = new HashMap<String, GenericValue>();
+			
+			Iterator changeIterator = changes.iterator();
+			while (changeIterator.hasNext()) {
+				GenericValue gv = (GenericValue)changeIterator.next();
+				changeMap.put((String)gv.get("field"), gv);
+			}
+			
+			if (log.isDebugEnabled()) log.debug("Issue change received for "+changeEvent.getIssue().getId()+", " +
+					"The following attributes have changed: "+changeMap.keySet());
 
 			if (changeEvent.getIssue().getSummary() != null) {
 				Element subject = document.createElement("subject");
@@ -74,19 +92,27 @@ public class ChangeMessageBuilder {
 				comments.setAttribute("type", "array");
 				ticket.appendChild(comments);
 				commentRoot = comments;
-				commentRoot.appendChild(createComment(document, changeEvent));
+				commentRoot.appendChild(createComment(document, 
+						changeEvent.getRemoteUser().getFullName()+" added a comment:\n"+changeEvent.getComment().getBody()));
+			}
+			
+			if (changeMap.get("Attachment") != null) {
+				AttachmentHandler.handleAttachment(document, commentRoot,
+						Long.valueOf(changeMap.get("Attachment").getString("newvalue")), changeEvent);
 			}
 			// If no relevant changes have been added to the ticket root node, exit.
 			if (ticket.getChildNodes().getLength() == 0 ) return null;
 		}
 
 		else if (changeEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
-			commentRoot.appendChild(createComment(document, changeEvent));
+			commentRoot.appendChild(createComment(document, 
+					changeEvent.getRemoteUser().getFullName()+" added a comment:\n"+changeEvent.getComment().getBody()));
 		} 
 		
 		else if (changeEvent.getIssue().getStatusObject() != null &&
 				 !changeEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID)) { // Disregard newly created issues, this is not considered a status change
-			commentRoot.appendChild(createStatusChange(document, changeEvent));
+			commentRoot.appendChild(createComment(document, 
+					changeEvent.getRemoteUser().getFullName()+" changed status to "+changeEvent.getIssue().getStatusObject().getName()));
 		}	
 		
 		else {
@@ -105,11 +131,11 @@ public class ChangeMessageBuilder {
 	}
 	
 
-	public void setPublicComments(boolean publicComments) {
-		this.publicComments = publicComments;
+	public void setPublicComments(boolean areCommentsPublic) {
+		publicComments = areCommentsPublic;
 	}
 	
-	private Element createComment(Document document, IssueEvent changeEvent) {
+	public static Element createComment(Document document, String message) {
 		Element comment = document.createElement("comment");
 
 		Element isPublic = document.createElement("is-public");
@@ -121,26 +147,10 @@ public class ChangeMessageBuilder {
 		comment.appendChild(isPublic);
 
 		Element value = document.createElement("value");
-		String commentText = changeEvent.getRemoteUser().getFullName()+" added a comment:\n"+
-							 changeEvent.getComment().getBody();
-		value.setTextContent(commentText);
+		
+		value.setTextContent(message);
 		comment.appendChild(value);   
 		
 		return comment;
-	}
-	
-	private Element createStatusChange(Document document, IssueEvent changeEvent) {
-		Element comment = document.createElement("comment");
-
-		Element isPublic = document.createElement("is-public");
-		isPublic.setTextContent("true");
-		comment.appendChild(isPublic);
- 
-		Element value = document.createElement("value");
-		String commentText = changeEvent.getRemoteUser().getFullName()+" changed status to "+changeEvent.getIssue().getStatusObject().getName();
-		value.setTextContent(commentText);
-		comment.appendChild(value);
-		
-		return comment;
-	}
+	}	
 }

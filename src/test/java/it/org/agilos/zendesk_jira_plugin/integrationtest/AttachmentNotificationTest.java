@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class AttachmentNotificationTest extends AbstractNotificationTest {
 	
-	@Test (groups = {"regressionTests"} )
+	//@Test (groups = {"regressionTests"} )
 	public void testUploadAttachment() throws Exception  {		
 		fixture.updateIssueWithAttachment(
 				issueKey, 

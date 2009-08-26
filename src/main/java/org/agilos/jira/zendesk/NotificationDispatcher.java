@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
+import org.ofbiz.core.entity.GenericEntityException;
 import org.restlet.Context;
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
@@ -27,7 +28,7 @@ import com.atlassian.jira.issue.fields.CustomField;
 public class NotificationDispatcher {	
 	private Logger log = Logger.getLogger(NotificationDispatcher.class.getName());
 	private Protocol zendeskAccessProtocol;
-	private String zendeskHost;
+	public static String zendeskHost;
 	private String suppressNotificationFor;
 	private CustomField ticketField;
 	private ChallengeResponse authentication;
@@ -47,6 +48,9 @@ public class NotificationDispatcher {
 		else if (url.contains("https://")) zendeskAccessProtocol = Protocol.HTTPS;
 		
 		log.info("Protocol for Zendesk access set to "+zendeskAccessProtocol);
+		
+		AttachmentHandler.uploadServerUrl = url;
+		log.debug("Attachment upload URL set to "+url);
 	}
 	
 	/**
@@ -117,10 +121,13 @@ public class NotificationDispatcher {
 			log.warn("Failed to represent request as text", e);
 		} catch (NoSuchFieldException e) {
 			// The event has already been debug logged by the mMessageBuilder
+		} catch (GenericEntityException e) {
+			log.warn("Unable to detect changes", e);
+			e.printStackTrace();
 		} 
 	}
 
-	private String getBaseUrl() {
+	public static String getBaseUrl() {
 		final ApplicationProperties ap = ManagerFactory.getApplicationProperties();
 		return ap.getString(APKeys.JIRA_BASEURL);
 	}
@@ -130,13 +137,9 @@ public class NotificationDispatcher {
 	 * @param issueEvent
 	 * @return The REST representation of the issue change if any relevant changes are found, else null;
 	 * @throws IOException 
-	 * @throws ParserConfigurationException 
-	 * @throws ResourceException
-	 * @throws IOException
-	 * @throws NoSuchFieldException 
-	 * @throws NoSuchFieldException 
+	 * @throws GenericEntityException 
 	 */
-	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException {
+	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException, GenericEntityException {
 		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, messageBuilder.createChangeRepresentation(issueEvent));           
 		representation.setCharacterSet(CharacterSet.UTF_8);	      	
 		return representation;
