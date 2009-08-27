@@ -123,7 +123,8 @@ public class NotificationDispatcher {
 			// The event has already been debug logged by the mMessageBuilder
 		} catch (GenericEntityException e) {
 			log.warn("Unable to detect changes", e);
-			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			log.warn("Unable to intantiate DOM object for notification XML", e);
 		} 
 	}
 
@@ -138,8 +139,9 @@ public class NotificationDispatcher {
 	 * @return The REST representation of the issue change if any relevant changes are found, else null;
 	 * @throws IOException 
 	 * @throws GenericEntityException 
+	 * @throws ParserConfigurationException 
 	 */
-	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException, GenericEntityException {
+	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException, GenericEntityException, ParserConfigurationException {
 		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, messageBuilder.createChangeRepresentation(issueEvent));           
 		representation.setCharacterSet(CharacterSet.UTF_8);	      	
 		return representation;

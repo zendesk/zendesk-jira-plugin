@@ -3,14 +3,13 @@ package org.agilos.jira.zendesk;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.agilos.jira.zendesk.notifications.ChangeMessage;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.event.issue.IssueEvent;
@@ -21,12 +20,10 @@ public class AttachmentHandler {
 	
 	public static String uploadServerUrl = null;
 	
-	public static void handleAttachment(Document document, Node commentRoot, Long attachmentId, IssueEvent changeEvent) throws HttpException, IOException {
+	public static void handleAttachment(ChangeMessage changeMessage, Long attachmentId, IssueEvent changeEvent) throws HttpException, IOException {
 		Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
 		
-		commentRoot.appendChild(ChangeMessageBuilder.createComment(commentRoot.getOwnerDocument(), 
-				changeEvent.getRemoteUser().getFullName()+" added attachment <a href=\""+
-				NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachmentId+"/"+attachment.getFilename()+"\">"+attachment.getFilename()+"</a></value>"));
+		//changeMessage.attachmentAdded("<a href=\""+NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachmentId+"/"+attachment.getFilename()+"\">"+attachment.getFilename()+"</a>");
 		
 		HttpClient client = new HttpClient();
 		PostMethod postMethod = new PostMethod(uploadServerUrl+"/uploads.xml?filename="+attachment.getFilename());
