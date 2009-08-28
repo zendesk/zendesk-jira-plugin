@@ -88,7 +88,11 @@ public class AttachmentReceiver extends Resource {
 						}
 					}
 
-					Representation rep = new StringRepresentation("Response, ToDo",	MediaType.TEXT_PLAIN);
+					Representation rep = new StringRepresentation("<uploads token=\"abc123\">\n"+
+																	"\t<attachments>\n"+
+																		"\t\t<attachment>789</attachment>\n"+
+																	"\t</attachments>\n"+
+																  "</uploads>",	MediaType.TEXT_PLAIN);
 					// Set the representation of the resource once the POST
 					// request has been handled.
 					getResponse().setEntity(rep);

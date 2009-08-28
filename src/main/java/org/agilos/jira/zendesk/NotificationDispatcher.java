@@ -5,11 +5,10 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.agilos.jira.zendesk.notifications.ChangeMessage;
 import org.apache.log4j.Logger;
 import org.ofbiz.core.entity.GenericEntityException;
 import org.restlet.Context;
-import org.restlet.data.ChallengeResponse;
-import org.restlet.data.ChallengeScheme;
 import org.restlet.data.CharacterSet;
 import org.restlet.data.MediaType;
 import org.restlet.data.Protocol;
@@ -18,6 +17,7 @@ import org.restlet.representation.DomRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
+import org.w3c.dom.Document;
 
 import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.config.properties.APKeys;
@@ -27,11 +27,8 @@ import com.atlassian.jira.issue.fields.CustomField;
 
 public class NotificationDispatcher {	
 	private Logger log = Logger.getLogger(NotificationDispatcher.class.getName());
-	private Protocol zendeskAccessProtocol;
-	public static String zendeskHost;
 	private String suppressNotificationFor;
 	private CustomField ticketField;
-	private ChallengeResponse authentication;
 	private ChangeMessageBuilder messageBuilder = new ChangeMessageBuilder();
 	private Context context;
 
@@ -39,20 +36,6 @@ public class NotificationDispatcher {
 		this.context = context;
 	}
 
-	void setZendeskServerURL(String url) {
-		int hostNameBegin = url.indexOf("//");
-		zendeskHost = url.substring(hostNameBegin+2);
-		log.info("Zendesk host set to "+zendeskHost);
-		
-		if (url.contains("http://")) zendeskAccessProtocol = Protocol.HTTP;
-		else if (url.contains("https://")) zendeskAccessProtocol = Protocol.HTTPS;
-		
-		log.info("Protocol for Zendesk access set to "+zendeskAccessProtocol);
-		
-		AttachmentHandler.uploadServerUrl = url;
-		log.debug("Attachment upload URL set to "+url);
-	}
-	
 	/**
 	 * No notification will be sent for issue changes made by the indicated user.
 	 * @param supressNotificationFor
@@ -62,32 +45,26 @@ public class NotificationDispatcher {
 		log.info("Zendesk application login set to "+suppressNotificationFor);
 	}
 
-	void setAuthentication(String user, String password) {
-		log.info("Using HTTP basic authentication for Zendesk access with user "+user+" and password "+password);
-		ChallengeScheme scheme = ChallengeScheme.HTTP_BASIC;
-		authentication = new ChallengeResponse(scheme,
-				user, password);
-	}
-
 	public void setPublicComments(boolean publicComments) {
 		messageBuilder.setPublicComments(publicComments);
 	}
-	
+
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
-		if (zendeskHost == null) {
+		if (ZendeskNotifier.getZendeskserverConfiguration().getUrl() == null) {
 			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
-					"Zendesk server URL in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
+			"Zendesk server URL in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
 			return;
 		}
-		if (authentication == null) {
-			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
-					"valid Zendesk user and password in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
+		if (ZendeskNotifier.getZendeskserverConfiguration().getUser() == null || 
+				ZendeskNotifier.getZendeskserverConfiguration().getPassword() == null) {
+			log.warn("The Zendesk server username or password hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
+			"valid Zendesk user and password in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");
 			return;
 		}
 		if (suppressNotificationFor == null) {
 			log.warn("The Zendesk application login user hasn't been defined, no notification of the change will be sent to Zendesk (As this would " +
 					"cause a notification loop). Please specify the Zendesk application used to login into JIRA. This can be done in JIRA's " +
-					"administrativ interface under 'Listeners' -> ZendeskNotifier");
+			"administrativ interface under 'Listeners' -> ZendeskNotifier");
 			return;
 		} else if (issueEvent.getRemoteUser().getName().equals(suppressNotificationFor)) {
 			log.debug("Received notification for change made by zendesk application "+suppressNotificationFor+", supressing notification");
@@ -95,17 +72,36 @@ public class NotificationDispatcher {
 		}
 
 		try {
-			Representation representation = getRepresentation(issueEvent);
-			setSize(representation);
-			if (log.isDebugEnabled()) {
-				log.debug("Dispatching: put "+representation.getText() + zendeskHost + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"+" using protocol "+zendeskAccessProtocol) ;	
-			}
-
-			ClientResource resource = new ClientResource(context, new Reference(zendeskAccessProtocol, zendeskHost+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"));
+			ClientResource resource = new ClientResource(context, 
+					new Reference(Protocol.valueOf(ZendeskNotifier.getZendeskserverConfiguration().getUrl().getProtocol()), 
+							ZendeskNotifier.getZendeskserverConfiguration().getUrl().getAuthority()+"/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml"));
 
 			resource.setReferrerRef(getBaseUrl());
-			resource.setChallengeResponse(authentication);
-			resource.put(representation);
+			resource.setChallengeResponse(ZendeskNotifier.getZendeskserverConfiguration().getAuthentication());
+
+			ChangeMessage.MessageParts messageParts = messageBuilder.createChangeRepresentation(issueEvent);
+			if(messageParts == null) return; //No relevant information to send to zendesk was found in the change event  
+			if ( messageParts.getTicketChanges() != null ) { // Contains changes
+				Representation changeMessage = getRepresentation(messageParts.getTicketChanges());
+				setSize(changeMessage);
+				if (log.isDebugEnabled()) {
+					log.debug("Dispatching change message: put "+changeMessage.getText() + 
+							ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml") ;	
+				}
+				resource.put(changeMessage);
+			}
+
+			if ( messageParts.getComment() != null ) { // Contains changes
+				Representation commentMessage = getRepresentation(messageParts.getComment());
+				setSize(commentMessage);
+				if (log.isDebugEnabled()) {
+					log.debug("Dispatching comment message: put "+commentMessage.getText() + 
+							ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");	
+				}
+				resource.put(commentMessage);
+			}
+
+
 			if (resource.getStatus().isSuccess()
 					&& resource.getResponseEntity().isAvailable()) {
 				log.debug("Received response"+resource.getResponseEntity());
@@ -141,8 +137,8 @@ public class NotificationDispatcher {
 	 * @throws GenericEntityException 
 	 * @throws ParserConfigurationException 
 	 */
-	private Representation getRepresentation(IssueEvent issueEvent) throws IOException, NoSuchFieldException, GenericEntityException, ParserConfigurationException {
-		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, messageBuilder.createChangeRepresentation(issueEvent));           
+	private Representation getRepresentation(Document document) throws IOException, NoSuchFieldException, GenericEntityException, ParserConfigurationException {
+		DomRepresentation representation = new DomRepresentation(MediaType.APPLICATION_XML, document);           
 		representation.setCharacterSet(CharacterSet.UTF_8);	      	
 		return representation;
 	}
