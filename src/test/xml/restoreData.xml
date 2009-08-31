@@ -4,7 +4,7 @@
 
 ___ Exported on ___________________
 
-     on                                  : 26. august 2009 08:17:18 CEST
+     on                                  : 31. august 2009 14:41:18 CEST
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
@@ -14,12 +14,12 @@ ___ Environment _________________
      Java Version                        : 1.6.0_11 - Sun Microsystems Inc.
      Current Working Directory           : D:\projects\Agilos\zendesk-jira-plugin
      Maximum Allowable Memory            : 559MB
-     Total Memory                        : 127MB
-     Free Memory                         : 10MB
-     Used Memory                         : 117MB
+     Total Memory                        : 213MB
+     Free Memory                         : 86MB
+     Used Memory                         : 127MB
      Total PermGen Memory                : 288MB
-     Free PermGen Memory                 : 239MB
-     Used PermGen Memory                 : 48MB
+     Free PermGen Memory                 : 237MB
+     Used PermGen Memory                 : 50MB
      JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx564m -Djira.home=d:\projects\Agilos\zendesk-jira-plugin\target/jira-home -Xdebug -Xnoagent -Xrunjdwp:server=y,transport=dt_socket,address=5006,suspend=n -Dcargo.logging=debug -Dcargo.datasource.datasource=cargo.datasource.url=jdbc:hsqldb:d:\projects\Agilos\zendesk-jira-plugin\debug\jira\jira-config/jira-home/database|
 		cargo.datasource.driver=org.hsqldb.jdbcDriver|
 		cargo.datasource.username=sa|
@@ -105,7 +105,7 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 26-08-09 08:16
+     Last Run                            : 31-08-09 14:40
 
 ___ Trusted Applications ________
 
@@ -176,7 +176,7 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10130" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10140" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -355,7 +355,7 @@ ___ Trusted Applications ________
     <OSPropertyString id="10008" value="ADDB-GGBW-V7CZ-OS3I"/>
     <OSPropertyString id="10009" value="UTF-8"/>
     <OSPropertyString id="10010" value="Agilis Test JIRA"/>
-    <OSPropertyString id="10011" value="http://192.168.0.100:8080"/>
+    <OSPropertyString id="10011" value="http://localhost:1990/jira"/>
     <OSPropertyString id="10012" value="private"/>
     <OSPropertyString id="10014" value="C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes"/>
     <OSPropertyString id="10015" value="test-attachments"/>
@@ -388,7 +388,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="jira"/>
     <OSPropertyString id="10161" value="jira"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10570" value="281"/>
+    <OSPropertyString id="10570" value="513"/>
     <OSPropertyString id="10580" value="en_UK"/>
     <OSPropertyString id="10600" value="admin@nowhere.org"/>
     <OSPropertyString id="10601" value="Integration test admin user"/>
@@ -517,7 +517,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10140"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10150"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>

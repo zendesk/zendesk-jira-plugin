@@ -1,25 +1,29 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.notifications;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.log4j.Logger;
 import org.restlet.Context;
+import org.restlet.data.Form;
 import org.restlet.data.MediaType;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
 import org.restlet.data.Status;
-import org.restlet.ext.fileupload.RestletFileUpload;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
 
 public class AttachmentReceiver extends Resource {
-	private static Logger log = Logger.getLogger(AttachmentReceiver.class.getName());	
+	private static Logger log = Logger.getLogger(AttachmentReceiver.class.getName());		
+
+	public static File ATTACHMENT_DIRECTORY = new File("target"+File.separator+"zendeskstub-attachments");
 
 	/**
 	 * Constructor with parameters invoked every time a new request is routed to
@@ -45,69 +49,64 @@ public class AttachmentReceiver extends Resource {
 	public boolean allowPost() {
 		return true;
 	}
-	/**
-	 * Accepts and processes a representation posted to the resource. As
-	 * response, the content of the uploaded file is sent back the client.
-	 */
 	@Override
 	public void acceptRepresentation(Representation entity) {
+
 		if (entity != null) {
-			if (MediaType.MULTIPART_FORM_DATA.equals(entity.getMediaType(),
-					true)) {
+			if (MediaType.APPLICATION_WWW_FORM.equals(entity.getMediaType(), true)) {
+				Form query = getRequest().getResourceRef().getQueryAsForm(); 
+				String attachmentName = query.getFirstValue("filename");
 
-				// The Apache FileUpload project parses HTTP requests which
-				// conform to RFC 1867, "Form-based File Upload in HTML". That
-				// is, if an HTTP request is submitted using the POST method,
-				// and with a content type of "multipart/form-data", then
-				// FileUpload can parse that request, and get all uploaded files
-				// as FileItem.
+				InputStream inBuffer = null;
+				OutputStream outBuffer = null;
 
-				// 1/ Create a factory for disk-based file items
-				DiskFileItemFactory factory = new DiskFileItemFactory();
-				factory.setSizeThreshold(1000240);
+				try{
+					File attachmentFile = new File(ATTACHMENT_DIRECTORY+File.separator +attachmentName);
+					FileOutputStream out = new FileOutputStream(attachmentFile);
 
-				// 2/ Create a new file upload handler based on the Restlet
-				// FileUpload extension that will parse Restlet requests and
-				// generates FileItems.
-				RestletFileUpload upload = new RestletFileUpload(factory);
-				List<FileItem> items;
-				try {
-					// 3/ Request is parsed by the handler which generates a
-					// list of FileItems
-					items = upload.parseRequest(getRequest());
+					inBuffer = new BufferedInputStream(entity.getStream());
+					outBuffer = new BufferedOutputStream(out);
 
-					// Process only the uploaded item called "fileToUpload" and
-					// save it on disk
-					boolean found = false;
-					for (final Iterator<FileItem> it = items.iterator(); it.hasNext() && !found;) {
-						FileItem fi = (FileItem) it.next();
-						if (fi.getFieldName().equals("fileToUpload")) {
-							found = true;
-							File file = new File("c:\\temp\\file.txt");
-							fi.write(file);
-						}
+					while(true){
+						int bytedata = inBuffer.read();
+						if(bytedata == -1)
+							break;
+						out.write(bytedata);
 					}
-
-					Representation rep = new StringRepresentation("<uploads token=\"abc123\">\n"+
-																	"\t<attachments>\n"+
-																		"\t\t<attachment>789</attachment>\n"+
-																	"\t</attachments>\n"+
-																  "</uploads>",	MediaType.TEXT_PLAIN);
-					// Set the representation of the resource once the POST
-					// request has been handled.
-					getResponse().setEntity(rep);
-					// Set the status of the response.
-					getResponse().setStatus(Status.SUCCESS_OK);
-				} catch (Exception e) {
-					// The message of all thrown exception is sent back to
-					// client as simple plain text
-					getResponse().setEntity(
-							new StringRepresentation(e.getMessage(),
-									MediaType.TEXT_PLAIN));
-					getResponse().setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-					log.error(e);
+				} catch (IOException e) {
+					log.error("Failed to save attachment file to "+attachmentName, e);
 				}
+
+				finally{
+					if(inBuffer != null)
+						try {
+							inBuffer.close();
+						} catch (IOException e) {
+							log.error("Failed to close atttachment inputBuffer",e);
+						}
+					if(outBuffer !=null)
+						try {
+							outBuffer.close();
+						} catch (IOException e) {
+							log.error("Failed to close atttachment outBuffer",e);
+						}
+				}
+
+				Representation rep = new StringRepresentation("<uploads token=\"abc123\">\n"+
+						"\t<attachments>\n"+
+						"\t\t<attachment>789</attachment>\n"+
+						"\t</attachments>\n"+
+						"</uploads>",	MediaType.TEXT_PLAIN);
+				// Set the representation of the resource once the POST request has been handled.
+				getResponse().setEntity(rep);
+				// Set the status of the response.
+				getResponse().setStatus(Status.SUCCESS_OK);
+			} else {
+				getResponse().setEntity(new StringRepresentation("Please use content type "+MediaType.APPLICATION_WWW_FORM,
+						MediaType.TEXT_PLAIN));
+				getResponse().setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 			}
+
 		} else {
 			// POST request with no entity.
 			getResponse().setStatus(Status.CLIENT_ERROR_BAD_REQUEST);

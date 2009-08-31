@@ -55,10 +55,12 @@ public class ChangeMessageBuilder {
 				if (jiraFieldName.equals("Attachment")) {
 					Long attachmentId = Long.valueOf(changeMap.get("Attachment").getString("newvalue"));
 					Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
+					String attachmentLink = NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachment.getId()+"/"+attachment.getFilename();
 					try {
 						AttachmentHandler.handleAttachment(changeMessage,
 								Long.valueOf(changeMap.get("Attachment").getString("newvalue")), changeEvent);
-						changeMessage.addChange("Attachment", attachment.getFilename(), null);
+						changeMessage.addChange("Attachment", 
+								attachment.getFilename()+" "+attachmentLink, null);
 					} catch (SAXException e) {
 						log.error("Failed to parse response from upload, no link comment will be added to the ticket",e);
 					}

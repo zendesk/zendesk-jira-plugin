@@ -31,7 +31,7 @@ public class NotificationListener extends Application {
 
         // Defines only one route
         log.debug("Attaching handler ");
-        router.attach("/tickets", new NotificationHandler());
+        router.attachDefault(new NotificationHandler());
         	
         Guard guard = new Guard(getContext(), ChallengeScheme.HTTP_BASIC, "Tutorial");
 		guard.getSecrets().put("jira", "jira".toCharArray());		
