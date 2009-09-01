@@ -16,5 +16,7 @@ Configuration
     
     * If the comments added to Zendesk should be private, write false in the Public comments field.
     
+    * Upload attachments: If newly added attachment shouldn't be uploaded to the corresponding Zendesk ticket, write false in this field.
+    
     * If https is used for access the Zendesk application, a password should be defined (defaults to changeit) for accessing the certificate keystore. 
     See {{{https.html}Connecting to Zendesk via https}} 
