@@ -13,12 +13,9 @@ import org.agilos.jira.zendesk.notifications.JIRAZendeskFieldMapping;
 import org.apache.log4j.Logger;
 import org.ofbiz.core.entity.GenericEntityException;
 import org.ofbiz.core.entity.GenericValue;
-import org.xml.sax.SAXException;
 
-import com.atlassian.jira.ManagerFactory;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.event.type.EventType;
-import com.atlassian.jira.issue.attachment.Attachment;
 
 public class ChangeMessageBuilder {
 	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());	
@@ -53,16 +50,11 @@ public class ChangeMessageBuilder {
 
 				//Special cases first
 				if (jiraFieldName.equals("Attachment")) {
-					Long attachmentId = Long.valueOf(changeMap.get("Attachment").getString("newvalue"));
-					Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
-					String attachmentLink = NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachment.getId()+"/"+attachment.getFilename();
-					try {
-						AttachmentHandler.handleAttachment(changeMessage,
-								Long.valueOf(changeMap.get("Attachment").getString("newvalue")), changeEvent);
-						changeMessage.addChange("Attachment", 
-								attachment.getFilename()+" "+attachmentLink, null);
-					} catch (SAXException e) {
-						log.error("Failed to parse response from upload, no link comment will be added to the ticket",e);
+					String id = changeMap.get("Attachment").getString("newvalue");
+					if (id != null) { //Attachment added
+							AttachmentHandler.handleAttachment(changeMessage, Long.valueOf(changeMap.get("Attachment").getString("newvalue")));					
+					} else { //Attachment deleted
+						changeMessage.addChangeComment("Attachment "+changeMap.get("Attachment").getString("oldstring")+" deleted.");
 					}
 				} else { changeMessage.addChange(JIRAZendeskFieldMapping.getMappedZendeskFieldName(jiraFieldName), 
 						jiraFieldName, gv.getString("newstring"), gv.getString("oldstring"));

@@ -60,7 +60,6 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
 		
 		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
-	
 	}
 	
 	@Test (groups = {"regressionTests"} )
@@ -81,6 +80,45 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
 	
 	}
+	
+//	@Test (groups = {"regressionTests"} )
+//	public void testAttachmentDeleted() throws Exception  {	
+//		String attachmentName = "mikis.jpg";
+//		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);	
+//		fixture.updateIssueWithAttachment(
+//				issueKey, 
+//				new String[] { attachmentName }, 
+//				new File[] { uploadFile });
+//		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentDeleted.1"), 
+//				fixture.getNextRequest().getEntityAsText());	
+//	
+//		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+//		
+//		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
+//	}
+	
+	/**
+	 * Attachments larger than 7 MB should be uploaded to Zendesk
+	 * @throws Exception
+	 */
+//	DOesn't currentl work, cause Out of memory in client axis stubs
+//	@Test (groups = {"regressionTests"} )
+//	public void testUploadBigAttachment() throws Exception  {	
+//		getFixture().getJiraClient().setZendeskUrl("https://localhost:8443");
+//		
+//		String attachmentName = "large_file.bin";
+//		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);	
+//		fixture.updateIssueWithAttachment(
+//				issueKey, 
+//				new String[] { attachmentName }, 
+//				new File[] { uploadFile });
+//		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testUploadBigAttachment.1"), 
+//				fixture.getNextHttpsRequest().getEntityAsText());	
+//	
+//		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+//		
+//		assert(!receivedFile.exists());
+//	}
 	
 	private File loadFile(String fileName) {
 		return new File(fileName);		

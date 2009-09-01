@@ -17,6 +17,8 @@ public class ChangeMessage {
 	private String issueString;
 	private StringBuffer changeString = new StringBuffer();
 	private String jiraComment = null;
+	private String changeComment = "";
+	private String uploadToken;
 
 	public ChangeMessage(String author, String jiraIssue) {
 		this.author = author;
@@ -59,7 +61,15 @@ public class ChangeMessage {
 	}
 
 	public void addComment(String comment) {
-		this.jiraComment = comment;
+		jiraComment = comment;
+	}
+	
+	public void addChangeComment(String comment) {
+		changeComment = changeComment + "\n" + comment;
+	}
+	
+	public void addUpload(String uploadToken) {
+		this.uploadToken = uploadToken;
 	}
 
 	private void createComment(String commentString) throws DOMException, ParserConfigurationException {
@@ -77,6 +87,12 @@ public class ChangeMessage {
 		Element value = message.comment.createElement("value");		
 		value.setTextContent(commentString);		
 		comment.appendChild(value);   	
+		
+		if (uploadToken != null) {
+			Element tokenValue = message.comment.createElement("uploads");		
+			tokenValue.setTextContent(uploadToken);		
+			comment.appendChild(tokenValue); 
+		}
 
 		message.comment.appendChild(comment);
 	}	
@@ -92,6 +108,10 @@ public class ChangeMessage {
 
 		if (changeString.length() != 0) {
 			comment.append(changeString+"\n");
+		}
+		
+		if(changeComment.length() > 0 ) {
+			comment.append(changeComment+"\n");
 		}
 
 		if (jiraComment != null) {

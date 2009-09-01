@@ -101,7 +101,6 @@ public class NotificationDispatcher {
 				resource.put(commentMessage);
 			}
 
-
 			if (resource.getStatus().isSuccess()
 					&& resource.getResponseEntity().isAvailable()) {
 				log.debug("Received response"+resource.getResponseEntity());
@@ -110,11 +109,10 @@ public class NotificationDispatcher {
 			} else {
 				log.warn("No response received");
 			}
-
 		} catch (ResourceException e) {
 			log.error("Failed to send issue change notification", e);
 		} catch (IOException e) {
-			log.warn("Failed to represent request as text", e);
+			log.error("Failed to send issue change notification", e);
 		} catch (NoSuchFieldException e) {
 			// The event has already been debug logged by the mMessageBuilder
 		} catch (GenericEntityException e) {
