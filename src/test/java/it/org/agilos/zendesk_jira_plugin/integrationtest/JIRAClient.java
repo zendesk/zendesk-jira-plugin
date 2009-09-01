@@ -132,4 +132,12 @@ public class JIRAClient {
 		fthFatory.getTester().clickLinkWithText("Edit");
 		fthFatory.getTester().assertTextPresent("ZendeskUrl");
 	}
+
+	public void setUploadAttachments(String uploadAttachments) {
+		gotoListenerConfiguration();
+		log.info("Updating updateAttachments to "+uploadAttachments);
+		fthFatory.getTester().setFormElement("Upload attachments", uploadAttachments);
+		fthFatory.getTester().clickButton("Update");
+		fthFatory.getTester().assertTextPresent(uploadAttachments);
+	}
 }

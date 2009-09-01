@@ -17,6 +17,7 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	public static final String ZENDESK_TICKET_CUSTOMFIELD = "TicketIDField";
 	public static final String ZENDESK_PUBLIC_COMMENTS = "Public comments";
 	public static final String ZENDESK_KEYSTORE_PASSORD = "Keystore password(For https)";	
+	public static final String UPLOAD_ATTACHMENTS = "Upload attachments";
 	
 	/**
 	 * No notification will be sent for issue changes made by the indicated user. This is done to avoid Zendesk <-> Jira notification loops.
@@ -79,7 +80,14 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 				dispatcher.setPublicComments(true);
 			}
 		}
-		
+		if(true){ // Always do this as undefined value means true
+			String value = (String)params.get(UPLOAD_ATTACHMENTS);
+			if (value != null && value.equals("false")) {
+				AttachmentHandler.uploadAttachments = false;
+			} else {
+				AttachmentHandler.uploadAttachments = true;
+			}
+		}
 		if (params.containsKey(ZENDESK_KEYSTORE_PASSORD)) {
 			context.getParameters().clear(); // Hack, should just set the keystorePassword element, but all attempts to modify parameter set causes a UnsupportedOperationException 
 			context.getParameters().add("keystorePassword", (String)params.get(ZENDESK_KEYSTORE_PASSORD));
@@ -95,6 +103,7 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
         		ZENDESK_TICKET_CUSTOMFIELD, 
         		ZENDESK_APPLICATION_LOGIN, 
         		ZENDESK_PUBLIC_COMMENTS,
+        		UPLOAD_ATTACHMENTS,
         		ZENDESK_KEYSTORE_PASSORD};
     }
 

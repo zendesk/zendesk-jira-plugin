@@ -81,6 +81,40 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	
 	}
 	
+	@Test (groups = {"regressionTests"} )
+	public void testDisableUploadAttachment() throws Exception  {	
+		getFixture().getJiraClient().setUploadAttachments("false");
+		
+		String attachmentName = "mikis.jpg";
+		File uploadFile = loadFile(attachmentUploadDir+File.separator+"mikis.jpg");	
+		fixture.updateIssueWithAttachment(
+				issueKey, 
+				new String[] { attachmentName }, 
+				new File[] { uploadFile });
+		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testDisableUploadAttachment.1"), 
+				fixture.getNextRequest().getEntityAsText());	
+	
+		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+		
+		assert(!receivedFile.exists());
+		
+		getFixture().getJiraClient().setUploadAttachments("true");
+		
+		attachmentName = "https.jpg";
+		uploadFile = loadFile(attachmentUploadDir+File.separator+"mikis.jpg");	
+		fixture.updateIssueWithAttachment(
+				issueKey, 
+				new String[] { attachmentName }, 
+				new File[] { uploadFile });
+		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testDisableUploadAttachment.2"), 
+				fixture.getNextRequest().getEntityAsText());	
+	
+		receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+		
+		assert(receivedFile.exists());
+	
+	}
+	
 //	@Test (groups = {"regressionTests"} )
 //	public void testAttachmentDeleted() throws Exception  {	
 //		String attachmentName = "mikis.jpg";
