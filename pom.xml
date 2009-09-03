@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
-	<version>1.2</version>
+	<version>1.2.1-SNAPSHOT</version>
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -124,17 +124,17 @@
 		<repository>
 			<id>agilos.org</id>
 			<name>Agilos Repo</name>
-			<url>scp://agilos.org/var/www/repo</url>
+			<url>scp://agilos.org/var/www/maven/repo</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
 			<id>agilos.org</id>
 			<name>Agilos Snapshot Repo</name>
-			<url>scp://agilos.org/var/www/repo-snapshot</url>
+			<url>scp://agilos.org/var/www/maven/repo-snapshot</url>
 		</snapshotRepository>
 		<site>
 			<id>agilos.org</id>
-			<url>scp://agilos.org/var/www/maven/zendesk/${project.version}</url>
+			<url>scp://agilos.org/var/www/maven/sites/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
 
