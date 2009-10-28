@@ -50,6 +50,9 @@ public class NotificationDispatcher {
 	}
 
 	public void sendIssueChangeNotification(IssueEvent issueEvent) {
+		//Only handle issues with a defined ZendeskID, see http://jira.agilos.org/browse/ZEN-58.
+		if (getTicketID(issueEvent.getIssue().getKey()) == null || getTicketID(issueEvent.getIssue().getKey()).equals("")) return; 
+		
 		if (ZendeskNotifier.getZendeskserverConfiguration().getUrl() == null) {
 			log.warn("The Zendesk server URL hasn't been defined, no notification of the change will be sent to Zendesk. Please specify a " +
 			"Zendesk server URL in JIRA's administrativ interface under 'Listeners' -> ZendeskNotifier");

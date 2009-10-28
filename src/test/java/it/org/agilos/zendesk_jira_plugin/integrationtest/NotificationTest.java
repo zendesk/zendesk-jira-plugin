@@ -5,6 +5,8 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Calendar;
 
+import org.agilos.jira.soapclient.RemoteCustomFieldValue;
+import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.restlet.data.Parameter;
 import org.restlet.data.Request;
@@ -84,8 +86,7 @@ public class NotificationTest extends AbstractNotificationTest {
 		getFixture().getJiraClient().login("zendesk","zendeskpw");
 
 		fixture.updateIssueWithDescription(issueKey, "This is a changed description by the zendesk user, no notification should be set");
-		Request request = fixture.getNextRequest(); 
-		assertEquals("Notification received for Zendesk user update, ", null, request);
+		assertEquals("Notification received for Zendesk user update, ", null, fixture.getNextRequest());
 	}
 	
 	/**
@@ -127,5 +128,19 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong response received for public comment notification", 
 				TestDataFactory.getSoapResponse("testPrivateNotificationInvalidString.2"), 
 				fixture.getNextRequest().getEntityAsText());
+	}
+	/**
+	 * Test whether issues without a Zendesk ticket ID are handled correctly, eg. no Zendesk notification should be generated.
+	 */
+	@Test
+	public void testNonZendeskassociatedIssueUpdate() throws Exception {
+		RemoteIssue newIssue = new RemoteIssue();
+		newIssue.setType("1");
+		newIssue.setProject(PROJECT_KEY);
+		newIssue.setSummary("Non Zendesk issue (No Zendesk ID)");
+		newIssue = fixture.createIssue(newIssue);
+		
+		fixture.updateIssueWithDescription(newIssue.getKey(), "This issue doesn't have a Zendesk ID associated, no notification should be set");
+		assertEquals("Notification received for update of issue with a defined Zendesk ticket ID, ", null, fixture.getNextRequest());
 	}
 }
