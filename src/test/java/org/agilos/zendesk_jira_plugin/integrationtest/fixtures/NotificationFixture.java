@@ -47,6 +47,10 @@ public class NotificationFixture extends JIRAFixture {
 		newIssue.setSummary("TestIssue");
 		RemoteCustomFieldValue[] customFieldValues = new RemoteCustomFieldValue[] { new RemoteCustomFieldValue("customfield_10000","", new String[] { ticketID })};
 		newIssue.setCustomFieldValues(customFieldValues);
+	    return createIssue(newIssue);
+	}
+	
+	public RemoteIssue createIssue(RemoteIssue newIssue) throws Exception {
 		RemoteIssue createdIssue = jiraClient.getService().createIssue(jiraClient.getToken(), newIssue);
 		log.info("Created issue: "+createdIssue.getId()+" "+createdIssue.getSummary());
 		return createdIssue;
