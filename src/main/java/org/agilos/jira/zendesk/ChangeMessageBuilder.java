@@ -33,11 +33,9 @@ public class ChangeMessageBuilder {
 		ChangeMessage changeMessage = new ChangeMessage(changeEvent.getRemoteUser().getFullName(), 
 				changeEvent.getIssue().getKey()+" "+changeEvent.getIssue().getSummary());
 
-		if (changeEvent.getEventTypeId().equals(EventType.ISSUE_UPDATED_ID) ||
-				changeEvent.getEventTypeId().equals(EventType.ISSUE_MOVED_ID) ||
-				changeEvent.getEventTypeId().equals(EventType.ISSUE_CLOSED_ID) || 
-				changeEvent.getEventTypeId().equals(EventType.ISSUE_REOPENED_ID) ||
-				changeEvent.getEventTypeId().equals(EventType.ISSUE_RESOLVED_ID) ) {
+		if (changeEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
+			changeMessage.addComment(changeEvent.getComment().getBody());
+		} else {
 
 			List changes = changeEvent.getChangeLog().getRelated("ChildChangeItem");
 			Map<String, GenericValue> changeMap = new HashMap<String, GenericValue>();
@@ -52,41 +50,19 @@ public class ChangeMessageBuilder {
 				if (jiraFieldName.equals("Attachment")) {
 					String id = changeMap.get("Attachment").getString("newvalue");
 					if (id != null) { //Attachment added
-							AttachmentHandler.handleAttachment(changeMessage, Long.valueOf(changeMap.get("Attachment").getString("newvalue")));					
+						AttachmentHandler.handleAttachment(changeMessage, Long.valueOf(changeMap.get("Attachment").getString("newvalue")));					
 					} else { //Attachment deleted
 						changeMessage.addChangeComment("Attachment "+changeMap.get("Attachment").getString("oldstring")+" deleted.");
 					}
 				} else { changeMessage.addChange(JIRAZendeskFieldMapping.getMappedZendeskFieldName(jiraFieldName), 
 						jiraFieldName, gv.getString("newstring"), gv.getString("oldstring"));
 				}
-
 			}
 
 			if (log.isDebugEnabled()) log.debug("Issue change received for "+changeEvent.getIssue().getId()+", " +
 					"The following attributes have changed: "+changeMap.keySet());
 		}
 
-		else if (changeEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
-			changeMessage.addComment(changeEvent.getComment().getBody());
-		} 
-
-//		else if (changeEvent.getIssue().getStatusObject() != null &&
-//				!changeEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID)) { // Disregard newly created issues, this is not considered a status change
-//			changeMessage.addChange( "Info", changeEvent.getIssue().getStatusObject().getName(), null);
-//		}	
-
-		else {
-			//The logging done here, instead of at the exception handling to avoid composing the log message when debug logging is disabled.
-			if (log.isDebugEnabled()) {
-				StringBuffer logMessage = new StringBuffer();
-				logMessage.append("No notification handle defined for event with ID "+changeEvent.getEventTypeId());
-				if (changeEvent.getIssue().getStatusObject() != null) {
-					logMessage.append(" and status"+changeEvent.getIssue().getStatusObject().getName()); 
-				}
-				log.debug(logMessage.toString());
-			}
-			return null;
-		}
 		return changeMessage.createMessageParts();
 	}
 

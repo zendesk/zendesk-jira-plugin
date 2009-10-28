@@ -9,6 +9,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.atlassian.jira.event.issue.AbstractIssueEventListener;
 import com.atlassian.jira.event.issue.IssueEvent;
+import com.atlassian.jira.event.type.EventType;
 
 public class ZendeskNotifier extends AbstractIssueEventListener {
 	public static final String ZENDESK_URL_PARAMETER = "ZendeskUrl";
@@ -49,7 +50,15 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	 * Sends the event to  the <code>@link NotificationDispatcher</code>. 
 	 */
 	public void workflowEvent(IssueEvent issueEvent) {
-		dispatcher.sendIssueChangeNotification(issueEvent);
+		if (!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOGGED_ID) &&
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID) &&
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_ASSIGNED_ID) &&
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKSTARTED_ID) &&
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKSTOPPED_ID) && 
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOG_UPDATED_ID) &&
+				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOG_DELETED_ID) ) {
+			dispatcher.sendIssueChangeNotification(issueEvent);
+		}
 	}
 	
 	@Override

@@ -83,7 +83,7 @@ public class NotificationDispatcher {
 			resource.setChallengeResponse(ZendeskNotifier.getZendeskserverConfiguration().getAuthentication());
 
 			ChangeMessage.MessageParts messageParts = messageBuilder.createChangeRepresentation(issueEvent);
-			if(messageParts == null) return; //No relevant information to send to zendesk was found in the change event  
+
 			if ( messageParts.getTicketChanges() != null ) { // Contains changes
 				Representation changeMessage = getRepresentation(messageParts.getTicketChanges());
 				setSize(changeMessage);
