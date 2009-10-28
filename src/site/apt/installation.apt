@@ -3,6 +3,7 @@
  -----
 
 Installation
+
  * Download from {{{http://downloads.agilos.org}downloads}}
  
  * Copy into $JIRA_HOME/atlassian-jira/WEB-INF/lib/
