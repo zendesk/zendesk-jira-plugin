@@ -5,11 +5,9 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Calendar;
 
-import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.restlet.data.Parameter;
-import org.restlet.data.Request;
 import org.restlet.engine.http.HttpConstants;
 import org.restlet.engine.http.HttpRequest;
 import org.restlet.util.Series;

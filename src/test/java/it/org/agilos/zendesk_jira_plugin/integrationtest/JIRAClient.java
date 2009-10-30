@@ -41,13 +41,13 @@ public class JIRAClient {
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
-	private static FuncTestHelperFactory fthFatory;
+	private FuncTestHelperFactory fthFatory;
 	
-	public static FuncTestHelperFactory getFuncTestHelperFactory() {
+	public FuncTestHelperFactory getFuncTestHelperFactory() {
 		return fthFatory;
 	}
 	
-	public static IssueEditor getIssueEditor(String issuekey) {
+	public IssueEditor getIssueEditor(String issuekey) {
 		return new IssueEditor(issuekey, fthFatory);
 	}
 
@@ -98,7 +98,7 @@ public class JIRAClient {
         tester.getTestContext().setBaseUrl(environmentData.getBaseUrl().toExternalForm());
         HttpUnitOptions.setExceptionsThrownOnScriptError(false);
         tester.beginAt("/");
-        HttpUnitOptions.setScriptingEnabled(false);
+        HttpUnitOptions.setScriptingEnabled(true);
     }
 	
 	public void setZendeskUrl(String zendeskURL) {

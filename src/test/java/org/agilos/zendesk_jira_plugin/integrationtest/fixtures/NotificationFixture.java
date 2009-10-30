@@ -153,7 +153,7 @@ public class NotificationFixture extends JIRAFixture {
 		tester.assertTitleEquals("");
 		return null;
 	}
-
+	
 	private static byte[] getBytesArrayFile(File file) throws IOException {
 		InputStream is = new FileInputStream(file);
 

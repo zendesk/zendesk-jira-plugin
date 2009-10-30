@@ -53,8 +53,6 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 		if (!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOGGED_ID) &&
 				!issueEvent.getEventTypeId().equals(EventType.ISSUE_CREATED_ID) &&
 				!issueEvent.getEventTypeId().equals(EventType.ISSUE_ASSIGNED_ID) &&
-				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKSTARTED_ID) &&
-				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKSTOPPED_ID) && 
 				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOG_UPDATED_ID) &&
 				!issueEvent.getEventTypeId().equals(EventType.ISSUE_WORKLOG_DELETED_ID) ) {
 			dispatcher.sendIssueChangeNotification(issueEvent);

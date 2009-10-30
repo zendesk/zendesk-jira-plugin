@@ -36,7 +36,7 @@ public class JIRAFixture {
 	
 	private static final char FS = File.separatorChar;
 	
-	protected WebTester tester;
+	public WebTester tester;
 	
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
