@@ -9,6 +9,9 @@ import org.agilos.zendesk_jira_plugin.integrationtest.notifications.AttachmentRe
 import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
+
+import com.meterware.httpunit.UploadFileSpec;
 
 /**
  * ZEN-47 Upload of attachments to Zendesk, http://jira.agilos.org/browse/ZEN-47
@@ -133,6 +136,32 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
 	}
 	
+	/**
+	 * ZEN-65 Attachment comments are not included in notifications
+	 */
+	@Test (groups = {"regressionTests"} ) 
+	public void testAttachmentWithComment() throws Exception  {
+		String attachmentName = "pom-example.xml";
+		String comment = "Attaching file and adding comment at the same time";
+
+		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
+		
+		fixture.tester.gotoPage("browse/"+issueKey);
+		fixture.tester.clickLink("attach_file");
+		fixture.tester.setWorkingForm("jiraform");
+		
+		attachFile("filename.1", uploadFile);
+		fixture.tester.setFormElement("comment", comment);
+		fixture.tester.submit();
+		
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentWithComment.1"), request.getEntityAsText());	
+		
+		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+
+		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
+	}
+	
 //	@Test (groups = {"regressionTests"} )
 //	public void testAttachmentDeleted() throws Exception  {	
 //		String attachmentName = "mikis.jpg";
@@ -175,5 +204,17 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	private File loadFile(String fileName) {
 		return new File(fileName);		
 	}
+	
+	public void attachFile(String fieldName, File file) {
+		UploadFileSpec bigFile = new UploadFileSpec(file);
+        try {
+        	fixture.tester.getDialog().getResponse().getFormWithName("jiraform").setParameter(fieldName, new UploadFileSpec[] {
+                bigFile
+            });
+        }
+        catch(SAXException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 	

@@ -15,6 +15,7 @@ import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.apache.log4j.Logger;
+import org.apache.xml.security.utils.Base64;
 import org.restlet.data.Request;
 
 import com.atlassian.jira.issue.IssueFieldConstants;
@@ -84,7 +85,7 @@ public class NotificationFixture extends JIRAFixture {
 		log.info("Setting issue "+issueKey +" InProgress  ");
 		jiraClient.getService().progressWorkflowAction(jiraClient.getToken(), issueKey, "5", null);
 	}
-
+	
 	public void updateIssueWithAttachment(String issueKey, String[] names, File attachmentFiles[]) throws IOException {
 		byte[][] attachments = new byte[names.length][];
 		for (int attachmentInterator = 0; attachmentInterator < names.length ; attachmentInterator++) {
@@ -94,6 +95,17 @@ public class NotificationFixture extends JIRAFixture {
 		}
 		jiraClient.getService().addAttachmentsToIssue(jiraClient.getToken(), issueKey, names, attachments);
 	}
+	
+	/** new metode for large attachments requires JIRA 3.13.3
+	public void updateIssueWithAttachment(String issueKey, String[] names, File attachmentFiles[]) throws IOException {
+		String[] attachments = new String[names.length];
+		for (int attachmentInterator = 0; attachmentInterator < names.length ; attachmentInterator++) {
+			attachments[attachmentInterator] = Base64.encode(getBytesArrayFile(attachmentFiles[attachmentInterator]));
+
+			log.info("Adding attachment "+attachmentFiles[attachmentInterator].getAbsolutePath() +" to issue "+issueKey + " as "+names[attachmentInterator]);
+		}
+		jiraClient.getService().addBase64EncodedAttachmentsToIssue(jiraClient.getToken(), issueKey, names, attachments);
+	}*/
 
 	/**
 	 * Polls the notification listener for the next message for 10 seconds, and returns this. 

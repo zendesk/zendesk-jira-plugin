@@ -33,10 +33,7 @@ public class ChangeMessageBuilder {
 		ChangeMessage changeMessage = new ChangeMessage(changeEvent.getRemoteUser().getFullName(), 
 				changeEvent.getIssue().getKey()+" "+changeEvent.getIssue().getSummary());
 
-		if (changeEvent.getEventTypeId() == EventType.ISSUE_COMMENTED_ID) {
-			changeMessage.addComment(changeEvent.getComment().getBody());
-		} else {
-
+		if (changeEvent.getChangeLog() != null) {
 			List changes = changeEvent.getChangeLog().getRelated("ChildChangeItem");
 			Map<String, GenericValue> changeMap = new HashMap<String, GenericValue>();
 
@@ -62,6 +59,11 @@ public class ChangeMessageBuilder {
 			if (log.isDebugEnabled()) log.debug("Issue change received for "+changeEvent.getIssue().getId()+", " +
 					"The following attributes have changed: "+changeMap.keySet());
 		}
+
+		if (changeEvent.getComment() != null) {
+			changeMessage.addComment(changeEvent.getComment().getBody());
+		}
+
 
 		return changeMessage.createMessageParts();
 	}
