@@ -2,6 +2,7 @@ package org.agilos.jira.zendesk;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +40,7 @@ public class AttachmentHandler {
 	public static void  handleAttachment(ChangeMessage changeMessage, Long attachmentId) {
 
 		Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
-		String attachmentLink = NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachment.getId()+"/"+attachment.getFilename();
+		String attachmentLink = getAttachmentLink(attachment);
 
 		changeMessage.addChange("Attachment", attachment.getFilename()+" "+attachmentLink, null);
 		if(uploadAttachments) {
@@ -59,6 +60,23 @@ public class AttachmentHandler {
 		}  
 	}
 
+	private static String getAttachmentLink(Attachment attachment) {
+		StringBuffer stringLinkBuffer = new StringBuffer(NotificationDispatcher.getBaseUrl()+"/secure/attachment/"+attachment.getId()+"/");
+		stringLinkBuffer.append(convertToUrlString(attachment.getFilename()));
+		return stringLinkBuffer.toString();
+	}
+	
+	private static String convertToUrlString(String string) {
+		StringTokenizer st = new StringTokenizer(string, " ");
+		StringBuffer stringBuffer = new StringBuffer();
+
+		while (st.hasMoreElements()) {
+			stringBuffer.append(st.nextElement());
+			if (st.hasMoreElements()) stringBuffer.append("+");
+		}
+		return stringBuffer.toString();
+	}
+	
 	private static String uploadAttachment(Long attachmentId) throws HttpException, IOException, SAXException, ParserConfigurationException {
 		Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
 
@@ -73,7 +91,7 @@ public class AttachmentHandler {
 				ZendeskNotifier.getZendeskserverConfiguration().getUrl().getPort(),
 				AuthScope.ANY_REALM), defaultcreds);
 
-		PostMethod postMethod = new PostMethod(ZendeskNotifier.getZendeskserverConfiguration().getUrl()+"/uploads.xml?filename="+attachment.getFilename());
+		PostMethod postMethod = new PostMethod(ZendeskNotifier.getZendeskserverConfiguration().getUrl()+"/uploads.xml?filename="+convertToUrlString(attachment.getFilename()));
 
 		client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
 

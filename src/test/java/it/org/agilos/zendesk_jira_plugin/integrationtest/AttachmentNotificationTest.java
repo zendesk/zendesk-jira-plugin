@@ -114,6 +114,24 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		assert(receivedFile.exists());
 	
 	}
+	/**
+	 * http://jira.agilos.org/browse/ZEN-64 Attachment names with spaces are corrupt in notification links 
+	 */
+	@Test (groups = {"regressionTests"} )
+	public void testAttachmentNameWithSpaces() throws Exception  {		
+		String attachmentName = "favicon with spaces in name.ico";
+		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
+		fixture.updateIssueWithAttachment(
+				issueKey, 
+				new String[] { attachmentName }, 
+				new File[] { uploadFile });
+		Request request = fixture.getNextRequest(); 
+		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentNameWithSpaces.1"), request.getEntityAsText());	
+		
+		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+		
+		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
+	}
 	
 //	@Test (groups = {"regressionTests"} )
 //	public void testAttachmentDeleted() throws Exception  {	
@@ -135,7 +153,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	 * Attachments larger than 7 MB should be uploaded to Zendesk
 	 * @throws Exception
 	 */
-//	DOesn't currentl work, cause Out of memory in client axis stubs
+//	Doesn't currentl work, cause Out of memory in client axis stubs
 //	@Test (groups = {"regressionTests"} )
 //	public void testUploadBigAttachment() throws Exception  {	
 //		getFixture().getJiraClient().setZendeskUrl("https://localhost:8443");

@@ -9,3 +9,5 @@
 /projectsAgiloszendesk-jira-plugindebugjirajira-config
 /attachments
 /atlassian-jira.log
+/bin/
+/test-attachments
