@@ -15,7 +15,6 @@ import org.ofbiz.core.entity.GenericEntityException;
 import org.ofbiz.core.entity.GenericValue;
 
 import com.atlassian.jira.event.issue.IssueEvent;
-import com.atlassian.jira.event.type.EventType;
 
 public class ChangeMessageBuilder {
 	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());	
