@@ -249,8 +249,8 @@
 						</goals>
 						<configuration>
 							<urls>
-								<url>http://192.168.0.100:8180/rpc/soap/jirasoapservice-v2?wsdl</url>
-								<url>http://192.168.0.100:8180/rpc/soap/agilossoapservice-v1?wsdl</url>
+								<url>http://192.168.0.103:8180/rpc/soap/jirasoapservice-v2?wsdl</url>
+								<url>http://192.168.0.103:8180/rpc/soap/agilossoapservice-v1?wsdl</url>
 							</urls>
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
