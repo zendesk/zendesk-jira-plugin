@@ -187,8 +187,8 @@
 								<configuration>
 									<tasks>
 										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo"
+											todir="bamboo@192.168.0.103:~/deploy" password="bamboo2997" />
+										<sshexec host="192.168.0.103" username="bamboo"
 											password="bamboo2997" command="~/jira-test.sh deploy" />
 									</tasks>
 								</configuration>
