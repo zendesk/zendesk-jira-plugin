@@ -7,6 +7,7 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 
 public class ChangeMessage {
 	private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -46,7 +47,8 @@ public class ChangeMessage {
 		}
 		if (zendeskFieldID != null) {
 			Element element = message.ticketChanges.createElement(zendeskFieldID);
-			element.setTextContent(newValue);
+			Text value = message.ticketChanges.createTextNode(newValue);
+			element.appendChild(value);
 			ticket.appendChild(element);	
 		}
 
@@ -78,19 +80,19 @@ public class ChangeMessage {
 
 		Element isPublic = message.comment.createElement("is-public");
 		if (publicComments) {
-			isPublic.setTextContent("true");
+			isPublic.appendChild(message.comment.createTextNode("true"));
 		} else {
-			isPublic.setTextContent("false");
+			isPublic.appendChild(message.comment.createTextNode("false"));
 		}
 		comment.appendChild(isPublic);
 
-		Element value = message.comment.createElement("value");		
-		value.setTextContent(commentString);		
-		comment.appendChild(value);   	
+		Element commentValue = message.comment.createElement("value");	
+		commentValue.appendChild(message.comment.createTextNode(commentString));	
+		comment.appendChild(commentValue);   	
 		
 		if (uploadToken != null) {
 			Element tokenValue = message.comment.createElement("uploads");		
-			tokenValue.setTextContent(uploadToken);		
+			tokenValue.appendChild(message.comment.createTextNode(uploadToken));	
 			comment.appendChild(tokenValue); 
 		}
 

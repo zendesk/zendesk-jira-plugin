@@ -106,7 +106,7 @@ public class AttachmentHandler {
 		} else {
 			log.info("Attachment "+attachment.getId()+ " posted, response was "+postMethod.getResponseBodyAsString());
 			Document document = factory.newDocumentBuilder().parse(postMethod.getResponseBodyAsStream());
-			attachmentUploadToken =  document.getFirstChild().getAttributes().getNamedItem("token").getTextContent();
+			attachmentUploadToken =  document.getFirstChild().getAttributes().getNamedItem("token").getNodeValue();
 		}
 
 		postMethod.releaseConnection();

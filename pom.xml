@@ -4,13 +4,19 @@
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
 		<artifactId>jira-plugin-base</artifactId>
-		<version>15</version>
+		<version>18</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
 	<version>1.3-SNAPSHOT</version>
+
+	<organization>
+		<name>Agilos</name>
+		<url>http://agilos.org</url>
+	</organization>
+
 	<name>Zendesk JIRA plugin</name>
 	<description>Plugin for JIRA providing Zendesk integration</description>
 	<url>http://agilos.org/display/zen/ZenDesk+JIRA+plugin</url>
@@ -34,11 +40,6 @@
 		<url>http://jira.agilos.org/browse/ZEN</url>
 	</issueManagement>
 
-	<organization>
-		<name>Agilos</name>
-		<url>http://agilos.org</url>
-	</organization>
-
 	<developers>
 		<developer>
 			<name>Mikis Seth Sørensen</name>
@@ -51,14 +52,14 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>5.9</version>
+			<version>5.10</version>
 			<scope>test</scope>
 			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
-			<groupId>atlassian</groupId>
+			<groupId>com.atlassian.jira.plugins</groupId>
 			<artifactId>atlassian-jira-rpc-plugin</artifactId>
-			<version>3.13.1-1</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
@@ -74,6 +75,7 @@
 			<groupId>com.cenqua.clover</groupId>
 			<artifactId>clover</artifactId>
 			<version>2.4.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -115,10 +117,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-		</dependencies>
-	</dependencyManagement>
 
 	<distributionManagement>
 		<repository>
@@ -140,38 +138,6 @@
 
 	<profiles>
 		<profile>
-			<id>regression-integration-test</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/regression_integration_test.xml</suiteXmlFile>
-							</suiteXmlFiles>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>regression-test</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<suiteXmlFiles>
-								<suiteXmlFile>src/test/resources/regression_test.xml</suiteXmlFile>
-							</suiteXmlFiles>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>deploy2test</id>
 			<build>
 				<plugins>
@@ -187,8 +153,8 @@
 								<configuration>
 									<tasks>
 										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="bamboo@192.168.0.100:~/deploy" password="bamboo2997" />
-										<sshexec host="192.168.0.100" username="bamboo"
+											todir="bamboo@${test-jira}:~/deploy" password="bamboo2997" />
+										<sshexec host="${test-jira}" username="bamboo"
 											password="bamboo2997" command="~/jira-test.sh deploy" />
 									</tasks>
 								</configuration>
@@ -217,7 +183,6 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>RELEASE</version>
 				<configuration>
-					<compilerVersion>1.6</compilerVersion>
 					<source>1.5</source>
 					<target>1.5</target>
 					<debug>true</debug>
@@ -249,8 +214,8 @@
 						</goals>
 						<configuration>
 							<urls>
-								<url>http://192.168.0.103:8180/rpc/soap/jirasoapservice-v2?wsdl</url>
-								<url>http://192.168.0.103:8180/rpc/soap/agilossoapservice-v1?wsdl</url>
+								<url>${jira.wsdl.location}/jirasoapservice-v2?wsdl</url>
+								<url>${jira.wsdl.location}/agilossoapservice-v1?wsdl</url>
 							</urls>
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
@@ -296,14 +261,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
-				plugin> <artifactId>maven-assembly-plugin</artifactId>
-				<configuration> <descriptorRefs>
-				<descriptorRef>jar-with-dependencies</descriptorRef>
-				</descriptorRefs> </configuration> <executions> <execution>
-				<id>make-assembly</id> <phase>package</phase> <goals>
-				<goal>single</goal> </goals> </execution> </executions> </plugin
-			-->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1-atlassian-2</version>
+			</plugin>
 		</plugins>
 		<testResources>
 			<testResource>
@@ -322,10 +283,19 @@
 		</repository>
 	</repositories>
 	<properties>
-		<jira.start>true</jira.start>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jira.test-lib.exports.path>src/test/xml/</jira.test-lib.exports.path>
-		<atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
+		<atlassian.pdk.server.url>http://localhost:2990/jira/</atlassian.pdk.server.url>
 		<atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
+		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
+		<!--
+			Default build configuration depending on JIRA version, may be
+			overridden by profile settings in profiles.xml
+		-->
+		<jira.version>4.0</jira.version>
+		<jira.data.version>4.0</jira.data.version>
+		<test-jira>192.168.0.103</test-jira>
+		<jira.wsdl.location>http://192.168.0.103:8181/rpc/soap</jira.wsdl.location>
 		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
 	</properties>
 </project>

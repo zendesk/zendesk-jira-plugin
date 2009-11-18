@@ -15,7 +15,6 @@ import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.apache.log4j.Logger;
-import org.apache.xml.security.utils.Base64;
 import org.restlet.data.Request;
 
 import com.atlassian.jira.issue.IssueFieldConstants;

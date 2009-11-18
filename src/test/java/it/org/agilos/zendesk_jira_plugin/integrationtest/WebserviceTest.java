@@ -5,21 +5,11 @@ import static org.testng.AssertJUnit.assertTrue;
 import org.agilos.jira.soapclient.RemoteAuthenticationException;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.WebserviceFixture;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class WebserviceTest extends JIRATest {
 
     private WebserviceFixture fixture;
-    
-	@BeforeMethod (alwaysRun = true)
-    void setUpTest() throws Exception {
-		fixture = new WebserviceFixture();
-    	getFixture().loadData("restoreData.xml");
-    	getFixture().connect();
-		fixture.createUserWithUsername(USER_ID);
-	    fixture.createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID);  
-    }
 	
 	/**
 	 * Verifies that login requests with invalid users are rejected.
@@ -96,6 +86,7 @@ public class WebserviceTest extends JIRATest {
 
 	@Override
 	protected JIRAFixture getFixture() {
+		if (fixture == null ) fixture = new WebserviceFixture();
 		return fixture;
 	}
 }
