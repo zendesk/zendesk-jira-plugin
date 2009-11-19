@@ -153,9 +153,9 @@
 								<configuration>
 									<tasks>
 										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="bamboo@${test-jira}:~/deploy" password="bamboo2997" />
-										<sshexec host="${test-jira}" username="bamboo"
-											password="bamboo2997" command="~/jira-test.sh deploy" />
+											todir="jira@${test-jira}:~/deploy" password="jira2997" trust="true"/>
+										<sshexec host="${test-jira}" username="jira"
+											password="jira2997" command="~/jira-test.sh deploy ${jira.version}" trust="true"/>
 									</tasks>
 								</configuration>
 							</execution>
@@ -167,9 +167,9 @@
 								<version>1.6.5</version>
 							</dependency>
 							<dependency>
-								<groupId>jsch</groupId>
+								<groupId>com.jcraft</groupId>
 								<artifactId>jsch</artifactId>
-								<version>0.1.25</version>
+								<version>0.1.42</version>
 							</dependency>
 						</dependencies>
 					</plugin>
