@@ -60,6 +60,7 @@
 			<groupId>com.atlassian.jira.plugins</groupId>
 			<artifactId>atlassian-jira-rpc-plugin</artifactId>
 			<version>4.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
@@ -153,9 +154,9 @@
 								<configuration>
 									<tasks>
 										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="jira@${test-jira}:~/deploy" password="jira2997" trust="true"/>
-										<sshexec host="${test-jira}" username="jira"
-											password="jira2997" command="~/jira-test.sh deploy ${jira.version}" trust="true"/>
+											todir="jira@${test-jira}:~/deploy" password="jira2997" trust="true" />
+										<sshexec host="${test-jira}" username="jira" password="jira2997"
+											command="~/jira-test.sh deploy ${jira.deploy.version}" trust="true" />
 									</tasks>
 								</configuration>
 							</execution>
@@ -213,10 +214,7 @@
 							<goal>wsdl2java</goal>
 						</goals>
 						<configuration>
-							<urls>
-								<url>${jira.wsdl.location}/jirasoapservice-v2?wsdl</url>
-								<url>${jira.wsdl.location}/agilossoapservice-v1?wsdl</url>
-							</urls>
+						    <sourceDirectory>src/test/wsdl</sourceDirectory>
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
 					</execution>
@@ -265,6 +263,18 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.1-atlassian-2</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemProperties>
+						<property>
+							<name>jira.version</name>
+							<value>${jira.version}</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
 		</plugins>
 		<testResources>
 			<testResource>
@@ -285,17 +295,18 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jira.test-lib.exports.path>src/test/xml/</jira.test-lib.exports.path>
-		<atlassian.pdk.server.url>http://localhost:2990/jira/</atlassian.pdk.server.url>
+		<atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
 		<atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
 		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
 		<!--
 			Default build configuration depending on JIRA version, may be
 			overridden by profile settings in profiles.xml
 		-->
+		<atlassian.product.version>4.0</atlassian.product.version>
+		<atlassian.product.data.version>4.0</atlassian.product.data.version>
 		<jira.version>4.0</jira.version>
 		<jira.data.version>4.0</jira.data.version>
-		<test-jira>192.168.0.103</test-jira>
+		<jira.deploy.version>4.0</jira.deploy.version>
 		<jira.wsdl.location>http://192.168.0.103:8181/rpc/soap</jira.wsdl.location>
-		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
 	</properties>
 </project>
