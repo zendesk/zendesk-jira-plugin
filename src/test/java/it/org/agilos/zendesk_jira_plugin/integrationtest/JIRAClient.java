@@ -35,9 +35,9 @@ public class JIRAClient {
 	protected JiraSoapService jiraSoapService;
 	protected String jiraSoapToken;
 	
-	public static final String jiraUrl = System.getProperty("zendesk.jira.url","http://localhost:1990/jira");
-	public static final String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
-	public static final String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
+	public static String jiraUrl;
+	public static String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
+	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
@@ -54,10 +54,12 @@ public class JIRAClient {
 	private JIRAClient() {
 		WebTester tester = new WebTester();
 		LocalTestEnvironmentData environmentData = new LocalTestEnvironmentData();
-
+		
 		initWebTester(tester, environmentData);
 		
 		fthFatory = new FuncTestHelperFactory(tester, environmentData);
+		
+		jiraUrl = environmentData.getBaseUrl().toString();
 	}
 	
 	public void login() throws Exception {		

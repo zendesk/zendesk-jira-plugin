@@ -154,7 +154,7 @@ public class JIRAFixture {
 				tester.setFormElement("filename", filePath);
 				tester.setFormElement("indexPath", JIRAHomeDir + FS + "indexes");	
 				tester.submit();
-				tester.assertTextPresent("Setup is now complete.");
+				//tester.assertTextPresent("Setup is now complete."); Language dependent
 			} else {
 				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin");// GUI login with default user
 				tester.gotoPage("secure/admin/XmlRestore!default.jspa");

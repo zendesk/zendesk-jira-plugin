@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -64,43 +66,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.restlet</groupId>
-			<artifactId>org.restlet</artifactId>
-			<version>1.2-M2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.restlet</groupId>
-			<artifactId>org.restlet.ext.ssl</artifactId>
-			<version>1.2-M2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cenqua.clover</groupId>
-			<artifactId>clover</artifactId>
-			<version>2.4.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jul-to-slf4j</artifactId>
-			<version>1.5.6</version>
-		</dependency>
-		<dependency>
-			<groupId>com.noelios.restlet</groupId>
-			<artifactId>com.noelios.restlet</artifactId>
-			<version>1.1.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.fileupload</artifactId>
 			<version>1.2-M2</version>
 			<scope>test</scope>
@@ -117,8 +82,29 @@
 			<version>1.3.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.5.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.noelios.restlet</groupId>
+			<artifactId>com.noelios.restlet</artifactId>
+			<version>1.1.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.restlet</groupId>
+			<artifactId>org.restlet</artifactId>
+			<version>1.2-M2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.restlet</groupId>
+			<artifactId>org.restlet.ext.ssl</artifactId>
+			<version>1.2-M2</version>
+		</dependency>
 	</dependencies>
-
 	<distributionManagement>
 		<repository>
 			<id>agilos.org</id>
@@ -137,72 +123,49 @@
 		</site>
 	</distributionManagement>
 
-	<profiles>
-		<profile>
-			<id>deploy2test</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>deploy-to-testserver</id>
-								<phase>package</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<scp file="target/zendesk-jira-plugin-${project.version}.jar"
-											todir="jira@${test-jira}:~/deploy" password="jira2997" trust="true" />
-										<sshexec host="${test-jira}" username="jira" password="jira2997"
-											command="~/jira-test.sh deploy ${jira.deploy.version}" trust="true" />
-									</tasks>
-								</configuration>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>ant</groupId>
-								<artifactId>ant-jsch</artifactId>
-								<version>1.6.5</version>
-							</dependency>
-							<dependency>
-								<groupId>com.jcraft</groupId>
-								<artifactId>jsch</artifactId>
-								<version>0.1.42</version>
-							</dependency>
-						</dependencies>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>RELEASE</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-					<debug>true</debug>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-					<optimize>false</optimize>
+					<systemProperties>
+						<property>
+							<name>jira.version</name>
+							<value>${jira.version}</value>
+						</property>
+						<property>
+							<name>test.server.properties</name>
+							<value>test-jira-${jira.version}.properties</value>
+						</property>
+					</systemProperties>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.atlassian.maven.plugins</groupId>
-				<artifactId>maven-clover2-plugin</artifactId>
-				<version>2.4.2</version>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<targetPercentage>80%</targetPercentage>
-					<generateHistorical>true</generateHistorical>
-					<licenseLocation>${basedir}/clover.license</licenseLocation>
-					<historyDir>${user.home}/history/${project.artifact}</historyDir>
-					<jdk>1.5</jdk>
+					<source>1.5</source>
+					<target>1.5</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeTransitive>true</excludeTransitive>
+							<includeScope>runtime</includeScope>
+							<excludeScope>provided</excludeScope>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -214,7 +177,7 @@
 							<goal>wsdl2java</goal>
 						</goals>
 						<configuration>
-						    <sourceDirectory>src/test/wsdl</sourceDirectory>
+							<sourceDirectory>src/test/wsdl</sourceDirectory>
 							<packageSpace>org.agilos.jira.soapclient</packageSpace>
 						</configuration>
 					</execution>
@@ -260,20 +223,41 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.1-atlassian-2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<systemProperties>
-						<property>
-							<name>jira.version</name>
-							<value>${jira.version}</value>
-						</property>
-					</systemProperties>
-				</configuration>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<exec os="Windows Vista"
+									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat"
+									dir="${jira.install}/JIRA-${jira.version}" />
+								<exec os="linux"
+									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
+									dir="${jira.install}/JIRA-${jira.version}" />
+								<sleep seconds="5" />
+								<delete>
+									<fileset
+										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
+										includes="zendesk-jira-plugin-*.jar" />
+								</delete>
+								<copy
+									file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
+									tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />
+								<exec os="Windows Vista"
+									executable="${jira.install}/JIRA-${jira.version}/bin/startup.bat"
+									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
+								<exec os="linux"
+									executable="${jira.install}/JIRA-${jira.version}/bin/startup.sh"
+									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
+								<sleep seconds="30" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<testResources>
@@ -294,19 +278,15 @@
 	</repositories>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jira.test-lib.exports.path>src/test/xml/</jira.test-lib.exports.path>
-		<atlassian.pdk.server.url>http://localhost:1990/jira/</atlassian.pdk.server.url>
-		<atlassian.pdk.server.username>admin</atlassian.pdk.server.username>
-		<atlassian.pdk.server.password>admin</atlassian.pdk.server.password>
+		<extractDependencies>true</extractDependencies>
 		<!--
 			Default build configuration depending on JIRA version, may be
 			overridden by profile settings in profiles.xml
 		-->
-		<atlassian.product.version>4.0</atlassian.product.version>
-		<atlassian.product.data.version>4.0</atlassian.product.data.version>
 		<jira.version>4.0</jira.version>
-		<jira.data.version>4.0</jira.data.version>
 		<jira.deploy.version>4.0</jira.deploy.version>
-		<jira.wsdl.location>http://192.168.0.103:8181/rpc/soap</jira.wsdl.location>
+		<!-- Disable Atlassian PDK integrationstest JIRA startup -->
+		<jira.plugin.install>false</jira.plugin.install>
+		<jira.start>false</jira.start>
 	</properties>
 </project>

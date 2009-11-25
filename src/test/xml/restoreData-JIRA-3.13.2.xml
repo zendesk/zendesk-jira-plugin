@@ -4,38 +4,33 @@
 
 ___ Exported on ___________________
 
-     on                                  : 30. oktober 2009 12:27:39 CET
+     on                                  : 25. november 2009 13:31:26 CET
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
 
      JIRA Build                          : Enterprise Edition, Version: 3.13.2-#335
-     JIRA Installation Type              : Source
-     Java Version                        : 1.6.0_11 - Sun Microsystems Inc.
-     Current Working Directory           : D:\projects\Agilos\zendesk-jira-plugin
-     Maximum Allowable Memory            : 559MB
-     Total Memory                        : 198MB
-     Free Memory                         : 29MB
-     Used Memory                         : 169MB
-     Total PermGen Memory                : 288MB
-     Free PermGen Memory                 : 234MB
-     Used PermGen Memory                 : 53MB
-     JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx564m -Djira.home=d:\projects\Agilos\zendesk-jira-plugin\target/jira-home -Xdebug -Xnoagent -Xrunjdwp:server=y,transport=dt_socket,address=5006,suspend=n -Dcargo.logging=debug -Dcargo.datasource.datasource=cargo.datasource.url=jdbc:hsqldb:d:\projects\Agilos\zendesk-jira-plugin\debug\jira\jira-config/jira-home/database|
-		cargo.datasource.driver=org.hsqldb.jdbcDriver|
-		cargo.datasource.username=sa|
-		cargo.datasource.password=|
-		cargo.datasource.type=javax.sql.DataSource|
-		cargo.datasource.jndi=jdbc/JiraDS -Dcatalina.home=d:\projects\Agilos\zendesk-jira-plugin\target\apache-tomcat-5.5.23-jdk14 -Dcatalina.base=d:\projects\Agilos\zendesk-jira-plugin\debug\jira\tomcat5x -Djava.io.tmpdir=d:\projects\Agilos\zendesk-jira-plugin\debug\jira\tomcat5x\temp
+     JIRA Installation Type              : Standalone
+     Java Version                        : 1.6.0_17 - Sun Microsystems Inc.
+     Current Working Directory           : D:\apps\jira-test\JIRA-3.13.2
+     Maximum Allowable Memory            : 254MB
+     Total Memory                        : 127MB
+     Free Memory                         : 81MB
+     Used Memory                         : 46MB
+     Total PermGen Memory                : 160MB
+     Free PermGen Memory                 : 120MB
+     Used PermGen Memory                 : 39MB
+     JVM Input Arguments                 : -XX:MaxPermSize=128m -Xms128m -Xmx256m -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=D:\apps\jira-test\JIRA-3.13.2\conf\logging.properties -Djava.endorsed.dirs=D:\apps\jira-test\JIRA-3.13.2\common\endorsed -Dcatalina.base=D:\apps\jira-test\JIRA-3.13.2 -Dcatalina.home=D:\apps\jira-test\JIRA-3.13.2 -Djava.io.tmpdir=D:\apps\jira-test\JIRA-3.13.2\temp
 
 ___ Database Configuration ______
 
-     Loading entityengine.xml from       : file:/D:/projects/Agilos/zendesk-jira-plugin/debug/jira/jira-webapp/WEB-INF/classes/entityengine.xml
+     Loading entityengine.xml from       : file:/D:/apps/jira-test/JIRA-3.13.2/atlassian-jira/WEB-INF/classes/entityengine.xml
      Entity model data source name       : defaultDS
      Entity model field type name        : hsql
      Entity model schema name            : PUBLIC
      Database Version                    : HSQL Database Engine - 1.8.0
      Database Driver                     : HSQL Database Engine Driver - 1.8.0
-     Database URL                        : jdbc:hsqldb:d:projectsAgiloszendesk-jira-plugindebugjirajira-config/jira-home/database
+     Database URL                        : jdbc:hsqldb:D:\apps\jira-test\JIRA-3.13.2/database/jiradb
      Database JNDI address               : java:comp/env/jdbc/JiraDS
 
 ___ Application Properties ______
@@ -43,7 +38,7 @@ ___ Application Properties ______
      Edition                             : Enterprise
      Version                             : 3.13.2
      Build #                             : 335
-     Installation Type                   : Source
+     Installation Type                   : Standalone
      Server ID                           : ADDB-GGBW-V7CZ-OS3I
      Default Language                    : English (UK)
      External User Management            : OFF
@@ -60,11 +55,23 @@ ___ Database Statistics _________
 
 ___ File Paths __________________
 
-     Location of atlassian-jira.log      : D:\projects\Agilos\zendesk-jira-plugin\atlassian-jira.log
+     Location of atlassian-jira.log      : D:\apps\jira-test\JIRA-3.13.2\atlassian-jira.log
      Index Path                          : C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes
      Attachment Path                     : test-attachments
 
 ___ Plugins _____________________
+
+     FishEye Plugin                      : com.atlassian.jira.ext.fisheye
+          Version                             : 2.2.2
+          Status                              : enabled
+          Vendor                              : Atlassian Software Systems
+          Description                         : JIRA Fisheye Plugin
+
+     JIRA Bamboo Plugin                  : com.atlassian.jira.plugin.ext.bamboo
+          Version                             : 2.2
+          Status                              : enabled
+          Vendor                              : Atlassian Software Systems Pty Ltd
+          Description                         : Allows you see builds and telemetry from a remote Bamboo server
 
      RPC JIRA Plugin                     : com.atlassian.jira.ext.rpc
           Version                             : 3.13.1
@@ -79,7 +86,7 @@ ___ Plugins _____________________
           Description                         : This plugin renders a user in JIRA.
 
      Zendesk JIRA Plugin                 : org.agilos.jira
-          Version                             : 1.2
+          Version                             : 1.3
           Status                              : enabled
           Vendor                              : Agilos Open Source Foundation
           Description                         : The Zendesk JIRA SOAP services.
@@ -105,7 +112,7 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 30-10-09 12:27
+     Last Run                            : 25-11-09 13:30
 
 ___ Trusted Applications ________
 
@@ -176,7 +183,7 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10150" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10170" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -388,7 +395,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="jira"/>
     <OSPropertyString id="10161" value="jira"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10570" value="571"/>
+    <OSPropertyString id="10570" value="578"/>
     <OSPropertyString id="10580" value="en_UK"/>
     <OSPropertyString id="10600" value="admin@nowhere.org"/>
     <OSPropertyString id="10601" value="Integration test admin user"/>
@@ -432,7 +439,9 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <PluginVersion id="10024" name="View Project Operations Sections" key="jira.webfragments.view.project.operations" version="1.0" created="2009-03-24 13:54:17.012"/>
     <PluginVersion id="10025" name="Project Role Actors Plugin" key="com.atlassian.jira.plugin.system.projectroleactors" version="1.0" created="2009-03-24 13:54:17.013"/>
     <PluginVersion id="10026" name="JIRA Footer" key="jira.footer" version="1.0" created="2009-03-24 13:54:17.014"/>
-    <PluginVersion id="10040" name="Zendesk JIRA Plugin" key="org.agilos.jira" version="1.2" created="2009-08-24 12:04:06.031"/>
+    <PluginVersion id="10040" name="Zendesk JIRA Plugin" key="org.agilos.jira" version="1.3" created="2009-11-19 16:01:30.5"/>
+    <PluginVersion id="10050" name="FishEye Plugin" key="com.atlassian.jira.ext.fisheye" version="2.2.2" created="2009-11-25 13:30:33.058"/>
+    <PluginVersion id="10051" name="JIRA Bamboo Plugin" key="com.atlassian.jira.plugin.ext.bamboo" version="2.2" created="2009-11-25 13:30:33.063"/>
     <PortalPage id="10000" pagename="System Dashboard" sequence="0" favCount="0"/>
     <PortletConfiguration id="10000" portalpage="10000" portletId="INTRODUCTION" columnNumber="0" position="0"/>
     <PortletConfiguration id="10001" portalpage="10000" portletId="PROJECTS" columnNumber="0" position="1"/>
@@ -517,7 +526,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10160"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10180"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>
@@ -527,7 +536,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="OSUser" seqId="10310"/>
     <SequenceValueItem seqName="OSWorkflowEntry" seqId="10370"/>
     <SequenceValueItem seqName="OptionConfiguration" seqId="10010"/>
-    <SequenceValueItem seqName="PluginVersion" seqId="10050"/>
+    <SequenceValueItem seqName="PluginVersion" seqId="10060"/>
     <SequenceValueItem seqName="PortalPage" seqId="10010"/>
     <SequenceValueItem seqName="PortletConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Project" seqId="10250"/>
@@ -966,7 +975,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
 
 ___ Entities ______________________
 
-     Total                               : 463
+     Total                               : 465
 
      ConfigurationContext                : 2
      CustomField                         : 1
@@ -998,7 +1007,7 @@ ___ Entities ______________________
      OSUser                              : 5
      OptionConfiguration                 : 4
      PermissionScheme                    : 1
-     PluginVersion                       : 26
+     PluginVersion                       : 28
      PortalPage                          : 1
      PortletConfiguration                : 7
      Priority                            : 5

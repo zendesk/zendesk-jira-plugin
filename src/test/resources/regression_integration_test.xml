@@ -11,8 +11,5 @@
 			<package name="it.org.agilos.*" />
    		</packages>		
 	</test>
-	<listeners>
-		<listener class-name="it.org.agilos.zendesk_jira_plugin.integrationtest.JiraTestLogger" />
-	</listeners>
 </suite>
 

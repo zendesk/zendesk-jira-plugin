@@ -4,28 +4,11 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<profiles>
 		<profile>
-			<id>JIRA4</id>
-			<activation>
-				<property>
-					<name>jira.version</name>
-					<value>4</value>
-				</property>
-			</activation>
+			<id>jira3</id>
 			<properties>
-				<jira.wsdl.location>http://192.168.0.103:8181/rpc/soap</jira.wsdl.location>
-			</properties>
-		</profile>
-		<profile>
-			<id>JIRA3</id>
-			<activation>
-				<property>
-					<name>jira.version</name>
-					<value>3.13</value>
-				</property>
-			</activation>
-			<properties>			
-				<jira.data.version>3.13</jira.data.version>		
-				<jira.wsdl.location>http://192.168.0.103:8180/rpc/soap</jira.wsdl.location>
+				<jira.version>3.13.2</jira.version>
+				<jira.data.version>3.13.2</jira.data.version>
+				<jira.deploy.version>3.13.2</jira.deploy.version>
 			</properties>
 		</profile>
 	</profiles>
