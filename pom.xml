@@ -235,7 +235,7 @@
 								<exec os="Windows Vista"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat"
 									dir="${jira.install}/JIRA-${jira.version}" />
-								<exec os="linux"
+								<exec os="Linux"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
 									dir="${jira.install}/JIRA-${jira.version}" />
 								<sleep seconds="5" />
@@ -250,7 +250,7 @@
 								<exec os="Windows Vista"
 									executable="${jira.install}/JIRA-${jira.version}/bin/startup.bat"
 									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
-								<exec os="linux"
+								<exec os="Linux"
 									executable="${jira.install}/JIRA-${jira.version}/bin/startup.sh"
 									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
 								<sleep seconds="30" />
