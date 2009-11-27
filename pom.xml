@@ -41,7 +41,12 @@
 		<system>JIRA</system>
 		<url>http://jira.agilos.org/browse/ZEN</url>
 	</issueManagement>
-
+	
+	<ciManagement>
+		<system>bamboo</system>
+		<url>http://bamboo.agilos.org/browse/ZEN</url>
+	</ciManagement>
+	
 	<developers>
 		<developer>
 			<name>Mikis Seth Sørensen</name>
