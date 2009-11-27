@@ -11,7 +11,7 @@ public class JIRAZendeskFieldMapping {
 	static {
 		fieldMap.put(IssueFieldConstants.SUMMARY, "subject");
 		fieldMap.put(IssueFieldConstants.DESCRIPTION, "description");
-		fieldMap.put(IssueFieldConstants.ISSUE_KEY, "external-id");
+		fieldMap.put("Key", "external-id");
 	}
 	
 	public static String getMappedZendeskFieldName(String jiraFieldName) {

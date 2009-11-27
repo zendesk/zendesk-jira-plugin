@@ -238,7 +238,7 @@
 								<exec os="Linux"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
 									dir="${jira.install}/JIRA-${jira.version}" />
-								<sleep seconds="5" />
+								<sleep seconds="10" />
 								<delete>
 									<fileset
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
