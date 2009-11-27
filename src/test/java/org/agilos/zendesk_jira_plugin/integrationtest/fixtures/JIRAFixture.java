@@ -26,7 +26,7 @@ public class JIRAFixture {
 	Map<String, RemoteUser> userMap = new HashMap<String, RemoteUser>();
 	Map<String, RemoteProject> projectMap = new HashMap<String, RemoteProject>();
 
-	protected JIRAClient jiraClient;
+	public JIRAClient jiraClient;
 
 	private Logger log = Logger.getLogger(JIRAFixture.class.getName());
 

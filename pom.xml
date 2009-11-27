@@ -277,6 +277,7 @@
 				<reportSets>
 					<reportSet>
 						<reports>
+							<report>index</report>
 							<report>project-team</report>
 							<report>cim</report>
 							<report>issue-tracking</report>

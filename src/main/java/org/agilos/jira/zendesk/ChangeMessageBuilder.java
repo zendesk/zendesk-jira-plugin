@@ -59,7 +59,7 @@ public class ChangeMessageBuilder {
 					"The following attributes have changed: "+changeMap.keySet());
 		}
 
-		if (changeEvent.getComment() != null) {
+		if (changeEvent.getComment() != null && changeEvent.getComment().getRoleLevel() == null) {
 			changeMessage.addComment(changeEvent.getComment().getBody());
 		}
 

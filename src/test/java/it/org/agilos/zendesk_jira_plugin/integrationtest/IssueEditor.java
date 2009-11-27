@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
-import com.atlassian.jira.functest.framework.navigation.IssueNavigation;
 
 public class IssueEditor {
 	private Logger log = Logger.getLogger(NotificationTest.class.getName());

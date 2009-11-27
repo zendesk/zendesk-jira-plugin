@@ -105,21 +105,21 @@ public class ChangeMessage {
 	}
 
 	public MessageParts createMessageParts() throws DOMException, ParserConfigurationException {
-		StringBuffer comment = new StringBuffer();
-		comment.append(author+" has updated JIRA issue "+issueString+" with:");
+		StringBuffer commentSB = new StringBuffer();
 
 		if (changeString.length() != 0) {
-			comment.append(changeString+"\n");
+			commentSB.append(changeString+"\n");
 		}
 		
 		if(changeComment.length() > 0 ) {
-			comment.append(changeComment+"\n");
+			commentSB.append(changeComment+"\n");
 		}
 
 		if (jiraComment != null) {
-			comment.append("\nComment: "+jiraComment+"\n");
+			commentSB.append("\nComment: "+jiraComment+"\n");
 		}
-		createComment(comment.toString());
+		if (commentSB.length() > 0)
+		createComment(author+" has updated JIRA issue "+issueString+" with:"+commentSB.toString());
 		return message;
 	}
 

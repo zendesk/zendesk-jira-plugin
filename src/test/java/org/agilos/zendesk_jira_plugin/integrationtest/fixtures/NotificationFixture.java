@@ -24,7 +24,7 @@ public class NotificationFixture extends JIRAFixture {
 	private static final Logger log = Logger.getLogger(NotificationFixture.class.getName());
 	
 	private String ticketID ="215";
-
+	
 	protected static LinkedBlockingQueue<Request> httpNotificationQueue = new LinkedBlockingQueue<Request>();
 	protected static LinkedBlockingQueue<Request> httpsNotificationQueue= new LinkedBlockingQueue<Request>();
 	

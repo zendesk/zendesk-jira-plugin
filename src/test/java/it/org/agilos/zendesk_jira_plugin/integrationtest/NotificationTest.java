@@ -5,8 +5,10 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Calendar;
 
+import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
+import org.apache.log4j.Logger;
 import org.restlet.data.Parameter;
 import org.restlet.engine.http.HttpConstants;
 import org.restlet.engine.http.HttpRequest;
@@ -14,6 +16,7 @@ import org.restlet.util.Series;
 import org.testng.annotations.Test;
 
 public class NotificationTest extends AbstractNotificationTest {
+	private static final Logger log = Logger.getLogger(NotificationTest.class.getName());
 	
     @Test (groups = {"regressionTests"} )
     public void testCommentAddedNotification() throws Exception  {
@@ -21,17 +24,19 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), fixture.getNextRequest().getEntityAsText());
 	}
     
-//	@Test
-//	public void testDescriptionAndCommentChangedNotification() throws Exception  {
-//		IssueEditor ie = JIRAClient.getIssueEditor(issueKey);
-//		ie.setSummery("This is a summary and comment change test");
-//		ie.setComment("This is the comment part of the summery + comment change");
-//		ie.submit();
-////		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
-//		Request request = fixture.getNextRequest(); 
-//		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), request.getEntityAsText());		
-//	    assertEquals("Wrong comment response received after changing description comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), request.getEntityAsText());		
-//	}
+	//@Test
+	public void testDescriptionAndCommentChangedNotification() throws Exception  {
+		fixture.tester.gotoPage("browse/"+issueKey);
+		fixture.tester.clickLink("move_issue");
+		fixture.tester.assertTextPresent("Move Issue: "+issueKey);
+		fixture.tester.setWorkingForm("jiraform");
+		//fixture.tester.selectOption("pid", newProjectName.getName());
+		fixture.tester.submit();
+	
+		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
+		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
+	    assertEquals("Wrong comment response received after changing description comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+	}
 	
 	@Test (groups = {"regressionTests"} )
 	public void testSummeryChangedNotification() throws Exception  {
@@ -140,5 +145,26 @@ public class NotificationTest extends AbstractNotificationTest {
 		
 		fixture.updateIssueWithDescription(newIssue.getKey(), "This issue doesn't have a Zendesk ID associated, no notification should be set");
 		assertEquals("Notification received for update of issue with a defined Zendesk ticket ID, ", null, fixture.getNextRequest());
+	}
+	
+	/**
+	 * No notification should be set to Zendesk if the 'Viewable by' setting is different from 'All users' when adding a comment.
+	 */
+	@Test (groups = {"regressionTests"} )
+	public void testRestrictedViewabilityComment() throws Exception {
+		String commentLevel = "Developers";
+		String comment = "This issue has restricted 'Viewable by' access, no notification shold be dispatched";
+		log.info("Adding comment "+ comment + "with commentLevel "+ commentLevel+" to issue "+issueKey);
+		fixture.jiraClient.getService().addComment(fixture.jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, commentLevel, null, null));
+		assertEquals("Notification received for addition of comment with limited viewability, ", null, fixture.getNextRequest());
+	}
+	
+	//@Test (groups = {"regressionTests"} )
+	public void testRestrictedViewabilityCommentOnIssueEdit() throws Exception {
+		String commentLevel = "Developers";
+		String comment = "This issue has restricted 'Viewable by' access, no notification shold be dispatched";
+		log.info("Adding comment "+ comment + "with commentLevel "+ commentLevel+" to issue "+issueKey);
+		fixture.jiraClient.getService().addComment(fixture.jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, commentLevel, null, null));
+		assertEquals("Notification received for addition of comment with limited viewability, ", null, fixture.getNextRequest());
 	}
 }

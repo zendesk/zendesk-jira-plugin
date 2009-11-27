@@ -92,6 +92,15 @@ public class NotificationDispatcher {
 							ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml") ;	
 				}
 				resource.put(changeMessage);
+				
+				if (resource.getStatus().isSuccess()
+						&& resource.getResponseEntity().isAvailable()) {
+					log.debug("Received response"+resource.getResponseEntity());
+				} else if (resource.getResponseEntity() != null && resource.getResponseEntity().isAvailable()){
+					log.warn("No success in sending notification, response was:\n"+resource.getResponseEntity().getText());
+				} else {
+					log.warn("No response received");
+				}
 			}
 
 			if ( messageParts.getComment() != null ) { // Contains changes
@@ -102,6 +111,15 @@ public class NotificationDispatcher {
 							ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/"+getTicketID(issueEvent.getIssue().getKey())+".xml");	
 				}
 				resource.put(commentMessage);
+				
+				if (resource.getStatus().isSuccess()
+						&& resource.getResponseEntity().isAvailable()) {
+					log.debug("Received response"+resource.getResponseEntity());
+				} else if (resource.getResponseEntity() != null && resource.getResponseEntity().isAvailable()){
+					log.warn("No success in sending notification, response was:\n"+resource.getResponseEntity().getText());
+				} else {
+					log.warn("No response received");
+				}
 			}
 
 			if (resource.getStatus().isSuccess()
