@@ -19,6 +19,6 @@
       <item name="Using https for Zendesk access" href="https.html"/>
     </menu>    
     
-    ${reports}
+    <menu ref="reports"/>
   </body>
 </project>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
 		<groupId>com.atlassian.jira.plugins</groupId>
@@ -231,15 +232,27 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<exec os="Windows Vista" executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat" dir="${jira.install}/JIRA-${jira.version}" />
-								<exec os="Linux" executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh" dir="${jira.install}/JIRA-${jira.version}" />
+								<exec os="Windows Vista"
+									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat"
+									dir="${jira.install}/JIRA-${jira.version}" />
+								<exec os="Linux"
+									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
+									dir="${jira.install}/JIRA-${jira.version}" />
 								<sleep seconds="5" />
 								<delete>
-									<fileset dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib" includes="zendesk-jira-plugin-*.jar" />
+									<fileset
+										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
+										includes="zendesk-jira-plugin-*.jar" />
 								</delete>
-								<copy file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar" tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />
-								<exec os="Windows Vista" executable="${jira.install}/JIRA-${jira.version}/bin/startup.bat" dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
-								<exec os="Linux" executable="${jira.install}/JIRA-${jira.version}/bin/startup.sh" dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
+								<copy
+									file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
+									tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />
+								<exec os="Windows Vista"
+									executable="${jira.install}/JIRA-${jira.version}/bin/startup.bat"
+									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
+								<exec os="Linux"
+									executable="${jira.install}/JIRA-${jira.version}/bin/startup.sh"
+									dir="${jira.install}/JIRA-${jira.version}" spawn="true" />
 								<sleep seconds="30" />
 							</tasks>
 						</configuration>
@@ -256,6 +269,76 @@
 			</testResource>
 		</testResources>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>project-team</report>
+							<report>cim</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+							<report>plugins</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<linkJavadoc>true</linkJavadoc>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<linkXref>true</linkXref>
+					<targetJdk>1.5</targetJdk>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<xmlOutput>true</xmlOutput>
+					<effort>Max</effort>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>dashboard-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<fixVersionIds>10091</fixVersionIds>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 	<repositories>
 		<repository>
 			<id>maven-restlet</id>
@@ -265,7 +348,6 @@
 	</repositories>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<extractDependencies>true</extractDependencies>
 		<!--
 			Default build configuration depending on JIRA version, may be
 			overridden by profile settings in profiles.xml
