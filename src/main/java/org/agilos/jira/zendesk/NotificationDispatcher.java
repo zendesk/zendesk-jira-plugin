@@ -163,10 +163,22 @@ public class NotificationDispatcher {
 	}
 
 	public void setTicketFieldValue(String ticketFieldName) {
-		ticketField = ManagerFactory.getCustomFieldManager().getCustomFieldObjectByName(ticketFieldName);		
+			ticketField = ManagerFactory.getCustomFieldManager().getCustomFieldObjectByName(ticketFieldName);		
+			
+			if (ticketField == null) {
+				log.error("Zendesk TicketID customfield not defined correctly. Please check that the indicated TicketIDField '"+ticketFieldName+
+						"' corresponds to the name of the customfield used to store the Zendesk Ticket ID");
+			}
 	}
 
 	private String getTicketID(String issueKey) {
+		if (ticketField == null) {
+			log.warn("Unable to check Zendesk TicketID for issue "+issueKey+", no update will be sent to Zendesk for the change to this issue. " +
+					"Please check that the TicketIDField defined for the Zendesk plug corresponds to the name of the customfield used to store " +
+					"the Zendesk Ticket ID");
+			return null;
+		}
+		
 		return (String)ManagerFactory.getIssueManager().getIssueObject(issueKey).getCustomFieldValue(ticketField);
 	}
 

@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<profiles>
-		<profile>
+		<!-- profile>
 			<id>jira3</id>
 			<properties>
 				<jira.version>3.13.2</jira.version>
 				<jira.data.version>3.13.2</jira.data.version>
 				<jira.deploy.version>3.13.2</jira.deploy.version>
 			</properties>
-		</profile>
+		</profile-->
 	</profiles>
 </profilesXml>
