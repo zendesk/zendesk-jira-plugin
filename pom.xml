@@ -41,12 +41,12 @@
 		<system>JIRA</system>
 		<url>http://jira.agilos.org/browse/ZEN</url>
 	</issueManagement>
-	
+
 	<ciManagement>
 		<system>bamboo</system>
 		<url>http://bamboo.agilos.org/browse/ZEN</url>
 	</ciManagement>
-	
+
 	<developers>
 		<developer>
 			<name>Mikis Seth Sørensen</name>
@@ -108,6 +108,22 @@
 			<groupId>org.restlet</groupId>
 			<artifactId>org.restlet.ext.ssl</artifactId>
 			<version>1.2-M2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-testng-helper</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-testng-helper</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
@@ -243,7 +259,7 @@
 								<exec os="Linux"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
 									dir="${jira.install}/JIRA-${jira.version}" />
-								<sleep seconds="10" />
+								<sleep seconds="20" />
 								<delete>
 									<fileset
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
@@ -263,6 +279,14 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<filters>
+						<filter>src/resources/atlassian-plugin.xml</filter>
+					</filters>
+				</configuration>
 			</plugin>
 		</plugins>
 		<testResources>
@@ -352,6 +376,16 @@
 			<url>http://maven.restlet.org</url>
 		</repository>
 	</repositories>
+	<profiles>
+		<profile>
+			<id>jira3</id>
+			<properties>
+				<jira.version>3.13.2</jira.version>
+				<jira.data.version>3.13.2</jira.data.version>
+				<jira.deploy.version>3.13.2</jira.deploy.version>
+			</properties>
+		</profile>
+	</profiles>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!--
@@ -363,5 +397,6 @@
 		<!-- Disable Atlassian PDK integrationstest JIRA startup -->
 		<jira.plugin.install>false</jira.plugin.install>
 		<jira.start>false</jira.start>
+		<selenium-version>1.0.1</selenium-version>
 	</properties>
 </project>
