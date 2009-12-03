@@ -2,15 +2,16 @@
  Using https for Zendesk access
  -----
  
-Install certificate
+Manually install certificate
 
- Before https can be used by the Zendensk plugin for access the Zendesk application itself the https certificate used for zendesk access must be installed
- in the keystore used by the JIRA VM. The step to do this are:
+ This is only required if the ssl certificate used isn't a globally accepted certificate (eg. not from a acknowlegded CA),
+
+ The step to manually install the certificate are:
  
- * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the adress bar. 
+ * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the address bar. 
  Follow the steps specific to your browser from here to save the certificate.
  
- * If the ssl certificate used isn't a globally accepted certificate (eg. not from a acknowlegded CA) you need to install the certificate manually. 
+ *  
  Install the certificate in the default keystore with the Java keytool.
  $JAVA_HOME/bin/keytool -import -file <certificate file> -trustcacerts -keystore $JAVA_HOME/jre/lib/security/cacerts     
  
