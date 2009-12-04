@@ -24,6 +24,4 @@ public class HttpsNotificationTest extends AbstractNotificationTest {
 		Request request = fixture.getNextHttpsRequest(); 
 		assertNotNull("No notification received on https listener", request);		
 	}
-	
-	
 }

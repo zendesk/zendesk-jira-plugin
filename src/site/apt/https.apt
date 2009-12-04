@@ -8,12 +8,11 @@ Manually install certificate
 
  The step to manually install the certificate are:
  
- * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the address bar. 
+ * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the adress bar. 
  Follow the steps specific to your browser from here to save the certificate.
  
- *  
- Install the certificate in the default keystore with the Java keytool.
- $JAVA_HOME/bin/keytool -import -file <certificate file> -trustcacerts -keystore $JAVA_HOME/jre/lib/security/cacerts     
+ * Install the certificate in the users (the user running JIRA) keystore with the Java keytool.
+ $JAVA_HOME/bin/keytool -import -file <certificate file> -trustcacerts -keystore $HOME/.keystore     
  
 Configure the JIRA plugin
 
