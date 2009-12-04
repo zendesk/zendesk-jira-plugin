@@ -2,11 +2,7 @@
  Using https for Zendesk access
  -----
  
-Manually install certificate
-
- This is only required if the ssl certificate used isn't a globally accepted certificate (eg. not from a acknowlegded CA),
-
- The step to manually install the certificate are:
+Install certificate
  
  * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the adress bar. 
  Follow the steps specific to your browser from here to save the certificate.
