@@ -259,7 +259,7 @@
 								<exec os="Linux"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
 									dir="${jira.install}/JIRA-${jira.version}" />
-								<sleep seconds="20" />
+								<sleep seconds="30" />
 								<delete>
 									<fileset
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
@@ -288,6 +288,22 @@
 					</filters>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start-server</goal>
+						</goals>
+						<configuration>
+							<background>true</background>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 		<testResources>
 			<testResource>

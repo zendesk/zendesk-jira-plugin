@@ -35,7 +35,7 @@ public class JIRAClient {
 	protected JiraSoapService jiraSoapService;
 	protected String jiraSoapToken;
 	
-	public static String jiraUrl;
+	public static String jiraUrl = System.getProperty("zendesk.jira.url", "http://localhost:1990");
 	public static String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
 	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
 
