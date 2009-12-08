@@ -3,12 +3,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<parent>
-		<groupId>com.atlassian.jira.plugins</groupId>
-		<artifactId>jira-plugin-base</artifactId>
-		<version>18</version>
-	</parent>
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
@@ -56,6 +50,18 @@
 	</developers>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>atlassian-jira</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-func-tests</artifactId>
+            <version>${jira.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -109,22 +115,6 @@
 			<artifactId>org.restlet.ext.ssl</artifactId>
 			<version>1.2-M2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-testng-helper</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-testng-helper</artifactId>
-			<version>1.0.1</version>
-		</dependency>
 	</dependencies>
 	<distributionManagement>
 		<repository>
@@ -160,7 +150,29 @@
 							<value>test-jira-${jira.version}.properties</value>
 						</property>
 					</systemProperties>
+					<skip>${maven.test.unit.skip}</skip>
+					<excludes>
+						<exclude>it/**/*</exclude>
+					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<id>acceptance_tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>${maven.test.it.skip}</skip>
+							<excludes>							
+                            	<exclude>none</exclude>                                
+                            </excludes>
+							<includes>
+								<include>it/**/*java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -169,6 +181,7 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+			<!-- Explode dependent jars and include in distributable. JIRA doesn't support jars packed in jar. test and provided dependencies are excluded -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -397,6 +410,7 @@
 		<!-- Disable Atlassian PDK integrationstest JIRA startup -->
 		<jira.plugin.install>false</jira.plugin.install>
 		<jira.start>false</jira.start>
-		<selenium-version>1.0.1</selenium-version>
+		<maven.test.it.skip>false</maven.test.it.skip>
+		<maven.test.unit.skip>true</maven.test.unit.skip>
 	</properties>
 </project>
