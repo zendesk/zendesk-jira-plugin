@@ -25,6 +25,13 @@ import com.atlassian.jira.config.properties.ApplicationProperties;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.issue.fields.CustomField;
 
+/**
+ * Handles the sending of the Zendesk notifications. The construction of the notification messages are delegated to the <code>ChangeMessageBuilder</code>.
+ * 
+ * Further filtering is implemented here, including checks for incomplete configuration of the plugin.
+ * @author mikis
+ *
+ */
 public class NotificationDispatcher {	
 	private Logger log = Logger.getLogger(NotificationDispatcher.class.getName());
 	private String suppressNotificationFor;

@@ -11,6 +11,13 @@ import com.atlassian.jira.event.issue.AbstractIssueEventListener;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.event.type.EventType;
 
+/**
+ * This listens for JIRA change notifications and exposes the configuration options for the plugin.
+ * 
+ * The <code>ZendeskNotifier</code> will filter all irrelevant updates before delegation the further hadling to the <code>NotificationDispatcher</code>. 
+ * @author mikis
+ *
+ */
 public class ZendeskNotifier extends AbstractIssueEventListener {
 	public static final String ZENDESK_URL_PARAMETER = "ZendeskUrl";
 	public static final String ZENDESK_LOGIN_NAME_PARAMETER = "LoginName";

@@ -9,6 +9,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
+/**
+ * Representation of the change messages for Zendesk. Contains 2 parts, one message for attribute changes and one part for any comment. (the Zendesk interfaces can't handle all data in one request).
+ * 
+ * The output of a <code>ChangeMessage</code> will be DOM objects representing the XML to send.
+ * @author mikis
+ *
+ */
 public class ChangeMessage {
 	private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	private MessageParts message;	
