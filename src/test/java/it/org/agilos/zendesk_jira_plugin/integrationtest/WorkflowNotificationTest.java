@@ -8,45 +8,45 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 
 	@Test (groups = {"regressionTests"} )
 	public void testDefaultWorkflow() {
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.assertTextPresent("Open");
-		fixture.tester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
+		fixture.webTester.gotoPage("browse/"+issueKey);
+		fixture.webTester.assertTextPresent("Open");
+		fixture.webTester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
 
-		fixture.tester.clickLinkWithText("Start Progress");
-		fixture.tester.assertTextPresent("In Progress");
+		fixture.webTester.clickLinkWithText("Start Progress");
+		fixture.webTester.assertTextPresent("In Progress");
 		assertEquals("Wrong response received setting issue 'In progress'", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.started"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Stop Progress");
-		fixture.tester.assertTextPresent("Open");
+		fixture.webTester.clickLinkWithText("Stop Progress");
+		fixture.webTester.assertTextPresent("Open");
 		assertEquals("Wrong response received setting stopping progress on issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.stopped"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Resolve Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertTextPresent("Resolve Issue");
-		fixture.tester.clickButton("Resolve");
-		fixture.tester.assertTextPresent("Resolved");
+		fixture.webTester.clickLinkWithText("Resolve Issue");
+		fixture.webTester.setWorkingForm("jiraform");
+		fixture.webTester.assertTextPresent("Resolve Issue");
+		fixture.webTester.clickButton("Resolve");
+		fixture.webTester.assertTextPresent("Resolved");
 		assertEquals("Wrong response received after resolving issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.resolved"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Close Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertTextPresent("Close Issue");
-		fixture.tester.submit();
-		fixture.tester.assertTextPresent("Closed");
+		fixture.webTester.clickLinkWithText("Close Issue");
+		fixture.webTester.setWorkingForm("jiraform");
+		fixture.webTester.assertTextPresent("Close Issue");
+		fixture.webTester.submit();
+		fixture.webTester.assertTextPresent("Closed");
 		assertEquals("Wrong response received after closing issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.closed"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Reopen Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertButtonPresent("Reopen Issue");
-		fixture.tester.submit();
-		fixture.tester.assertTextPresent("Reopened");
+		fixture.webTester.clickLinkWithText("Reopen Issue");
+		fixture.webTester.setWorkingForm("jiraform");
+		fixture.webTester.assertButtonPresent("Reopen Issue");
+		fixture.webTester.submit();
+		fixture.webTester.assertTextPresent("Reopened");
 		assertEquals("Wrong response received after reopening issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.reopened"), 
 				fixture.getNextRequest().getEntityAsText());
@@ -56,12 +56,12 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 	public void testCustomWorkflow() {
 		//ToDo Implement assignment of custom workflow to project, see http://jira.agilos.org/browse/ZEN-68
 		
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.assertTextPresent("Open");
-		fixture.tester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
+		fixture.webTester.gotoPage("browse/"+issueKey);
+		fixture.webTester.assertTextPresent("Open");
+		fixture.webTester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
 		
-		fixture.tester.clickLinkWithText("Investigate");
-		fixture.tester.assertTextPresent("Investigate");
+		fixture.webTester.clickLinkWithText("Investigate");
+		fixture.webTester.assertTextPresent("Investigate");
 		assertEquals("Wrong response received after setting issue to investigating", 
 				TestDataFactory.getSoapResponse("testCustomWorkflow.investigating"), 
 				fixture.getNextRequest().getEntityAsText());

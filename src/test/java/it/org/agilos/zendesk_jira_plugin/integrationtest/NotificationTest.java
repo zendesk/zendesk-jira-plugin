@@ -26,12 +26,12 @@ public class NotificationTest extends AbstractNotificationTest {
     
 	//@Test
 	public void testDescriptionAndCommentChangedNotification() throws Exception  {
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.clickLink("move_issue");
-		fixture.tester.assertTextPresent("Move Issue: "+issueKey);
-		fixture.tester.setWorkingForm("jiraform");
+		fixture.webTester.gotoPage("browse/"+issueKey);
+		fixture.webTester.clickLink("move_issue");
+		fixture.webTester.assertTextPresent("Move Issue: "+issueKey);
+		fixture.webTester.setWorkingForm("jiraform");
 		//fixture.tester.selectOption("pid", newProjectName.getName());
-		fixture.tester.submit();
+		fixture.webTester.submit();
 	
 		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
 		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		

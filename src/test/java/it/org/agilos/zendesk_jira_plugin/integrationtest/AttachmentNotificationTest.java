@@ -9,9 +9,6 @@ import org.agilos.zendesk_jira_plugin.integrationtest.notifications.AttachmentRe
 import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.UploadFileSpec;
 
 /**
  * ZEN-47 Upload of attachments to Zendesk, http://jira.agilos.org/browse/ZEN-47
@@ -146,13 +143,13 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 
 		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
 		
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.clickLink("attach_file");
-		fixture.tester.setWorkingForm("jiraform");
+		fixture.webTester.gotoPage("browse/"+issueKey);
+		fixture.webTester.clickLink("attach_file");
+		fixture.webTester.setWorkingForm("jiraform");
 		
 		attachFile("filename.1", uploadFile);
-		fixture.tester.setFormElement("comment", comment);
-		fixture.tester.submit();
+		fixture.webTester.setTextField("comment", comment);
+		fixture.webTester.submit();
 		
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentWithComment.1"), request.getEntityAsText());	
@@ -182,7 +179,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	 * Attachments larger than 7 MB should be uploaded to Zendesk
 	 * @throws Exception
 	 */
-//	Doesn't currentl work, cause Out of memory in client axis stubs
+//	Doesn't currently work, cause Out of memory in client axis stubs
 //	@Test (groups = {"regressionTests"} )
 //	public void testUploadBigAttachment() throws Exception  {	
 //		getFixture().getJiraClient().setZendeskUrl("https://localhost:8443");
@@ -206,15 +203,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	}
 	
 	public void attachFile(String fieldName, File file) {
-		UploadFileSpec bigFile = new UploadFileSpec(file);
-        try {
-        	fixture.tester.getDialog().getResponse().getFormWithName("jiraform").setParameter(fieldName, new UploadFileSpec[] {
-                bigFile
-            });
-        }
-        catch(SAXException e) {
-            throw new RuntimeException(e);
-        }
+		fixture.webTester.setTextField(fieldName, file.getAbsolutePath());
     }
 }
 	

@@ -145,23 +145,23 @@ public class NotificationFixture extends JIRAFixture {
 	 * @return The new issueKey
 	 */
 	public String moveIssue(String issueKey, RemoteProject newProjectName) {
-		tester.gotoPage("browse/"+issueKey);
-		tester.clickLink("move_issue");
+		webTester.gotoPage("browse/"+issueKey);
+		webTester.clickLink("move_issue");
 
-		tester.assertTextPresent("Move Issue: "+issueKey);
-		tester.setWorkingForm("jiraform");
-		tester.selectOption("pid", newProjectName.getName());
-		tester.submit();
+		webTester.assertTextPresent("Move Issue: "+issueKey);
+		webTester.setWorkingForm("jiraform");
+		webTester.selectOption("pid", newProjectName.getName());
+		webTester.submit();
 
-		tester.assertTextPresent("Move Issue: Update Fields");
-		tester.setWorkingForm("jiraform");
-		tester.submit();
+		webTester.assertTextPresent("Move Issue: Update Fields");
+		webTester.setWorkingForm("jiraform");
+		webTester.submit();
 
-		tester.setWorkingForm("jiraform");
-		tester.assertTextPresent("Move Issue: Confirm"); 
-		tester.submit();
+		webTester.setWorkingForm("jiraform");
+		webTester.assertTextPresent("Move Issue: Confirm"); 
+		webTester.submit();
 
-		tester.assertTitleEquals("");
+		webTester.assertTitleEquals("");
 		return null;
 	}
 	

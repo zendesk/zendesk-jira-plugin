@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import junit.framework.AssertionFailedError;
-import net.sourceforge.jwebunit.WebTester;
+import net.sourceforge.jwebunit.junit.WebTester;
 
 import org.agilos.jira.soapclient.RemoteException;
 import org.agilos.jira.soapclient.RemoteGroup;
@@ -36,11 +36,15 @@ public class JIRAFixture {
 	
 	private static final char FS = File.separatorChar;
 	
-	public WebTester tester;
+	public WebTester webTester;
 	
 	public JIRAFixture() {
+		try {
 		jiraClient = JIRAClient.instance();
-		tester = jiraClient.getFuncTestHelperFactory().getTester();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		webTester = jiraClient.getWebTester();
 		
 	}
 	
@@ -145,27 +149,28 @@ public class JIRAFixture {
 	 * Handles two cases, either a initial setup of JIRA, or a XML restore in a already configured JIRA.
 	 */
 	public void loadData (String fileName) { 
-		String filePath = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
-		String JIRAHomeDir = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getJIRAHomeLocation().getAbsolutePath();
+		String filePath = jiraClient.getTestEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
+		String JIRAHomeDir = jiraClient.getTestEnvironmentData().getJIRAHomeLocation().getAbsolutePath();
 		try	{
-			if (tester.getDialog().getResponsePageTitle().indexOf("JIRA installation") != -1) {
-				tester.gotoPage("secure/SetupImport!default.jspa");
-				tester.setWorkingForm("jiraform");
-				tester.setFormElement("filename", filePath);
-				tester.setFormElement("indexPath", JIRAHomeDir + FS + "indexes");	
-				tester.submit();
+			webTester.gotoPage("");
+			if (webTester.getServerResponse().indexOf("JIRA installation") != -1) {
+				webTester.gotoPage("secure/SetupImport!default.jspa");
+				webTester.setWorkingForm("jiraform");
+				webTester.setTextField("filename", filePath);
+				webTester.setTextField("indexPath", JIRAHomeDir + FS + "indexes");	
+				webTester.submit();
 				//tester.assertTextPresent("Setup is now complete."); Language dependent
 			} else {
-				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin");// GUI login with default user
-				tester.gotoPage("secure/admin/XmlRestore!default.jspa");
-				tester.setWorkingForm("jiraform");
-				tester.setFormElement("filename", filePath);
-				tester.submit();
-	            tester.assertTextPresent("Your project has been successfully imported");
+				jiraClient.loginToGUI("admin", "admin");// GUI login with default user
+				webTester.gotoPage("secure/admin/XmlRestore!default.jspa");
+				webTester.setWorkingForm("jiraform");
+				webTester.setTextField("filename", filePath);
+				webTester.submit();
+	            webTester.assertTextPresent("Your project has been successfully imported");
 			} 
 			log.info("Restored data from '" + filePath + "'");
 		} catch(AssertionFailedError e) {
-			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
+			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+webTester.getPageSource());
 			throw new RuntimeException("Failed to restore data from "+filePath, e);
 		} 
 	}

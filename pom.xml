@@ -3,12 +3,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<parent>
-		<groupId>com.atlassian.jira.plugins</groupId>
-		<artifactId>jira-plugin-base</artifactId>
-		<version>18</version>
-	</parent>
-
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.agilos</groupId>
 	<artifactId>zendesk-jira-plugin</artifactId>
@@ -56,6 +50,12 @@
 	</developers>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>atlassian-jira</artifactId>
+			<version>${jira.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -110,20 +110,10 @@
 			<version>1.2-M2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0.1</version>
+			<groupId>net.sourceforge.jwebunit</groupId>
+			<artifactId>jwebunit-htmlunit-plugin</artifactId>
+			<version>2.2</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-testng-helper</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-testng-helper</artifactId>
-			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
@@ -160,7 +150,26 @@
 							<value>test-jira-${jira.version}.properties</value>
 						</property>
 					</systemProperties>
+					<skip>${maven.test.unit.skip}</skip>
+					<excludes>
+						<exclude>it/**/*</exclude>
+					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<id>acceptance_tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>${maven.test.it.skip}</skip>
+							<includes>
+								<include>it/**/*java</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -289,6 +298,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
@@ -307,6 +317,10 @@
 					<reportSet>
 						<reports>
 							<report>index</report>
+							<!--  
+							<report>dependencies</report> -->
+							<report>dependencies-convergence</report>
+							<report>dependencies-management</report>
 							<report>project-team</report>
 							<report>cim</report>
 							<report>issue-tracking</report>
@@ -362,7 +376,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
-				<version>2.2</version>
 				<configuration>
 					<fixVersionIds>10091</fixVersionIds>
 				</configuration>
