@@ -16,6 +16,12 @@ import org.ofbiz.core.entity.GenericValue;
 
 import com.atlassian.jira.event.issue.IssueEvent;
 
+/**
+ * Responsible for the building of the change message containing the updates to Zendesk. The details are handled by the <code>ChangeMessage</code> and
+ * <code>AttachmentHandler</code> classes.
+ * @author mikis
+ *
+ */
 public class ChangeMessageBuilder {
 	private static Logger log = Logger.getLogger(ChangeMessageBuilder.class.getName());	
 

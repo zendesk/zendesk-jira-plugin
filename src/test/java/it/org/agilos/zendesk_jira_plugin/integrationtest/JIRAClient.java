@@ -12,7 +12,6 @@ import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.apache.log4j.Logger;
 
 import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
-import com.atlassian.jira.functest.framework.navigation.IssueNavigation;
 import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import com.meterware.httpunit.HttpUnitOptions;
@@ -25,7 +24,7 @@ import com.meterware.httpunit.HttpUnitOptions;
  * The following system properties define the behavior of the <code>JIRAClient</code>:
  * <ul>
  * <li> zendesk.jira.url The url of the JIRA instance the client should connect to
- * <li> zendesk.jira.login.name The Username to login with
+ * <li> zendesk.jira.login.name The username to login with
  * <li> zendesk.jira.login.password The password to login to jira with
  * </ul>
  */

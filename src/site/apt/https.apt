@@ -2,7 +2,11 @@
  Using https for Zendesk access
  -----
  
-Install certificate
+Manually install of certificate
+
+ If the certificate used by the Zendesk server for https access isn't provided by a valid {{{http://en.wikipedia.org/wiki/Certificate_authority}Certificate Authority}}, 
+ it needs to be manually installed in the {{{http://java.sun.com/j2se/1.4.2/docs/tooldocs/windows/keytool.html}keystore}}. 
+ This may the relevant for test setups, where {{{http://en.wikipedia.org/wiki/Self-signed_certificate}self-signed certificates}} are used.
  
  * Download the certificate by accessing the Zendesk application with your browser and saving the certificate by right-clicking the lock icon in the adress bar. 
  Follow the steps specific to your browser from here to save the certificate.

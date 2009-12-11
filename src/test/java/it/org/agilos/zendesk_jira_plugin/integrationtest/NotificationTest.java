@@ -159,7 +159,7 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Notification received for addition of comment with limited viewability, ", null, fixture.getNextRequest());
 	}
 	
-	//@Test (groups = {"regressionTests"} )
+	@Test (groups = {"regressionTests"} )
 	public void testRestrictedViewabilityCommentOnIssueEdit() throws Exception {
 		String commentLevel = "Developers";
 		String comment = "This issue has restricted 'Viewable by' access, no notification shold be dispatched";
