@@ -278,6 +278,7 @@
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
 										includes="zendesk-jira-plugin-*.jar" />
 								</delete>
+								<delete file="${jira.install}/home/.jira-home.lock"/>
 								<copy
 									file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
 									tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />

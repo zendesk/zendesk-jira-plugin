@@ -88,7 +88,7 @@ public class NotificationTest extends AbstractNotificationTest {
 	public void testNotificationLoops() throws Exception  {
 		getFixture().getJiraClient().login("zendesk","zendeskpw");
 
-		fixture.updateIssueWithDescription(issueKey, "This is a changed description by the zendesk user, no notification should be set");
+		fixture.updateIssueWithDescription(issueKey, "This is a changed description by the zendesk user, no notification should be sent");
 		assertEquals("Notification received for Zendesk user update, ", null, fixture.getNextRequest());
 	}
 	
