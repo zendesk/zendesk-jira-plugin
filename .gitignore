@@ -11,3 +11,9 @@
 /atlassian-jira.log
 /bin/
 /test-attachments
+/atlassian-jira-http-access.log
+/atlassian-jira-http-dump.log
+/atlassian-jira-slow-queries.log
+/atlassian-jira-soap-access.log
+/atlassian-jira-soap-dump.log
+/atlassian-jira-sql.log

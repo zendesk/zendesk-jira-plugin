@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import junit.framework.AssertionFailedError;
 import net.sourceforge.jwebunit.WebTester;
@@ -33,6 +34,8 @@ public class JIRAFixture {
 	public static final String JIRA_ADMINISTRATORS = "jira-administrators";
 	public static final String JIRA_DEVELOPERS = "jira-developers";
 	public static final String JIRA_USERS = "jira-users";
+	
+	public static final ResourceBundle webText = ResourceBundle.getBundle("language.web-texts");
 	
 	private static final char FS = File.separatorChar;
 	
@@ -148,7 +151,7 @@ public class JIRAFixture {
 		String filePath = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
 		String JIRAHomeDir = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getJIRAHomeLocation().getAbsolutePath();
 		try	{
-			if (tester.getDialog().getResponsePageTitle().indexOf("JIRA installation") != -1) {
+			if (tester.getDialog().getResponsePageTitle().indexOf(webText.getString("jira_introduction_screen_title")) != -1) {
 				tester.gotoPage("secure/SetupImport!default.jspa");
 				tester.setWorkingForm("jiraform");
 				tester.setFormElement("filename", filePath);
