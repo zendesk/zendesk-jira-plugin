@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+  title="Frequently Asked Questions"
+  toplink="false">
+  
+  <part id="log">    
+    <title>Logging issues</title>
+    
+    	<faq id="Plugin debug log">
+      <question>
+        How do I enable debug logging for the Zendesk plugin 
+      </question>
+      <answer>
+        <p>
+			See <a href="http://confluence.agilos.org/display/zen/User+Guide#UserGuide-Logging">user guide</a> 
+        </p>
+      </answer>
+    </faq>
+  </part>
+
+  <part id="https">
+    <title>HTTPS issues</title>
+
+    <faq id="JIRA log says: java.security.UnrecoverableKeyException: Cannot recover key">
+      <question>
+        The certificate used by Zendesk isn't accepted by JIRA
+      </question>
+      <answer>
+        <p>Check the following the that the root certificate is installed in the keystores used by JIRA:
+        <source>$JAVA_HOME/bin/keytool -list -keystore $JAVA_HOME/jre/lib/security/cacerts</source>
+		</p><p>
+		Or in case of a manually installed certificate, that the certificate is present in the user (user used to run JIRA) keystore:
+         <source>$JAVA_HOME/bin/keytool -list -keystore ~/.keystore </source>
+        </p>
+
+      </answer>
+    </faq>
+  </part>
+</faqs>

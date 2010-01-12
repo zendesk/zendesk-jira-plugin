@@ -23,7 +23,8 @@
       <item name="Introduction" href="introduction.html"/>      
       <item name="Installation" href="installation.html"/>      
       <item name="Configuration" href="configuration.html"/>          
-      <item name="Using https for Zendesk access" href="https.html"/>
+      <item name="Using https for Zendesk access" href="https.html"/>      
+      <item name="FAQ" href="faq.html"/>
     </menu>    
     
     <menu ref="reports"/>

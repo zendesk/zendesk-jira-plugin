@@ -19,7 +19,8 @@ Installation
  
  * Restart JIRA
  
- * Create a new Custom field of type <Text Field>_ for specifying the related Zendesk ticket.
+ * Create a new Custom field of type <Text Field>_ for specifying the related Zendesk ticket. Ensure that the field is visible, 
+ eg. go To > Administration > Custom Fields and select the "Screens" option for the ZendeskID custom field (if the fields isn't visible the Zendesk notifier will not detect the field setting). 
  
  * Add Zendesk notifier to listeners:
   
