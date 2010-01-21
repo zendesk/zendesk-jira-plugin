@@ -270,11 +270,11 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>
-								<exec os="Windows Vista"
+							<tasks>							
+								<exec osfamily="windows" 
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat"
 									dir="${jira.install}/JIRA-${jira.version}" />
-								<exec os="Linux"
+								<exec osfamily="unix"
 									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
 									dir="${jira.install}/JIRA-${jira.version}" />
 								<sleep seconds="20" />
