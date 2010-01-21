@@ -56,12 +56,12 @@
 			<version>${jira.version}</version>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>com.atlassian.jira</groupId>
-            <artifactId>jira-func-tests</artifactId>
-            <version>${jira.version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.atlassian.jira</groupId>
+			<artifactId>jira-func-tests</artifactId>
+			<version>${jira.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
@@ -120,17 +120,18 @@
 		<repository>
 			<id>agilos.org</id>
 			<name>Agilos Repo</name>
-			<url>scp://agilos.org/var/www/maven/repo</url>
+			<url>dav:http://nexus.agilos.org/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
 			<id>agilos.org</id>
 			<name>Agilos Snapshot Repo</name>
-			<url>scp://agilos.org/var/www/maven/repo-snapshot</url>
+			<url>dav:http://nexus.agilos.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<site>
 			<id>agilos.org</id>
-			<url>scp://agilos.org/var/www/maven/sites/zendesk/${project.version}</url>
+			<name>Agilos Site Repository</name>
+			<url>dav:http://nexus.agilos.org/content/sites/site/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
 
@@ -164,9 +165,9 @@
 						</goals>
 						<configuration>
 							<skip>${maven.test.it.skip}</skip>
-							<excludes>							
-                            	<exclude>none</exclude>                                
-                            </excludes>
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
 							<includes>
 								<include>it/**/*java</include>
 							</includes>
@@ -181,7 +182,11 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
-			<!-- Explode dependent jars and include in distributable. JIRA doesn't support jars packed in jar. test and provided dependencies are excluded -->
+			<!--
+				Explode dependent jars and include in distributable. JIRA doesn't
+				support jars packed in jar. test and provided dependencies are
+				excluded
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -278,7 +283,8 @@
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
 										includes="zendesk-jira-plugin-*.jar" />
 								</delete>
-								<delete file="${jira.install}/home/.jira-home.lock" quiet="true"/>
+								<delete file="${jira.install}/home/.jira-home.lock"
+									quiet="true" />
 								<copy
 									file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
 									tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />
@@ -311,6 +317,17 @@
 				</includes>
 			</testResource>
 		</testResources>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>2.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 	<reporting>
 		<plugins>
@@ -383,6 +400,7 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
 	<repositories>
 		<repository>
 			<id>maven-restlet</id>
@@ -390,6 +408,7 @@
 			<url>http://maven.restlet.org</url>
 		</repository>
 	</repositories>
+
 	<profiles>
 		<profile>
 			<id>jira3</id>

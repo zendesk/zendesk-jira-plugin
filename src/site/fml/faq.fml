@@ -28,7 +28,7 @@
         The certificate used by Zendesk isn't accepted by JIRA
       </question>
       <answer>
-        <p>Check the following the that the root certificate is installed in the keystores used by JIRA:
+        <p>Check that the root certificate is installed in the keystores used by JIRA:
         <source>$JAVA_HOME/bin/keytool -list -keystore $JAVA_HOME/jre/lib/security/cacerts</source>
 		</p><p>
 		Or in case of a manually installed certificate, that the certificate is present in the user (user used to run JIRA) keystore:
