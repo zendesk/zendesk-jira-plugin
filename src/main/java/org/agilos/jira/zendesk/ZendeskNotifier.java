@@ -47,6 +47,8 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 	
 	public ZendeskNotifier() {
 		SLF4JBridgeHandler.install();
+		SSLUtilities.trustAllHostnames();
+		SSLUtilities.trustAllHttpsCertificates();
 	}
 	
 	public static String getTicketFieldName() {

@@ -16,8 +16,8 @@ Manually install of certificate
  
 Configure the JIRA plugin
 
- * Goto the plugin configuration screen (see {{{configuration.html}Configuration}} for details), and specify the https url and the keystore password (if different from the default <changeit> value).
+ * Goto the plugin configuration screen (see {{{./configuration.html}Configuration}} for details), and specify the https url and the keystore password (if different from the default <changeit> value).
  
 Problems
 
- See {{{faq.html}FAQ}} 
+ See {{{./faq.html}FAQ}} 

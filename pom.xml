@@ -120,18 +120,18 @@
 		<repository>
 			<id>agilos.org</id>
 			<name>Agilos Repo</name>
-			<url>dav:http://nexus.agilos.org/content/repositories/releases</url>
+			<url>http://nexus.agilos.org/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>true</uniqueVersion>
 			<id>agilos.org</id>
 			<name>Agilos Snapshot Repo</name>
-			<url>dav:http://nexus.agilos.org/content/repositories/snapshots/</url>
+			<url>http://nexus.agilos.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<site>
 			<id>agilos.org</id>
 			<name>Agilos Site Repository</name>
-			<url>dav:http://nexus.agilos.org/content/sites/site/zendesk/${project.version}</url>
+			<url>http://nexus.agilos.org/content/sites/site/zendesk/${project.version}</url>
 		</site>
 	</distributionManagement>
 
@@ -270,21 +270,15 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>							
-								<exec osfamily="windows" 
-									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.bat"
-									dir="${jira.install}/JIRA-${jira.version}" />
-								<exec osfamily="unix"
-									executable="${jira.install}/JIRA-${jira.version}/bin/shutdown.sh"
-									dir="${jira.install}/JIRA-${jira.version}" />
-								<sleep seconds="20" />
+							<tasks>
+								<exec executable="bash" dir="${jira.install}/JIRA-${jira.version}">
+									<arg line="${jira.install}/shutdown-jiras.sh ${jira.install}" />
+								</exec>
 								<delete>
 									<fileset
 										dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
 										includes="zendesk-jira-plugin-*.jar" />
 								</delete>
-								<delete file="${jira.install}/home/.jira-home.lock"
-									quiet="true" />
 								<copy
 									file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
 									tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar" />
