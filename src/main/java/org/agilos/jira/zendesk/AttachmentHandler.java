@@ -34,10 +34,8 @@ public class AttachmentHandler {
 	 * Adds the relevant attachment change information to the change message and uploads the attachment to Zendesk (if needed).
 	 * @param changeMessage The change message to add the attachment change information to
 	 * @param attachmentId The attachment Id, needed to retrieve the attachment
-	 * @param changeEvent
-	 * @return The token returned by Zendesk after the attachment upload, or null if no the attachment wasn't uploaded.
 	 */
-	public static void  handleAttachment(ChangeMessage changeMessage, Long attachmentId) {
+	public static void handleAttachment(ChangeMessage changeMessage, Long attachmentId) {
 
 		Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
 		String attachmentLink = getAttachmentLink(attachment);
