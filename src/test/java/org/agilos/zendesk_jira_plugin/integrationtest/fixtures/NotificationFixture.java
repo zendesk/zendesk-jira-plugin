@@ -132,15 +132,13 @@ public class NotificationFixture extends JIRAFixture {
 	} 
 
 	/**
-	 * Return the next notification received or null if the queue is empty. 
+	 * @return The next notification received or null if the queue is empty.
 	 */
 	public Request getNextRequestInstant() {
 		return httpNotificationQueue.poll();
 	}
 
 	/**
-	 * 
-	 * @param issueKey
 	 * @param newProjectName The project the issue should be moved to.
 	 * @return The new issueKey
 	 */

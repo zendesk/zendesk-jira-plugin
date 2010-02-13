@@ -8,13 +8,19 @@ Installation
  
  * Copy into $JIRA_HOME/atlassian-jira/WEB-INF/lib/
  
- * Install dependent jars (not necessary for JIRA 4):
+ * Install dependent jars by downloading the jars into JIRA's $JIRA_HOME/atlassian-jira/WEB-INF/lib/ folder:
+
+  * {{{
+
+  * JIRA 3 only
    
-  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/jul-to-slf4j/1.5.6/jul-to-slf4j-1.5.6.jar}jul-to-slf4j-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+   * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/jul-to-slf4j/1.5.6/jul-to-slf4j-1.5.6.jar}jul-to-slf4j-1.5.6}}.
   
-  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar}slf4j-log4j12-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+   * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar}slf4j-log4j12-1.5.6}}.
   
-  * Download the {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar}slf4j-api-1.5.6 jar file}} into $JIRA_HOME/atlassian-jira/WEB-INF/lib/.
+   * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar}slf4j-api-1.5.6}}.
+
+
   
  
  * Restart JIRA

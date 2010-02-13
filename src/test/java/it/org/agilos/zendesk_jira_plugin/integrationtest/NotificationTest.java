@@ -57,8 +57,8 @@ public class NotificationTest extends AbstractNotificationTest {
 	@Test (groups = {"regressionTests"} )	
 	public void testDescriptionChangedNotification() throws Exception  {
 		fixture.updateIssueWithDescription(issueKey, "This is a changed description");
-		assertEquals("Wrong change response received after changing desciption", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
-		assertEquals("Wrong commentresponse received after changing desciption", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong change response received after changing description", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), fixture.getNextRequest().getEntityAsText());
+		assertEquals("Wrong comment response received after changing description", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
 		}
 	
 	//@Test  (groups = {"regressionTests"} )
