@@ -25,9 +25,10 @@
 
     <faq id="JIRA log says: java.security.UnrecoverableKeyException: Cannot recover key">
       <question>
-        The certificate used by Zendesk isn't accepted by JIRA
+        Log shows: java.security.UnrecoverableKeyException: Cannot recover key 
       </question>
       <answer>
+        Cause: The certificate used by Zendesk can't be found in the keystores used by JIRA, nor can a appropriate root certificate.
         <p>Check that the root certificate is installed in the keystores used by JIRA:
         <source>$JAVA_HOME/bin/keytool -list -keystore $JAVA_HOME/jre/lib/security/cacerts</source>
 		</p><p>
