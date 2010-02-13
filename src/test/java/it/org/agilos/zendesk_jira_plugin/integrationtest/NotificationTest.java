@@ -45,7 +45,7 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong comment response received after changing comment", TestDataFactory.getSoapResponse("testSummaryChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
 		}
 	
-	@Test (groups = {"regressionTests"} )
+	@Test (groups = {"regressionTests", "jira3-failing"} )
 	public void testStatusChangedNotification() throws Exception  {
 		fixture.setIssueToResolved(issueKey);
 		assertEquals("Wrong response received after resolving issue", TestDataFactory.getSoapResponse("testStatusChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		

@@ -4,7 +4,6 @@ import com.atlassian.jira.event.issue.AbstractIssueEventListener;
 import com.atlassian.jira.event.issue.IssueEvent;
 import com.atlassian.jira.event.type.EventType;
 import org.apache.log4j.Logger;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.net.MalformedURLException;
 import java.util.Map;
@@ -39,10 +38,6 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
 
     private final static NotificationDispatcher dispatcher = new NotificationDispatcher();
     private static String ticketFieldName = "Zendesk TicketID";
-
-    public ZendeskNotifier() {
-        SLF4JBridgeHandler.install();
-    }
 
     public static String getTicketFieldName() {
         return ticketFieldName;
