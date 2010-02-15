@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4-RC1-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
 
     <organization>
         <name>Agilos</name>
@@ -26,7 +26,7 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/zendesk/zendesk-jira-plugin.git/</connection>
+        <connection>scm:git:git:://github.com/zendesk/zendesk-jira-plugin.git/</connection>
         <developerConnection>scm:git:git@github.com:zendesk/zendesk-jira-plugin.git/</developerConnection>
         <url>http://github.com/zendesk/zendesk-jira-plugin.git/</url>
     </scm>
@@ -127,11 +127,11 @@
                     <systemProperties>
                         <property>
                             <name>jira.version</name>
-                            <value>${jira.version}</value>
+                            <value>${jira.deply.version}</value>
                         </property>
                         <property>
                             <name>test.server.properties</name>
-                            <value>test-jira-${jira.version}.properties</value>
+                            <value>test-jira-${jira.deploy.version}.properties</value>
                         </property>
                     </systemProperties>
                     <skip>${maven.test.unit.skip}</skip>
@@ -265,13 +265,13 @@
                                 </delete>
                                 <copy
                                         file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
-                                        tofile="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar"/>
+                                        tofile="${jira.install}/JIRA-${jira.deploy.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar"/>
                                 <exec os="Windows Vista"
                                       executable="${jira.install}/JIRA-${jira.version}/bin/startup.bat"
-                                      dir="${jira.install}/JIRA-${jira.version}" spawn="true"/>
+                                      dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
                                 <exec os="Linux"
                                       executable="${jira.install}/JIRA-${jira.version}/bin/startup.sh"
-                                      dir="${jira.install}/JIRA-${jira.version}" spawn="true"/>
+                                      dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
                                 <sleep seconds="30"/>
                             </tasks>
                         </configuration>
@@ -316,6 +316,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -384,10 +389,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <fixVersionIds>10091</fixVersionIds>
-                </configuration>
             </plugin>
         </plugins>
     </reporting>
@@ -396,9 +397,27 @@
         <profile>
             <id>jira3</id>
             <properties>
-                <jira.version>3.13.2</jira.version>
+                <jira.version>4.0</jira.version>
                 <jira.data.version>3.13.2</jira.data.version>
                 <jira.deploy.version>3.13.2</jira.deploy.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <excludedGroups>jira3-failing</excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jira3.12</id>
+            <properties>
+                <jira.version>4.0</jira.version>
+                <jira.deploy.version>3.12.2</jira.deploy.version>
             </properties>
             <build>
                 <plugins>
