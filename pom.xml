@@ -127,7 +127,7 @@
                     <systemProperties>
                         <property>
                             <name>jira.version</name>
-                            <value>${jira.deply.version}</value>
+                            <value>${jira.deploy.version}</value>
                         </property>
                         <property>
                             <name>test.server.properties</name>

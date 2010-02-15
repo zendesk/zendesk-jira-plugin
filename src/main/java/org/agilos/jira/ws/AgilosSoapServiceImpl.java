@@ -53,9 +53,9 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     public String login(String username, String password) throws RemoteException {
         try {
             return tokenManager.login(username, password);  
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error(e);
-            throw new RemoteException(e);
+            throw new RemoteException(e.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
         try {
             tokenManager.retrieveUserNoPermissionCheck(token);
             return userService.getAssignableUsers(projectKey);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error(e);
             throw new RemoteException(e);
         }
