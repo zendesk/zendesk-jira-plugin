@@ -1,17 +1,20 @@
 package org.agilos.jira.ws;
 
+import com.atlassian.jira.rpc.exception.RemoteException;
 import org.agilos.jira.service.UserService;
 
 import com.atlassian.jira.rpc.auth.TokenManager;
 import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
-import com.atlassian.jira.rpc.exception.RemoteException;
 import com.atlassian.jira.rpc.exception.RemotePermissionException;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.opensymphony.user.User;
+import org.apache.log4j.Logger;
 
 public class AgilosSoapServiceImpl implements AgilosSoapService {
 	private TokenManager tokenManager; // The TokenManager functionality is very much inspired by the com.atlassian.jira.rpc.auth.TokenManager
 	private UserService userService;
+
+    private Logger log = Logger.getLogger(AgilosSoapServiceImpl.class.getName());
 	
 	public AgilosSoapServiceImpl(TokenManager tokenManager, UserService userService)
     {
@@ -47,16 +50,26 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
         return 0;
     }
 
-    public String login(String username, String password) throws RemoteException, com.atlassian.jira.rpc.exception.RemoteAuthenticationException, com.atlassian.jira.rpc.exception.RemoteException {
-        return tokenManager.login(username, password);
+    public String login(String username, String password) throws RemoteException {
+        try {
+            return tokenManager.login(username, password);  
+        } catch (Exception e) {
+            log.error(e);
+            throw new RemoteException(e);
+        }
     }
 
     public boolean logout(String token) {
         return tokenManager.logout(token);
     }
     
-	public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteAuthenticationException, RemotePermissionException {
-		User user = tokenManager.retrieveUserNoPermissionCheck(token);
-		return userService.getAssignableUsers(projectKey);
+	public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteException {
+        try {
+            tokenManager.retrieveUserNoPermissionCheck(token);
+            return userService.getAssignableUsers(projectKey);
+        } catch (Exception e) {
+            log.error(e);
+            throw new RemoteException(e);
+        }
 	}
 }
