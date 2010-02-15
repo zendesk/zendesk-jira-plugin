@@ -109,18 +109,18 @@ public class NotificationDispatcher {
         PutMethod method = new PutMethod(ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/" + ticketID + ".xml");
         method.setDoAuthentication(true);
         method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-        RequestEntity request = new StringRequestEntity(message);
+        StringRequestEntity request = new StringRequestEntity(message);
         method.setRequestEntity(request);
         if (log.isDebugEnabled()) {
-            log.debug("Dispatching change message: put " + method.getRequestEntity() +
+            log.debug("Dispatching change message: put " + request.getContent() + " to URL: " +
                     ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/" + ticketID + ".xml");
         }
         client.executeMethod(method);
 
-        if (method.getStatusCode() != HttpStatus.SC_OK && method.getResponseBody() != null) {
-            log.debug("Received response" + method.getResponseBody());
+        if (method.getStatusCode() != HttpStatus.SC_OK) {
+            log.debug("Received unexpected response code " + method.getStatusCode() +", response was: "+ method.getResponseBodyAsString());
         } else if (method.getResponseBody() != null) {
-            log.warn("No success in sending notification, response was:\n" + method.getResponseBody());
+            log.warn("No success in sending notification, response was:\n" + method.getResponseBodyAsString());
         } else {
             log.warn("No response received");
         }

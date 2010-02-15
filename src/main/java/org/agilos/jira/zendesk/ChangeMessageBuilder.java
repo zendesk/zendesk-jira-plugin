@@ -26,7 +26,7 @@ public class ChangeMessageBuilder {
     /**
      * Generates a REST representation of the issue change
      *
-     * @param issueEvent
+     * @param changeEvent
      * @return The REST representation of the issue change if any relevant changes are found, else null;
      * @throws IOException
      * @throws NoSuchFieldException         Throw in case of a changeEvent state, which the ChangeMessageBuilder is unable to handle.
