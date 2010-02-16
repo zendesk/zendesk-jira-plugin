@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4.1-SNAPSHOT</version>
 
     <organization>
         <name>Agilos</name>
@@ -259,18 +259,15 @@
                                     <arg line="${jira.install}/shutdown-jiras.sh ${jira.install}"/>
                                 </exec>
                                 <delete>
-                                    <fileset
-                                            dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
-                                            includes="zendesk-jira-plugin-*.jar"/>
+                                    <fileset dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
+                                             includes="zendesk-jira-plugin-*.jar"/>
                                 </delete>
-                                <copy
-                                        file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
-                                        tofile="${jira.install}/JIRA-${jira.deploy.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar"/>
+                                <copy file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
+                                      tofile="${jira.install}/JIRA-${jira.deploy.version}/atlassian-jira/WEB-INF/lib/zendesk-jira-plugin-${project.version}.jar"/>
                                 <exec os="Windows Vista"
                                       executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.bat"
                                       dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
-                                <exec os="Linux"
-                                      executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.sh"
+                                <exec os="Linux" executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.sh"
                                       dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
                                 <sleep seconds="30"/>
                             </tasks>
@@ -284,9 +281,8 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <move
-                                        file="${project.build.directory}/classes/org/agilos/jira/soapclient"
-                                        toDir="${project.build.directory}/test-classes/org/agilos/jira/"/>
+                                <move file="${project.build.directory}/classes/org/agilos/jira/soapclient"
+                                      toDir="${project.build.directory}/test-classes/org/agilos/jira/"/>
                             </tasks>
                         </configuration>
                     </execution>
