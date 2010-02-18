@@ -165,30 +165,6 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-            <!--
-                   Explode dependent jars and include in distributable. JIRA doesn't
-                   support jars packed in jar. test and provided dependencies are
-                   excluded
-               -->
-            <!--plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
-                   <artifactId>maven-dependency-plugin</artifactId>
-                   <executions>
-                       <execution>
-                           <id>unpack-dependencies</id>
-                           <phase>prepare-package</phase>
-                           <goals>
-                               <goal>unpack-dependencies</goal>
-                           </goals>
-                           <configuration>
-                               <excludeTransitive>true</excludeTransitive>
-                               <includeScope>runtime</includeScope>
-                               <excludeScope>provided</excludeScope>
-                               <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                           </configuration>
-                       </execution>
-                   </executions>
-               </plugin-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>axistools-maven-plugin</artifactId>
