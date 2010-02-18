@@ -33,9 +33,6 @@ public class NotificationDispatcher {
     private CustomField ticketField;
     private ChangeMessageBuilder messageBuilder = new ChangeMessageBuilder();
 
-    public NotificationDispatcher() {
-    }
-
     /**
      * No notification will be sent for issue changes made by the indicated user.
      *
@@ -109,20 +106,18 @@ public class NotificationDispatcher {
         PutMethod method = new PutMethod(ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/" + ticketID + ".xml");
         method.setDoAuthentication(true);
         method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-        StringRequestEntity request = new StringRequestEntity(message);
+        StringRequestEntity request = new StringRequestEntity(message, "application/xml", "UTF-8");
         method.setRequestEntity(request);
         if (log.isDebugEnabled()) {
-            log.debug("Dispatching change message: put " + request.getContent() + " to URL: " +
-                    ZendeskNotifier.getZendeskserverConfiguration().getUrl() + "/tickets/" + ticketID + ".xml");
+            log.debug("Dispatching change message(PUT request) to URL "+ZendeskNotifier.getZendeskserverConfiguration().getUrl()+"/tickets/"+ticketID+".xml:\n"+ 
+                    request.getContent());
         }
         client.executeMethod(method);
 
         if (method.getStatusCode() != HttpStatus.SC_OK) {
             log.debug("Received unexpected response code " + method.getStatusCode() +", response was: "+ method.getResponseBodyAsString());
-        } else if (method.getResponseBody() != null) {
-            log.warn("No success in sending notification, response was:\n" + method.getResponseBodyAsString());
-        } else {
-            log.warn("No response received");
+        } else if (method.getResponseBody() != null && !method.getResponseBodyAsString().trim().isEmpty()) {
+            log.warn("Received unexpected response on notification (status_code OK): " + method.getResponseBodyAsString());
         }
     }
 

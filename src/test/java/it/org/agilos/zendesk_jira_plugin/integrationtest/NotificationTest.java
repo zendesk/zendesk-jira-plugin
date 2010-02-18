@@ -72,13 +72,15 @@ public class NotificationTest extends AbstractNotificationTest {
 	
 	/**
 	 * ZEN-18 Content-length not set in notification http headers, http://jira.agilos.org/browse/ZEN-18
+     * ZEN-93 Wrong content type in header, http://jira.agilos.org/browse/ZEN-93
 	 */
 	@Test (groups = {"regressionTests"} )
 	public void testNotificationHeaders() throws Exception  {
 		fixture.updateIssueWithSummary(issueKey, "Testing testNotificationHeaders-"+Calendar.getInstance().getTimeInMillis());
 		HttpRequest request = (HttpRequest)fixture.getNextRequest();
 		Series<Parameter> headers = request.getHeaders();
-		assertTrue("No content-length in headers of request received", headers.getValues(HttpConstants.HEADER_CONTENT_LENGTH) != null);
+		assertTrue("No content-length in headers of request received", headers.getValues(HttpConstants.HEADER_CONTENT_LENGTH) != null);           
+		assertEquals("Wrong content in headers of request received", "application/xml; charset=UTF-8", headers.getValues(HttpConstants.HEADER_CONTENT_TYPE));
 	}
 	
 	/**

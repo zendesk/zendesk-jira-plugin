@@ -36,7 +36,7 @@ public class JIRAClient {
 	
 	public static String jiraUrl;
 	public static String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
-	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
+	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboopw");
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
