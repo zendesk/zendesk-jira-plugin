@@ -10,6 +10,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.log4j.Logger;
+import org.ofbiz.core.entity.GenericEntityException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -70,7 +71,7 @@ public class AttachmentHandler {
         return stringBuffer.toString();
     }
 
-    private static String uploadAttachment(Long attachmentId) throws HttpException, IOException, SAXException, ParserConfigurationException {
+    private static String uploadAttachment(Long attachmentId) throws IOException, SAXException, ParserConfigurationException, GenericEntityException {
         Attachment attachment = ManagerFactory.getAttachmentManager().getAttachment(attachmentId);
 
         HttpClient client = new HttpClient();

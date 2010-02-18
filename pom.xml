@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.1-JIRA3.12-SNAPSHOT</version>
 
     <organization>
         <name>Agilos</name>
@@ -34,7 +34,7 @@
     <issueManagement>
         <system>JIRA</system>
         <url>http://jira.agilos.org/browse/ZEN</url>
-    </issueManagement>
+    </issueManagement>                                   
 
     <ciManagement>
         <system>bamboo</system>
@@ -126,7 +126,7 @@
                 <configuration>
                     <systemProperties>
                         <property>
-                            <name>jira.version</name>
+                            <name>jira.deploy.version</name>
                             <value>${jira.deploy.version}</value>
                         </property>
                         <property>
@@ -259,7 +259,7 @@
                                     <arg line="${jira.install}/shutdown-jiras.sh ${jira.install}"/>
                                 </exec>
                                 <delete>
-                                    <fileset dir="${jira.install}/JIRA-${jira.version}/atlassian-jira/WEB-INF/lib"
+                                    <fileset dir="${jira.install}/JIRA-${jira.deploy.version}/atlassian-jira/WEB-INF/lib"
                                              includes="zendesk-jira-plugin-*.jar"/>
                                 </delete>
                                 <copy file="${project.build.directory}/zendesk-jira-plugin-${project.version}.jar"
@@ -412,7 +412,7 @@
         <profile>
             <id>jira3.12</id>
             <properties>
-                <jira.version>4.0</jira.version>
+                <jira.version>3.12.2</jira.version>
                 <jira.deploy.version>3.12.2</jira.deploy.version>
             </properties>
             <build>

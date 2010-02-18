@@ -1,28 +1,26 @@
 package org.agilos.jira.ws;
 
-import com.atlassian.jira.rpc.exception.RemoteException;
-import org.agilos.jira.service.UserService;
-
 import com.atlassian.jira.rpc.auth.TokenManager;
 import com.atlassian.jira.rpc.exception.RemoteAuthenticationException;
+import com.atlassian.jira.rpc.exception.RemoteException;
 import com.atlassian.jira.rpc.exception.RemotePermissionException;
 import com.atlassian.jira.rpc.soap.beans.RemoteUser;
 import com.opensymphony.user.User;
+import org.agilos.jira.service.UserService;
 import org.apache.log4j.Logger;
 
 public class AgilosSoapServiceImpl implements AgilosSoapService {
-	private TokenManager tokenManager; // The TokenManager functionality is very much inspired by the com.atlassian.jira.rpc.auth.TokenManager
-	private UserService userService;
+    private TokenManager tokenManager; // The TokenManager functionality is very much inspired by the com.atlassian.jira.rpc.auth.TokenManager
+    private UserService userService;
 
     private Logger log = Logger.getLogger(AgilosSoapServiceImpl.class.getName());
-	
-	public AgilosSoapServiceImpl(TokenManager tokenManager, UserService userService)
-    {
+
+    public AgilosSoapServiceImpl(TokenManager tokenManager, UserService userService) {
         this.tokenManager = tokenManager;
         this.userService = userService;
     }
-	public void setTokenManager(TokenManager tokenManager)
-    {
+
+    public void setTokenManager(TokenManager tokenManager) {
         this.tokenManager = tokenManager;
     }
 
@@ -32,12 +30,12 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      *
      * @param token the given out previously via {@link #login}
      * @return the user name behind that token or null if the token is not valid
-     * @throws RemotePermissionException 
-     * @throws RemoteAuthenticationException 
+     * @throws RemotePermissionException
+     * @throws RemoteAuthenticationException
      */
     public String resolveTokenToUserName(final String token) throws RemoteAuthenticationException, RemotePermissionException {
-            User user = tokenManager.retrieveUserNoPermissionCheck(token);
-            return user == null ? null : user.getName();
+        User user = tokenManager.retrieveUserNoPermissionCheck(token);
+        return user == null ? null : user.getName();
     }
 
     /**
@@ -51,8 +49,9 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     }
 
     public String login(String username, String password) throws RemoteException {
+        log.info("Calling on token manager: "+tokenManager+" with "+username+":"+password);
         try {
-            return tokenManager.login(username, password);  
+            return tokenManager.login(username, password);
         } catch (RuntimeException e) {
             log.error(e);
             throw new RemoteException(e.getMessage());
@@ -62,8 +61,8 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     public boolean logout(String token) {
         return tokenManager.logout(token);
     }
-    
-	public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteException {
+
+    public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteException {
         try {
             tokenManager.retrieveUserNoPermissionCheck(token);
             return userService.getAssignableUsers(projectKey);
@@ -71,5 +70,5 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
             log.error(e);
             throw new RemoteException(e);
         }
-	}
+    }
 }

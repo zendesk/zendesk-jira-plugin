@@ -4,6 +4,7 @@ import java.net.URL;
 
 import javax.xml.ws.WebServiceException;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.FuncTestHelperFactory;
 import net.sourceforge.jwebunit.WebTester;
 
 import org.agilos.jira.soapclient.JiraSoapService;
@@ -11,7 +12,6 @@ import org.agilos.jira.soapclient.JiraSoapServiceService;
 import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.apache.log4j.Logger;
 
-import com.atlassian.jira.functest.framework.FuncTestHelperFactory;
 import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import com.meterware.httpunit.HttpUnitOptions;
@@ -36,7 +36,7 @@ public class JIRAClient {
 	
 	public static String jiraUrl;
 	public static String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
-	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboo2997");
+	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboopw");
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
@@ -44,10 +44,6 @@ public class JIRAClient {
 	
 	public FuncTestHelperFactory getFuncTestHelperFactory() {
 		return fthFatory;
-	}
-	
-	public IssueEditor getIssueEditor(String issuekey) {
-		return new IssueEditor(issuekey, fthFatory);
 	}
 
 	private JIRAClient() {
@@ -71,7 +67,7 @@ public class JIRAClient {
 	public void login(String user, String password) throws Exception {	
 			URL jiraSOAPServiceUrl = new URL(jiraUrl+"/rpc/soap/jirasoapservice-v2");
 			JiraSoapServiceService jiraSoapServiceGetter = new JiraSoapServiceServiceLocator();
-			log.debug("Retriving jira soap service from "+jiraSOAPServiceUrl);
+			log.debug("Retrieving jira soap service from "+jiraSOAPServiceUrl);
 			jiraSoapService = jiraSoapServiceGetter.getJirasoapserviceV2(jiraSOAPServiceUrl);
 			log.debug("Logging in with user: "+user+" and password: "+password);
 			jiraSoapToken = jiraSoapService.login(user, password); //Soap login

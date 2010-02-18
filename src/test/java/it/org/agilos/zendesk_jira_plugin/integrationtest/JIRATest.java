@@ -18,9 +18,9 @@ public abstract class JIRATest {
 
 	@BeforeMethod (alwaysRun = true)
 	void setUpTest() throws Exception {
-		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.version", "4.0")+".xml");
+		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.0")+".xml");
 		try {
-	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.version", "4.0")+".xml");
+	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.0")+".xml");
 			getFixture().connect();
 			getFixture().createUserWithUsername(USER_ID);
 			getFixture().createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID); 

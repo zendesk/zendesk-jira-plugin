@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" xmlns:intf="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://exception.rpc.jira.atlassian.com" xmlns:tns2="http://beans.soap.rpc.jira.atlassian.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://localhost:1990/rpc/soap/agilossoapservice-v1" xmlns:intf="http://localhost:1990/rpc/soap/agilossoapservice-v1" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://exception.rpc.jira.atlassian.com" xmlns:tns2="http://beans.soap.rpc.jira.atlassian.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.3
 Built on Oct 05, 2005 (05:23:37 EDT)-->
  <wsdl:types>
   <schema targetNamespace="http://exception.rpc.jira.atlassian.com" xmlns="http://www.w3.org/2001/XMLSchema">
-   <import namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1"/>
    <import namespace="http://beans.soap.rpc.jira.atlassian.com"/>
+   <import namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="RemoteException">
     <sequence/>
-   </complexType>
-   <complexType name="RemoteValidationException">
-    <complexContent>
-     <extension base="tns1:RemoteException">
-      <sequence/>
-     </extension>
-    </complexContent>
    </complexType>
    <complexType name="RemotePermissionException">
     <complexContent>
@@ -31,10 +24,17 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
      </extension>
     </complexContent>
    </complexType>
+   <complexType name="RemoteValidationException">
+    <complexContent>
+     <extension base="tns1:RemoteException">
+      <sequence/>
+     </extension>
+    </complexContent>
+   </complexType>
   </schema>
   <schema targetNamespace="http://beans.soap.rpc.jira.atlassian.com" xmlns="http://www.w3.org/2001/XMLSchema">
-   <import namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1"/>
    <import namespace="http://exception.rpc.jira.atlassian.com"/>
+   <import namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="RemoteEntity">
     <sequence/>
@@ -51,7 +51,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
     </complexContent>
    </complexType>
   </schema>
-  <schema targetNamespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" xmlns="http://www.w3.org/2001/XMLSchema">
+  <schema targetNamespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://beans.soap.rpc.jira.atlassian.com"/>
    <import namespace="http://exception.rpc.jira.atlassian.com"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -65,15 +65,21 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
   </schema>
  </wsdl:types>
 
-   <wsdl:message name="RemoteException">
+   <wsdl:message name="getAssignableUsersResponse">
 
-      <wsdl:part name="fault" type="tns1:RemoteException"/>
+      <wsdl:part name="getAssignableUsersReturn" type="impl:ArrayOf_tns2_RemoteUser"/>
 
    </wsdl:message>
 
-   <wsdl:message name="RemoteAuthenticationException">
+   <wsdl:message name="RemotePermissionException">
 
-      <wsdl:part name="fault" type="tns1:RemoteAuthenticationException"/>
+      <wsdl:part name="fault" type="tns1:RemotePermissionException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part name="loginReturn" type="xsd:string"/>
 
    </wsdl:message>
 
@@ -93,21 +99,15 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="getAssignableUsersResponse">
+   <wsdl:message name="RemoteAuthenticationException">
 
-      <wsdl:part name="getAssignableUsersReturn" type="impl:ArrayOf_tns2_RemoteUser"/>
-
-   </wsdl:message>
-
-   <wsdl:message name="RemotePermissionException">
-
-      <wsdl:part name="fault" type="tns1:RemotePermissionException"/>
+      <wsdl:part name="fault" type="tns1:RemoteAuthenticationException"/>
 
    </wsdl:message>
 
-   <wsdl:message name="loginResponse">
+   <wsdl:message name="RemoteException">
 
-      <wsdl:part name="loginReturn" type="xsd:string"/>
+      <wsdl:part name="fault" type="tns1:RemoteException"/>
 
    </wsdl:message>
 
@@ -157,19 +157,19 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="loginResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:fault>
 
@@ -187,25 +187,25 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
          <wsdl:output name="getAssignableUsersResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:output>
 
          <wsdl:fault name="RemotePermissionException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemotePermissionException" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteAuthenticationException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteAuthenticationException" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:fault>
 
          <wsdl:fault name="RemoteException">
 
-            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1" use="encoded"/>
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="RemoteException" namespace="http://localhost:1990/rpc/soap/agilossoapservice-v1" use="encoded"/>
 
          </wsdl:fault>
 
@@ -217,7 +217,7 @@ Built on Oct 05, 2005 (05:23:37 EDT)-->
 
       <wsdl:port binding="impl:agilossoapservice-v1SoapBinding" name="agilossoapservice-v1">
 
-         <wsdlsoap:address location="http://192.168.0.103:8181/rpc/soap/agilossoapservice-v1"/>
+         <wsdlsoap:address location="http://localhost:1990/rpc/soap/agilossoapservice-v1"/>
 
       </wsdl:port>
 

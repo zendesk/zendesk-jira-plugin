@@ -43,8 +43,7 @@ public class JIRAFixture {
 	
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
-		tester = jiraClient.getFuncTestHelperFactory().getTester();
-		
+		tester = jiraClient.getFuncTestHelperFactory().getTester();		
 	}
 	
 	/**
