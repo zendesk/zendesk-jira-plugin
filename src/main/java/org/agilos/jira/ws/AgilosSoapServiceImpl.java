@@ -16,11 +16,13 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     private Logger log = Logger.getLogger(AgilosSoapServiceImpl.class.getName());
 
     public AgilosSoapServiceImpl(TokenManager tokenManager, UserService userService) {
+        log.error("Starting Zendesk plugin");
         this.tokenManager = tokenManager;
         this.userService = userService;
     }
 
     public void setTokenManager(TokenManager tokenManager) {
+        log.error("Setting token manager");
         this.tokenManager = tokenManager;
     }
 
@@ -34,8 +36,10 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      * @throws RemoteAuthenticationException
      */
     public String resolveTokenToUserName(final String token) throws RemoteAuthenticationException, RemotePermissionException {
+        log.error("Calling resolveTokenToUserName("+token+")");
         User user = tokenManager.retrieveUserNoPermissionCheck(token);
         return user == null ? null : user.getName();
+
     }
 
     /**
@@ -45,11 +49,12 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
      * @return the parameter index of the user token
      */
     public int getTokenParameterIndex(final String operationName) {
+        log.error("Calling getTokenParameterIndex("+operationName+")");
         return 0;
     }
 
     public String login(String username, String password) throws RemoteException {
-        log.info("Calling on token manager: "+tokenManager+" with "+username+":"+password);
+        log.error("Calling on token manager: "+tokenManager+" with "+username+":"+password);
         try {
             return tokenManager.login(username, password);
         } catch (RuntimeException e) {
@@ -63,6 +68,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     }
 
     public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteException {
+        log.error("Returning assignable users for prject "+projectKey);
         try {
             tokenManager.retrieveUserNoPermissionCheck(token);
             return userService.getAssignableUsers(projectKey);

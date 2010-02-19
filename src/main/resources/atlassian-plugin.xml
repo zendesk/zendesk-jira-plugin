@@ -2,7 +2,7 @@
     <plugin-info>
         <description key="agilos.admin.web.rpc.plugin.desc">The Zendesk JIRA SOAP services.</description>
         <version>1.4-RC1-SNAPSHOT</version>
-        <application-version min="3.13" max="4.0"/>
+        <application-version min="3.12" max="4.0"/>
         <vendor name="Agilos Open Source Foundation" url="http://agilos.org"/>
     </plugin-info>
 
@@ -22,7 +22,11 @@
         <description>Produces notifications for a Zendesk instance when issues changes</description>        
     </component>
 
-    <rpc-soap key="soap" name="Zendesk SOAP Services" class="org.agilos.jira.ws.AgilosSoapServiceImpl">
+    <component key="component-AgilosSoapService" name="Agilos SOAP Service Component" class="org.agilos.jira.ws.AgilosSoapServiceImpl">
+        <interface>org.agilos.jira.ws.AgilosSoapService</interface>
+    </component>
+
+    <rpc-soap key="soap-agilos" name="Agilos SOAP Services" class="org.agilos.jira.ws.AgilosSoapServiceImpl">
         <description>The Zendesk JIRA SOAP services.</description>
         <service-path>agilossoapservice-v1</service-path>
         <published-interface>org.agilos.jira.ws.AgilosSoapService</published-interface>

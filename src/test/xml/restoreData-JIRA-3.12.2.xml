@@ -62,7 +62,7 @@
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10050" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10080" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10100" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10000" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10000" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -126,6 +126,7 @@
     <OSMembership id="10021" userName="admin" groupName="jira-administrators"/>
     <OSMembership id="10030" userName="bamboo" groupName="jira-administrators"/>
     <OSMembership id="10031" userName="bamboo" groupName="jira-developers"/>
+    <OSMembership id="10050" userName="zendesk" groupName="jira-developers"/>
     <OSPropertyEntry id="10000" entityName="jira.properties" entityId="1" propertyKey="jira.i18n.language.index" type="5"/>
     <OSPropertyEntry id="10001" entityName="jira.properties" entityId="1" propertyKey="jira.sid.key" type="5"/>
     <OSPropertyEntry id="10002" entityName="jira.properties" entityId="1" propertyKey="webwork.i18n.encoding" type="5"/>
@@ -193,7 +194,7 @@
     <OSPropertyNumber id="10048" value="0"/>
     <OSPropertyNumber id="10049" value="0"/>
     <OSPropertyNumber id="10050" value="1"/>
-    <OSPropertyNumber id="10060" value="0"/>
+    <OSPropertyNumber id="10060" value="1"/>
     <OSPropertyNumber id="10062" value="1"/>
     <OSPropertyString id="10000" value="english"/>
     <OSPropertyString id="10001" value="AJ6I-JYIC-53PN-597W"/>
@@ -228,7 +229,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10053" value="zendesk@agilos.org"/>
     <OSPropertyString id="10054" value="Zendesk test user"/>
     <OSPropertyString id="10061" value="target/jira/attachments"/>
-    <OSPropertyString id="10070" value="63"/>
+    <OSPropertyString id="10070" value="246"/>
     <OSPropertyString id="10071" value="admin@agilos.org"/>
     <OSPropertyString id="10072" value="Admin test user"/>
     <OSPropertyString id="10090" value="http://localhost:8182"/>
@@ -321,11 +322,11 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="FieldScreenTab" seqId="10010"/>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10090"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10110"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSGroup" seqId="10010"/>
-    <SequenceValueItem seqName="OSMembership" seqId="10050"/>
+    <SequenceValueItem seqName="OSMembership" seqId="10060"/>
     <SequenceValueItem seqName="OSPropertyEntry" seqId="10100"/>
     <SequenceValueItem seqName="OSUser" seqId="10040"/>
     <SequenceValueItem seqName="OptionConfiguration" seqId="10010"/>
