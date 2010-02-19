@@ -4,7 +4,7 @@
 
 ___ Exported on ___________________
 
-     on                                  : 18. februar 2010 11:59:53 CET
+     on                                  : 19. februar 2010 14:46:05 CET
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
@@ -15,14 +15,14 @@ ___ Environment _________________
      Java Version                        : 1.6.0_17 - Sun Microsystems Inc.
      Current Working Directory           : D:\apps\jira-test\JIRA-4.0
      Maximum Allowable Memory            : 508MB
-     Total Memory                        : 181MB
-     Free Memory                         : 73MB
-     Used Memory                         : 108MB
-     Memory Pool: Code Cache             : Code Cache: init = 163840(160K) used = 13366784(13053K) committed = 13402112(13088K) max = 33554432(32768K)
-     Memory Pool: Eden Space             : Eden Space: init = 8323072(8128K) used = 7582224(7404K) committed = 11927552(11648K) max = 33030144(32256K)
-     Memory Pool: Survivor Space         : Survivor Space: init = 983040(960K) used = 142960(139K) committed = 1441792(1408K) max = 4128768(4032K)
-     Memory Pool: Tenured Gen            : Tenured Gen: init = 123928576(121024K) used = 105442688(102971K) committed = 176992256(172844K) max = 495583232(483968K)
-     Memory Pool: Perm Gen               : Perm Gen: init = 12582912(12288K) used = 72991272(71280K) committed = 73138176(71424K) max = 268435456(262144K)
+     Total Memory                        : 185MB
+     Free Memory                         : 83MB
+     Used Memory                         : 102MB
+     Memory Pool: Code Cache             : Code Cache: init = 163840(160K) used = 13021312(12716K) committed = 13041664(12736K) max = 33554432(32768K)
+     Memory Pool: Eden Space             : Eden Space: init = 8323072(8128K) used = 477544(466K) committed = 12124160(11840K) max = 33030144(32256K)
+     Memory Pool: Survivor Space         : Survivor Space: init = 983040(960K) used = 580656(567K) committed = 1507328(1472K) max = 4128768(4032K)
+     Memory Pool: Tenured Gen            : Tenured Gen: init = 123928576(121024K) used = 105725720(103247K) committed = 180912128(176672K) max = 495583232(483968K)
+     Memory Pool: Perm Gen               : Perm Gen: init = 12582912(12288K) used = 74056968(72321K) committed = 74186752(72448K) max = 268435456(262144K)
      JVM Input Arguments                 : -XX:MaxPermSize=256m -Xms128m -Xmx512m -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Dmail.mime.decodeparameters=true -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=D:\apps\jira-test\JIRA-4.0\conf\logging.properties -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -Djava.endorsed.dirs=D:\apps\jira-test\JIRA-4.0\common\endorsed -Dcatalina.base=D:\apps\jira-test\JIRA-4.0 -Dcatalina.home=D:\apps\jira-test\JIRA-4.0 -Djava.io.tmpdir=D:\apps\jira-test\JIRA-4.0\temp
 
 ___ Database Configuration ______
@@ -332,10 +332,10 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 18-02-10 11:58
+     Last Run                            : 19-02-10 14:46
      Service Provider Token Remover      : com.atlassian.sal.jira.scheduling.JiraPluginSchedulerService
           Service Delay                       : 28800000ms
-     Last Run                            : 18-02-10 11:58
+     Last Run                            : 19-02-10 14:44
           pluginJobName                       : Service Provider Token Remover
 
 ___ Trusted Applications ________
@@ -426,7 +426,7 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10180" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10190" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -590,7 +590,8 @@ ___ Trusted Applications ________
     <OSPropertyEntry id="10660" entityName="jira.properties" entityId="1" propertyKey="jira.trustedapp.uid" type="5"/>
     <OSPropertyEntry id="10661" entityName="OSUser" entityId="10000" propertyKey="login.previousLoginMillis" type="5"/>
     <OSPropertyEntry id="10671" entityName="jira.properties" entityId="1" propertyKey="jira.path.attachments.use.default.directory" type="1"/>
-    <OSPropertyEntry id="10680" entityName="ServiceConfig" entityId="10040" propertyKey="pluginJobName" type="5"/>
+    <OSPropertyEntry id="10690" entityName="ServiceConfig" entityId="10050" propertyKey="pluginJobName" type="5"/>
+    <OSPropertyEntry id="10691" entityName="jira.properties" entityId="1" propertyKey="jira.jql.autocomplete.disabled" type="1"/>
     <OSPropertyNumber id="10013" value="1"/>
     <OSPropertyNumber id="10016" value="1"/>
     <OSPropertyNumber id="10023" value="1"/>
@@ -610,6 +611,7 @@ ___ Trusted Applications ________
     <OSPropertyNumber id="10650" value="1"/>
     <OSPropertyNumber id="10652" value="22"/>
     <OSPropertyNumber id="10671" value="1"/>
+    <OSPropertyNumber id="10691" value="0"/>
     <OSPropertyString id="10000" value="jira.user.format:profile-link-user-format"/>
     <OSPropertyString id="10001" value="jira.user.format:full-name-user-format"/>
     <OSPropertyString id="10002" value="jira.user.format:profile-link-searcher-user-format"/>
@@ -621,7 +623,7 @@ ___ Trusted Applications ________
     <OSPropertyString id="10008" value="ADDB-GGBW-V7CZ-OS3I"/>
     <OSPropertyString id="10009" value="UTF-8"/>
     <OSPropertyString id="10010" value="Agilis Test JIRA"/>
-    <OSPropertyString id="10011" value="http://localhost:1990/jira"/>
+    <OSPropertyString id="10011" value="http://localhost:1990"/>
     <OSPropertyString id="10012" value="private"/>
     <OSPropertyString id="10014" value="d:\projects\Agilos\zendesk-jira-plugin\target\jira/home/indexes"/>
     <OSPropertyString id="10015" value="d:\projects\Agilos\zendesk-jira-plugin\target\jira\jira-config\jira-home\data\attachments"/>
@@ -654,7 +656,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="jira"/>
     <OSPropertyString id="10161" value="jira"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10570" value="600"/>
+    <OSPropertyString id="10570" value="601"/>
     <OSPropertyString id="10580" value="en_UK"/>
     <OSPropertyString id="10600" value="admin@nowhere.org"/>
     <OSPropertyString id="10601" value="Integration test admin user"/>
@@ -663,11 +665,11 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10640" value="zendesk"/>
     <OSPropertyString id="10653" value="S0C8uOTybuoKIpR/8HtqGgtetpovZrLjC4nhQ+lqlu4="/>
     <OSPropertyString id="10655" value="10011"/>
-    <OSPropertyString id="10656" value="1258550815803"/>
-    <OSPropertyString id="10657" value="3"/>
+    <OSPropertyString id="10656" value="1266587103999"/>
+    <OSPropertyString id="10657" value="4"/>
     <OSPropertyString id="10660" value="jira:12427782"/>
-    <OSPropertyString id="10661" value="1258110316627"/>
-    <OSPropertyString id="10680" value="Service Provider Token Remover"/>
+    <OSPropertyString id="10661" value="1258550815803"/>
+    <OSPropertyString id="10690" value="Service Provider Token Remover"/>
     <OSPropertyText id="10017" value="NQqxSpNqPMnQPQOnorVtrnrqmPNnOqMPPwsSssuwWMvWvUTtvUQUuwoooUUnoptpunommmmmUUnoptpunommmmmUU1dfifpWJlcqtXobW1mJ"/>
     <OSPropertyText id="10018" value="pOMmvRKtgnFraUPalHeqGcCkQoVsOfvoUBSsEvXPwVwELWmi2Ka0m&gt;AynVnIWdvQYRBArt2K2GVPP1JXDXsjQekELAqv"/>
     <OSPropertyText id="10651" value="AAABVg0ODAoPeNpNUd1OwjAUvu9TNPF6pGyIStLEZWsQAhtZBxfGxNRxgMrolrZDeTPvfTH3R/D6nO//Lq0AR8UZEw8Td3I/nhCCA55il5AnFILJtCytLBSdzxIfr1UuT9LCFq8NaPM2wXEJCvOi0hnghcxAGUCBBtFgQmGBNkTOcOgQDwWFsiKzkTgBXcqjNJiDPWD++6MbnEKfUotBz8K2stVlUcqSVTLj7IpnSyFzemoInsVe5tI4ptjZL6FhsD0idhZ51erTnchrO/9Z00sJrX68YtE7j9dJwLqHmliegVpdAcq7500dsaFxUa2oLCihMmDfpdSXPtqQ1Lkcl6BY74WSppP1W1N1K50p7Je804iq0wfoeNeWR50h4iyi44fHkeciDvoMehZSf75wndTfvDijVx443nQ6Rb37+rqYhT3g2tPNT3VdB63qPQ7CwG2BzuYfz7+l7TAsAhRx8g4HEwNNnI47wReMGUsxn9qdXwIUexQPKp76f0ZGQTHQGI3cylZpp3k=X02gs"/>
@@ -830,13 +832,13 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10190"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10200"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>
     <SequenceValueItem seqName="OSGroup" seqId="10010"/>
     <SequenceValueItem seqName="OSMembership" seqId="10520"/>
-    <SequenceValueItem seqName="OSPropertyEntry" seqId="10690"/>
+    <SequenceValueItem seqName="OSPropertyEntry" seqId="10700"/>
     <SequenceValueItem seqName="OSUser" seqId="10310"/>
     <SequenceValueItem seqName="OSWorkflowEntry" seqId="10370"/>
     <SequenceValueItem seqName="OptionConfiguration" seqId="10010"/>
@@ -847,14 +849,14 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="ProjectRole" seqId="10010"/>
     <SequenceValueItem seqName="ProjectRoleActor" seqId="10750"/>
     <SequenceValueItem seqName="SchemePermissions" seqId="10050"/>
-    <SequenceValueItem seqName="ServiceConfig" seqId="10050"/>
+    <SequenceValueItem seqName="ServiceConfig" seqId="10060"/>
     <SequenceValueItem seqName="SharePermissions" seqId="10010"/>
     <SequenceValueItem seqName="UpgradeHistory" seqId="10060"/>
     <SequenceValueItem seqName="Workflow" seqId="10010"/>
     <SequenceValueItem seqName="WorkflowScheme" seqId="10010"/>
     <SequenceValueItem seqName="WorkflowSchemeEntity" seqId="10010"/>
     <ServiceConfig id="10000" time="60000" clazz="com.atlassian.jira.service.services.mail.MailQueueService" name="Mail Queue Service"/>
-    <ServiceConfig id="10040" time="28800000" clazz="com.atlassian.sal.jira.scheduling.JiraPluginSchedulerService" name="Service Provider Token Remover"/>
+    <ServiceConfig id="10050" time="28800000" clazz="com.atlassian.sal.jira.scheduling.JiraPluginSchedulerService" name="Service Provider Token Remover"/>
     <SharePermissions id="10000" entityId="10000" entityType="PortalPage" type="global"/>
     <Status id="1" sequence="1" name="Open" description="The issue is open and ready for the assignee to start work on it." iconurl="/images/icons/status_open.gif"/>
     <Status id="10000" sequence="7" name="Investigating" description="The issue is being investigated" iconurl="/images/icons/status_visible.gif"/>
@@ -1291,7 +1293,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
 
 ___ Entities ______________________
 
-     Total                               : 557
+     Total                               : 559
 
      Avatar                              : 12
      ConfigurationContext                : 2
@@ -1318,8 +1320,8 @@ ___ Entities ______________________
      OSGroup                             : 3
      OSHistoryStepPrev                   : 9
      OSMembership                        : 13
-     OSPropertyEntry                     : 78
-     OSPropertyNumber                    : 19
+     OSPropertyEntry                     : 79
+     OSPropertyNumber                    : 20
      OSPropertyString                    : 54
      OSPropertyText                      : 5
      OSUser                              : 5

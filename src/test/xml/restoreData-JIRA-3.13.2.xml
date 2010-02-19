@@ -4,7 +4,7 @@
 
 ___ Exported on ___________________
 
-     on                                  : 18. februar 2010 14:09:47 CET
+     on                                  : 19. februar 2010 15:19:43 CET
      by                                  : mikis ( Mikis Seth Sørensen )
 
 ___ Environment _________________
@@ -14,12 +14,12 @@ ___ Environment _________________
      Java Version                        : 1.6.0_17 - Sun Microsystems Inc.
      Current Working Directory           : D:\apps\jira-test\JIRA-3.13.2
      Maximum Allowable Memory            : 254MB
-     Total Memory                        : 132MB
-     Free Memory                         : 36MB
-     Used Memory                         : 96MB
+     Total Memory                        : 127MB
+     Free Memory                         : 81MB
+     Used Memory                         : 46MB
      Total PermGen Memory                : 160MB
-     Free PermGen Memory                 : 120MB
-     Used PermGen Memory                 : 39MB
+     Free PermGen Memory                 : 119MB
+     Used PermGen Memory                 : 40MB
      JVM Input Arguments                 : -XX:MaxPermSize=128m -Xms128m -Xmx256m -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.util.logging.config.file=D:\apps\jira-test\JIRA-3.13.2\conf\logging.properties -Djava.endorsed.dirs=D:\apps\jira-test\JIRA-3.13.2\common\endorsed -Dcatalina.base=D:\apps\jira-test\JIRA-3.13.2 -Dcatalina.home=D:\apps\jira-test\JIRA-3.13.2 -Djava.io.tmpdir=D:\apps\jira-test\JIRA-3.13.2\temp
 
 ___ Database Configuration ______
@@ -112,7 +112,7 @@ ___ Services ____________________
 
      Mail Queue Service                  : com.atlassian.jira.service.services.mail.MailQueueService
           Service Delay                       : 60000ms
-     Last Run                            : 18-02-10 14:09
+     Last Run                            : 19-02-10 15:19
 
 ___ Trusted Applications ________
 
@@ -183,7 +183,7 @@ ___ Trusted Applications ________
     <ListenerConfig id="10000" clazz="com.atlassian.jira.event.listeners.cache.IssueCacheListener" name="Issue Cache Listener"/>
     <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
     <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
-    <ListenerConfig id="10180" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <ListenerConfig id="10190" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
     <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
     <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
@@ -362,7 +362,7 @@ ___ Trusted Applications ________
     <OSPropertyString id="10008" value="ADDB-GGBW-V7CZ-OS3I"/>
     <OSPropertyString id="10009" value="UTF-8"/>
     <OSPropertyString id="10010" value="Agilis Test JIRA"/>
-    <OSPropertyString id="10011" value="http://localhost:1990/jira"/>
+    <OSPropertyString id="10011" value="http://localhost:1990"/>
     <OSPropertyString id="10012" value="private"/>
     <OSPropertyString id="10014" value="C:\Users\mikis\AppData\Local\Temp\jira_autotest\indexes"/>
     <OSPropertyString id="10015" value="test-attachments"/>
@@ -395,7 +395,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <OSPropertyString id="10160" value="jira"/>
     <OSPropertyString id="10161" value="jira"/>
     <OSPropertyString id="10170" value="Zendesk TicketID"/>
-    <OSPropertyString id="10570" value="665"/>
+    <OSPropertyString id="10570" value="689"/>
     <OSPropertyString id="10580" value="en_UK"/>
     <OSPropertyString id="10600" value="admin@nowhere.org"/>
     <OSPropertyString id="10601" value="Integration test admin user"/>
@@ -526,7 +526,7 @@ Examples: 4d, 5h 30m, 60m and 3w.]]></value>
     <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
     <SequenceValueItem seqName="Issue" seqId="10370"/>
     <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
-    <SequenceValueItem seqName="ListenerConfig" seqId="10190"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10200"/>
     <SequenceValueItem seqName="Notification" seqId="10050"/>
     <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
     <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>

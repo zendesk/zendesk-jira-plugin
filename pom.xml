@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4.1-JIRA3.12-SNAPSHOT</version>
+    <version>1.4.0.2-SNAPSHOT</version>
 
     <organization>
         <name>Agilos</name>
@@ -388,7 +388,7 @@
         <profile>
             <id>jira3.12</id>
             <properties>
-                <jira.version>3.12.2</jira.version>
+                <jira.version>4.0</jira.version>
                 <jira.deploy.version>3.12.2</jira.deploy.version>
             </properties>
             <build>
