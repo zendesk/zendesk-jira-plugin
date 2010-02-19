@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4.0.2-SNAPSHOT</version>
+    <version>1.4.0.2</version>
 
     <organization>
         <name>Agilos</name>
