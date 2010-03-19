@@ -24,7 +24,7 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), fixture.getNextRequest().getEntityAsText());
 	}
     
-	@Test
+	@Test (groups = {"regressionTests", "jira3-failing"} )  //Doesn't work on JIRA 3, priority field is set, even though the test doesn't touch the field.
 	public void testDescriptionAndCommentChangedNotification() throws Exception  {
 		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a description and comment change test", "This is the comment part of the summery + comment change");
 		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
