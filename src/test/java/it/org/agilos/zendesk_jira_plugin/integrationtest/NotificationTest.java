@@ -24,18 +24,11 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), fixture.getNextRequest().getEntityAsText());
 	}
     
-	//@Test
+	@Test
 	public void testDescriptionAndCommentChangedNotification() throws Exception  {
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.clickLink("move_issue");
-		fixture.tester.assertTextPresent("Move Issue: "+issueKey);
-		fixture.tester.setWorkingForm("jiraform");
-		//fixture.tester.selectOption("pid", newProjectName.getName());
-		fixture.tester.submit();
-	
-		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a summary and comment change test", "This is the comment part of the summery + comment change");
+		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a description and comment change test", "This is the comment part of the summery + comment change");
 		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
-	    assertEquals("Wrong comment response received after changing description comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+	    assertEquals("Wrong comment response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
 	}
 	
 	@Test (groups = {"regressionTests"} )

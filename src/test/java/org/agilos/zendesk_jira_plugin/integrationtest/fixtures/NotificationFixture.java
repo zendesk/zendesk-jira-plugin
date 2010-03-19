@@ -70,9 +70,13 @@ public class NotificationFixture extends JIRAFixture {
 
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description +" and adding comment: "+comment);
-		jiraClient.getService().updateIssue(jiraClient.getToken(), issueKey, new RemoteFieldValue[] { 
-			//new RemoteFieldValue(IssueFieldConstants.DESCRIPTION, new String[] { description }),
-			new RemoteFieldValue(IssueFieldConstants.COMMENT, new String[] { comment } ) });
+		tester.gotoPage("browse/"+issueKey);
+		tester.clickLink("edit_issue");
+
+        tester.setFormElement("description", description);
+        tester.setFormElement("comment",comment);
+
+        tester.submit();
 	}
 
 	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
