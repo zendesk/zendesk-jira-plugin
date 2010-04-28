@@ -138,6 +138,7 @@
                     <excludes>
                         <exclude>it/**/*</exclude>
                     </excludes>
+                    <excludedGroups>${jira.test.exclude.groups}</excludedGroups>
                 </configuration>
                 <executions>
                     <execution>
@@ -364,54 +365,14 @@
             </plugin>
         </plugins>
     </reporting>
-
-    <profiles>
-        <profile>
-            <id>jira3</id>
-            <properties>
-                <jira.version>4.0</jira.version>
-                <jira.data.version>3.13.2</jira.data.version>
-                <jira.deploy.version>3.13.2</jira.deploy.version>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <excludedGroups>jira3-failing</excludedGroups>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>jira3.12</id>
-            <properties>
-                <jira.version>4.0</jira.version>
-                <jira.deploy.version>3.12.2</jira.deploy.version>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <excludedGroups>jira3-failing</excludedGroups>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--
             Default build configuration depending on JIRA version, may be
             overridden by profile settings in profiles.xml
         -->
-        <jira.version>4.0</jira.version>
-        <jira.deploy.version>4.0</jira.deploy.version>
+        <jira.version>4.1.1</jira.version>
+        <jira.deploy.version>4.1.1</jira.deploy.version>
         <!-- Disable Atlassian PDK integrationstest JIRA startup -->
         <jira.plugin.install>false</jira.plugin.install>
         <jira.start>false</jira.start>

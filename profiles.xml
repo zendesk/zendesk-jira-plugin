@@ -1,15 +1,24 @@
-<profilesXml xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<profilesXml>
 	<profiles>
-		<!-- profile>
-			<id>jira3</id>
-			<properties>
-				<jira.version>3.13.2</jira.version>
-				<jira.data.version>3.13.2</jira.data.version>
-				<jira.deploy.version>3.13.2</jira.deploy.version>
-			</properties>
-		</profile-->
-	</profiles>
+        <profile>
+            <id>jira4.0</id>
+            <properties>
+                <jira.deploy.version>4.0</jira.deploy.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>jira3</id>
+            <properties>
+                <jira.deploy.version>3.13.2</jira.deploy.version>
+                <jira.test.exclude.groups>jira3-failing</jira.test.exclude.groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>jira3.12</id>
+            <properties>
+                <jira.deploy.version>3.12.2</jira.deploy.version>
+                <jira.test.exclude.groups>jira3-failing</jira.test.exclude.groups>
+            </properties>               
+        </profile>
+    </profiles>
 </profilesXml>
