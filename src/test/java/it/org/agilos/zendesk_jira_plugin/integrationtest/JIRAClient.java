@@ -5,6 +5,8 @@ import java.net.URL;
 import javax.xml.ws.WebServiceException;
 
 import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.FuncTestHelperFactory;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import net.sourceforge.jwebunit.WebTester;
 
 import org.agilos.jira.soapclient.JiraSoapService;
@@ -37,6 +39,8 @@ public class JIRAClient {
 	public static String jiraUrl;
 	public static String loginName = System.getProperty("zendesk.jira.login.name", "bamboo");
 	public static String loginPassword = System.getProperty("zendesk.jira.login.password","bamboopw");
+
+    public static IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
@@ -105,7 +109,7 @@ public class JIRAClient {
 		gotoListenerConfiguration();
 		log.info("Updating Zendesk URL to "+zendeskURL);
 		fthFatory.getTester().setFormElement("ZendeskUrl", zendeskURL);
-		fthFatory.getTester().clickButton("Update");
+		issueHandler.update();
 		fthFatory.getTester().assertTextPresent(zendeskURL);
 	}
 	
@@ -114,7 +118,7 @@ public class JIRAClient {
 		log.info("Updating Zendesk log to "+zendeskLogin+" and zendesk PW to "+zendeskPW);
 		fthFatory.getTester().setFormElement("LoginName", zendeskLogin);
 		fthFatory.getTester().setFormElement("LoginPassword", zendeskPW);
-		fthFatory.getTester().clickButton("Update");
+		issueHandler.update();
 		fthFatory.getTester().assertTextPresent(zendeskLogin);
 		fthFatory.getTester().assertTextPresent(zendeskPW);
 	}
@@ -123,7 +127,7 @@ public class JIRAClient {
 		gotoListenerConfiguration();
 		log.info("Setting public comment value to "+publicComments);
 		fthFatory.getTester().setFormElement("Public comments", publicComments);
-		fthFatory.getTester().clickButton("Update");
+		issueHandler.update();
 		fthFatory.getTester().assertTextPresent(publicComments);
 	}	
 	
@@ -137,7 +141,7 @@ public class JIRAClient {
 		gotoListenerConfiguration();
 		log.info("Updating updateAttachments to "+uploadAttachments);
 		fthFatory.getTester().setFormElement("Upload attachments", uploadAttachments);
-		fthFatory.getTester().clickButton("Update");
+		issueHandler.update();
 		fthFatory.getTester().assertTextPresent(uploadAttachments);
 	}
 }

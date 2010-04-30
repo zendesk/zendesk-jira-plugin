@@ -147,7 +147,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
 		
 		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.clickLink("attach_file");
+		issueHandler.attachFile();
 		fixture.tester.setWorkingForm("jiraform");
 		
 		attachFile("filename.1", uploadFile);

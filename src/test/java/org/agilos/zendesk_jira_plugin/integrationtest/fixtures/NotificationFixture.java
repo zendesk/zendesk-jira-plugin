@@ -71,8 +71,7 @@ public class NotificationFixture extends JIRAFixture {
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description +" and adding comment: "+comment);
 		tester.gotoPage("browse/"+issueKey);
-		tester.clickLink("edit_issue");
-
+		issueHandler.editIssue();
         tester.setFormElement("description", description);
         tester.setFormElement("comment",comment);
 

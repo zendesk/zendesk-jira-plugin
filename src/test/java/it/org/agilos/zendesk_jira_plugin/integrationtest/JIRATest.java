@@ -2,6 +2,8 @@ package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import java.util.Date;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.testng.annotations.BeforeMethod;
 import org.testng.log4testng.Logger;
@@ -16,11 +18,13 @@ public abstract class JIRATest {
 
 	protected abstract JIRAFixture getFixture() throws Exception;
 
+    protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
+
 	@BeforeMethod (alwaysRun = true)
 	void setUpTest() throws Exception {
-		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.0")+".xml");
+		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.1.1")+".xml");
 		try {
-	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.0")+".xml");
+	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.1.1")+".xml");
 			getFixture().connect();
 			getFixture().createUserWithUsername(USER_ID);
 			getFixture().createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID); 

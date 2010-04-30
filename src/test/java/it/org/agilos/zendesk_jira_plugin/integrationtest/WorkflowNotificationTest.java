@@ -27,7 +27,7 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 		fixture.tester.clickLinkWithText("Resolve Issue");
 		fixture.tester.setWorkingForm("jiraform");
 		fixture.tester.assertTextPresent("Resolve Issue");
-		fixture.tester.clickButton("Resolve");
+		issueHandler.resolve();
 		fixture.tester.assertTextPresent("Resolved");
 		assertEquals("Wrong response received after resolving issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.resolved"), 
@@ -44,7 +44,6 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 
 		fixture.tester.clickLinkWithText("Reopen Issue");
 		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertButtonPresent("Reopen Issue");
 		fixture.tester.submit();
 		fixture.tester.assertTextPresent("Reopened");
 		assertEquals("Wrong response received after reopening issue", 
