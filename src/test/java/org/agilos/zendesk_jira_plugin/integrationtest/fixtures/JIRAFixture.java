@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import junit.framework.AssertionFailedError;
 import net.sourceforge.jwebunit.WebTester;
 
@@ -39,7 +41,9 @@ public class JIRAFixture {
 	
 	private static final char FS = File.separatorChar;
 	
-	public WebTester tester;
+	public WebTester tester;      
+
+    protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 	
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
@@ -73,6 +77,8 @@ public class JIRAFixture {
 		jiraClient.getService().deleteProject(jiraClient.getToken(), key);
 	}
 
+
+    
 	/**
 	 * Creates user and adds the user to the developers role (to enable editing permission)
 	 * @param name
@@ -150,6 +156,7 @@ public class JIRAFixture {
 		String filePath = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
 		String JIRAHomeDir = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getJIRAHomeLocation().getAbsolutePath();
 		try	{
+			log.info("Restoring data from '" + filePath + "'");
 			if (tester.getDialog().getResponsePageTitle().indexOf(webText.getString("jira_introduction_screen_title")) != -1) {
 				tester.gotoPage("secure/SetupImport!default.jspa");
 				tester.setWorkingForm("jiraform");
@@ -164,8 +171,7 @@ public class JIRAFixture {
 				tester.setFormElement("filename", filePath);
 				tester.submit();
 	            tester.assertTextPresent("Your project has been successfully imported");
-			} 
-			log.info("Restored data from '" + filePath + "'");
+			}
 		} catch(AssertionFailedError e) {
 			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
 			throw new RuntimeException("Failed to restore data from "+filePath, e);
