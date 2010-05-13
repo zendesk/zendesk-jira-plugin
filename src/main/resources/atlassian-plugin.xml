@@ -1,14 +1,12 @@
-<atlassian-plugin key="org.agilos.jira" i18n-name-key="agilos.admin.web.rpc.plugin.name" name="Zendesk JIRA Plugin">
+<atlassian-plugin key="org.agilos.jira" name="Zendesk JIRA Plugin">
     <plugin-info>
-        <description key="agilos.admin.web.rpc.plugin.desc">The Zendesk JIRA SOAP services.</description>
+        <description>The Zendesk JIRA SOAP services.</description>
         <version>1.4.0.2</version>
-        <application-version min="3.12" max="4.0"/>
+        <application-version min="3.12" max="4.1"/>
         <vendor name="Agilos Open Source Foundation" url="http://agilos.org"/>
     </plugin-info>
-
-    <resource type="i18n" name="i18n" location="com.atlassian.jira.ext.rpc.rpc_plugin" />
     
-    <component system="true" key="tokenManager" i18n-name-key="admin.web.rpc.plugin.token.manager.name" name="Token Manager" class="com.atlassian.jira.rpc.auth.TokenManagerImpl">
+    <component system="true" key="tokenManager" name="Token Manager" class="com.atlassian.jira.rpc.auth.TokenManagerImpl">
         <description>Permission handling.</description>
         <interface>com.atlassian.jira.rpc.auth.TokenManager</interface>
     </component>

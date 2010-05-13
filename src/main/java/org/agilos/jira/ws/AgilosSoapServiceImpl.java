@@ -16,7 +16,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     private Logger log = Logger.getLogger(AgilosSoapServiceImpl.class.getName());
 
     public AgilosSoapServiceImpl(TokenManager tokenManager, UserService userService) {
-        log.error("Starting Zendesk plugin");
+        log.debug("Starting Zendesk plugin");
         this.tokenManager = tokenManager;
         this.userService = userService;
     }
