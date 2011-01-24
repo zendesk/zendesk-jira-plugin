@@ -61,7 +61,7 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
         log.info("Received new parameters:" + params);
         if (params.containsKey(ZENDESK_URL_PARAMETER)) {
             try {
-                zendeskServerConfiguration.setUrl((String) params.get(ZENDESK_URL_PARAMETER));
+                zendeskServerConfiguration.setUrl(stripTrailingSlash((String) params.get(ZENDESK_URL_PARAMETER)));
             } catch (MalformedURLException e) {
                 throw new RuntimeException("Failed to parse the provided Zendesk server URL, " + e.getMessage());
             }
@@ -122,4 +122,9 @@ public class ZendeskNotifier extends AbstractIssueEventListener {
     public boolean isUnique() {
         return true;
 	}
+    
+    private String stripTrailingSlash(String url) {
+    	if (url.endsWith("/")) return url.substring(0, url.length()-1);
+    	else return url;
+    }
 }

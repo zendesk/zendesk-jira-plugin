@@ -162,4 +162,11 @@ public class NotificationTest extends AbstractNotificationTest {
 		fixture.jiraClient.getService().addComment(fixture.jiraClient.getToken(), issueKey, new RemoteComment(null, comment, null, null, null, commentLevel, null, null));
 		assertEquals("Notification received for addition of comment with limited viewability, ", null, fixture.getNextRequest());
 	}
+	
+	@Test (groups = {"regressionTests"} )
+	public void testStripTrailingSlashFromZendeskUrl() throws Exception {
+		getFixture().getJiraClient().setZendeskUrl("http://localhost:8182/");
+		fixture.updateIssueWithComment(issueKey, "Test comment");
+		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), fixture.getNextRequest().getEntityAsText());
+	}
 }

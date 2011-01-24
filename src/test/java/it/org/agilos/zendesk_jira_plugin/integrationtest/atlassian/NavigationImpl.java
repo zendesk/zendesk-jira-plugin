@@ -38,7 +38,7 @@ public class NavigationImpl implements Navigation {
         tester.setFormElement("os_password", userPassword);
         if (useCookie)
             tester.checkCheckbox("os_cookie", "true");
-        tester.clickButton("login");
+        tester.clickButton("login-form-submit");
     }
 
     public void logout() {

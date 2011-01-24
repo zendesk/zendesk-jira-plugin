@@ -148,7 +148,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 		
 		fixture.tester.gotoPage("browse/"+issueKey);
 		issueHandler.attachFile();
-		fixture.tester.setWorkingForm("jiraform");
+		//fixture.tester.setWorkingForm("jiraform");
 		
 		attachFile("filename.1", uploadFile);
 		fixture.tester.setFormElement("comment", comment);
@@ -208,7 +208,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	public void attachFile(String fieldName, File file) {
 		UploadFileSpec bigFile = new UploadFileSpec(file);
         try {
-        	fixture.tester.getDialog().getResponse().getFormWithName("jiraform").setParameter(fieldName, new UploadFileSpec[] {
+        	fixture.tester.getDialog().getResponse().getFormWithID("attach-file").setParameter(fieldName, new UploadFileSpec[] {
                 bigFile
             });
         }

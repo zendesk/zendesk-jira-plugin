@@ -16,4 +16,9 @@
 /atlassian-jira-slow-queries.log
 /atlassian-jira-soap-access.log
 /atlassian-jira-soap-dump.log
-/atlassian-jira-sql.log
+/atlassian-jira-sql.log/LICENSE.txt
+/.project
+/.classpath
+/atlassian-ide-plugin.xml
+/release.properties
+/zendesk-jira-plugin.iml

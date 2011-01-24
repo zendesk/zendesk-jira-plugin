@@ -1,12 +1,13 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.FuncTestHelperFactory;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
+
 import java.net.URL;
 
 import javax.xml.ws.WebServiceException;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.FuncTestHelperFactory;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import net.sourceforge.jwebunit.WebTester;
 
 import org.agilos.jira.soapclient.JiraSoapService;
@@ -17,6 +18,8 @@ import org.apache.log4j.Logger;
 import com.atlassian.jira.webtests.util.JIRAEnvironmentData;
 import com.atlassian.jira.webtests.util.LocalTestEnvironmentData;
 import com.meterware.httpunit.HttpUnitOptions;
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
 
 /**
  * Wraps the implementation details of how to connect to JIRA and login.
@@ -44,7 +47,10 @@ public class JIRAClient {
 
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 	
-	private FuncTestHelperFactory fthFatory;
+	private FuncTestHelperFactory fthFatory;	
+	 
+	public static Selenium selenium;
+    private Thread shutDownHook;
 	
 	public FuncTestHelperFactory getFuncTestHelperFactory() {
 		return fthFatory;
@@ -62,6 +68,13 @@ public class JIRAClient {
 		fthFatory = new FuncTestHelperFactory(tester, environmentData);
 		
 		jiraUrl = environmentData.getBaseUrl().toString();
+		
+		selenium = new DefaultSelenium( "localhost", 4444, "*firefox", JIRAClient.jiraUrl);
+		selenium.start();
+		
+		shutDownHook = new Thread(new ShutDownHook(selenium));
+        shutDownHook.setName("SeleniumServerShutDownHook");
+        Runtime.getRuntime().addShutdownHook(shutDownHook);
 	}
 	
 	public void login() throws Exception {		
@@ -144,4 +157,16 @@ public class JIRAClient {
 		issueHandler.update();
 		fthFatory.getTester().assertTextPresent(uploadAttachments);
 	}
+	
+	private class ShutDownHook implements Runnable {
+        Selenium selenium;
+
+        ShutDownHook(Selenium selenium) {
+            this.selenium = selenium;
+        }
+
+        public void run() {
+            selenium.stop();
+        }
+    }
 }

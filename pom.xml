@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4.0.3</version>
+    <version>1.4.0.4</version>
 
     <organization>
         <name>Agilos</name>
@@ -65,14 +65,13 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>5.10</version>
+            <version>5.14</version>
             <scope>test</scope>
-            <classifier>jdk15</classifier>
         </dependency>
         <dependency>
             <groupId>com.atlassian.jira.plugins</groupId>
             <artifactId>atlassian-jira-rpc-plugin</artifactId>
-            <version>4.1.1-1</version>
+            <version>${jira.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -99,7 +98,13 @@
             <version>2.0-M3</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
+			<artifactId>selenium-java-client-driver</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
     <distributionManagement>
         <repository>
             <id>agilos.org</id>
@@ -133,6 +138,10 @@
                         <property>
                             <name>test.server.properties</name>
                             <value>test-jira-${jira.deploy.version}.properties</value>
+                        </property>
+                        <property>
+                        	<name>jiraserver.deploy.dir</name>
+                        	<value>${jira.install}/JIRA-${jira.deploy.version}/</value>
                         </property>
                     </systemProperties>
                     <skip>${maven.test.unit.skip}</skip>
@@ -170,6 +179,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>axistools-maven-plugin</artifactId>
+                <version>1.4</version>
                 <executions>
                     <execution>
                         <!--phase>generate-test-resources</phase-->
@@ -246,7 +256,8 @@
                                 <exec os="Windows Vista"
                                       executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.bat"
                                       dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
-                                <exec os="Linux" executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.sh"
+                                <exec os="Linux" 
+                                	  executable="${jira.install}/JIRA-${jira.deploy.version}/bin/startup.sh"
                                       dir="${jira.install}/JIRA-${jira.deploy.version}" spawn="true"/>
                                 <sleep seconds="30"/>
                             </tasks>
@@ -268,6 +279,22 @@
                 </executions>
             </plugin>
             <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>selenium-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>start-server</goal>
+						</goals>
+						<configuration>
+							<background>true</background>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <filters>
@@ -275,6 +302,22 @@
                     </filters>
                 </configuration>
             </plugin>
+                <plugin>
+    				<groupId>org.nuiton</groupId>
+   				 	<artifactId>maven-license-plugin</artifactId>
+    				<executions>
+	                    <execution>
+	                        <id>attach-licenses</id>
+	                        <goals>
+	                            <goal>update-project-license</goal>
+	                            <goal>add-third-party</goal>
+	                        </goals>
+	                    </execution>
+                	</executions>
+                	<configuration>
+          				<licenseName>apache_v2</licenseName>
+                	</configuration>
+				</plugin>
         </plugins>
         <testResources>
             <testResource>
@@ -296,6 +339,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.nuiton</groupId>
+   				 	<artifactId>maven-license-plugin</artifactId>   				 	
+                    <version>3.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -364,8 +412,8 @@
             Default build configuration depending on JIRA version, may be
             overridden by profile settings in profiles.xml
         -->
-        <jira.version>4.1.1</jira.version>
-        <jira.deploy.version>4.1.1</jira.deploy.version>
+        <jira.version>4.2.2-b589</jira.version>
+        <jira.deploy.version>4.2.2-b589</jira.deploy.version>
         <!-- Disable Atlassian PDK integrationstest JIRA startup -->
         <jira.plugin.install>false</jira.plugin.install>
         <jira.start>false</jira.start>

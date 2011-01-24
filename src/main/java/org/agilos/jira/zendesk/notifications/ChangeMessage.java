@@ -14,7 +14,6 @@ import java.io.StringWriter;
  * <p/>
  * The output of a <code>ChangeMessage</code> will be DOM objects representing the XML to send.
  *
- * @author mikis
  */
 public class ChangeMessage {
     private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

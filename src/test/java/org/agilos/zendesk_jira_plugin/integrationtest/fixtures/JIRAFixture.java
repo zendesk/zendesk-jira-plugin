@@ -1,15 +1,16 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
 import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import junit.framework.AssertionFailedError;
 import net.sourceforge.jwebunit.WebTester;
 
@@ -18,7 +19,11 @@ import org.agilos.jira.soapclient.RemoteGroup;
 import org.agilos.jira.soapclient.RemotePermissionScheme;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteUser;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
 
 /**
  * Parent fixture for access to a JIRA instance.
@@ -36,20 +41,22 @@ public class JIRAFixture {
 	public static final String JIRA_ADMINISTRATORS = "jira-administrators";
 	public static final String JIRA_DEVELOPERS = "jira-developers";
 	public static final String JIRA_USERS = "jira-users";
-	
-	public static final ResourceBundle webText = ResourceBundle.getBundle("language.web-texts");
-	
-	private static final char FS = File.separatorChar;
-	
-	public WebTester tester;      
 
-    protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
-	
+	public static final ResourceBundle webText = ResourceBundle.getBundle("language.web-texts");
+
+	private static final char FS = File.separatorChar;
+
+	public WebTester tester; 
+	public static Selenium selenium;    
+
+	protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
+
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
-		tester = jiraClient.getFuncTestHelperFactory().getTester();		
+		tester = jiraClient.getFuncTestHelperFactory().getTester();	
+		selenium = JIRAClient.selenium;
 	}
-	
+
 	/**
 	 * Connects to JIRA
 	 */
@@ -78,7 +85,7 @@ public class JIRAFixture {
 	}
 
 
-    
+
 	/**
 	 * Creates user and adds the user to the developers role (to enable editing permission)
 	 * @param name
@@ -119,6 +126,13 @@ public class JIRAFixture {
 		RemoteUser user = jiraClient.getService().getUser(jiraClient.getToken(), userName);
 		jiraClient.getService().removeUserFromGroup(jiraClient.getToken(), group, user);		
 	}
+	
+	public void login(String username, String password) {
+		selenium.open("login.jsp");
+		selenium.type("login-form-username", username);
+		selenium.type("login-form-password", password);
+		selenium.click("login-form-submit");
+	}
 
 	//Needs to exterminate all data before each test to ensure a stable test environment
 	public void cleanData() {
@@ -141,7 +155,7 @@ public class JIRAFixture {
 			}
 		}
 	}
-	
+
 	public JIRAClient getJiraClient() {
 		return jiraClient;
 	}
@@ -153,28 +167,58 @@ public class JIRAFixture {
 	 * Handles two cases, either a initial setup of JIRA, or a XML restore in a already configured JIRA.
 	 */
 	public void loadData (String fileName) { 
-		String filePath = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
-		String JIRAHomeDir = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getJIRAHomeLocation().getAbsolutePath();
-		try	{
-			log.info("Restoring data from '" + filePath + "'");
-			if (tester.getDialog().getResponsePageTitle().indexOf(webText.getString("jira_introduction_screen_title")) != -1) {
-				tester.gotoPage("secure/SetupImport!default.jspa");
-				tester.setWorkingForm("jiraform");
-				tester.setFormElement("filename", filePath);
-				tester.setFormElement("indexPath", JIRAHomeDir + FS + "indexes");	
-				tester.submit();
-				//tester.assertTextPresent("Setup is now complete."); Language dependent
-			} else {
-				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin");// GUI login with default user
-				tester.gotoPage("secure/admin/XmlRestore!default.jspa");
-				tester.setWorkingForm("jiraform");
-				tester.setFormElement("filename", filePath);
-				tester.submit();
-	            tester.assertTextPresent("Your project has been successfully imported");
-			}
-		} catch(AssertionFailedError e) {
-			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
-			throw new RuntimeException("Failed to restore data from "+filePath, e);
-		} 
+		String restoreSourceFile = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
+		String JIRAHomeDir = System.getProperty("jiraserver.deploy.dir") + FS + "data" + FS ;		
+
+		// Copy
+		File restorefile = new File(JIRAHomeDir + FS + "import" + FS + fileName); 
+		try {
+			FileUtils.copyFile(new File(restoreSourceFile), restorefile);
+		} catch (IOException e1) {
+			throw new RuntimeException("Failed to restore data from "+restoreSourceFile, e1);
+		}
+		
+		login("admin", "admin");
+		
+		log.info("Restoring data from '" + restoreSourceFile + "'");		
+		selenium.open("secure/admin/XmlRestore!default.jspa");
+		selenium.waitForPageToLoad("1000");
+		
+		if (System.getProperty("jira.deploy.version", "4.2.2-b589").equals("4.2.2-b589")) { 
+			selenium.type("filename", fileName);
+		} else {
+			selenium.type("filename", restoreSourceFile);
+		}
+		selenium.click("restore_submit");
+		selenium.waitForPageToLoad("1200000");
+		
+//		try	{
+//			log.info("Restoring data from '" + restoreSourceFile + "'");			
+//			
+//			if (tester.getDialog().getResponsePageTitle().indexOf(webText.getString("jira_introduction_screen_title")) != -1) {
+//				tester.gotoPage("secure/SetupImport!default.jspa");
+//				tester.setWorkingForm("jiraform");
+//				tester.setFormElement("filename", restoreSourceFile);
+//				if (tester.getDialog().isTextInResponse("indexPath")) { //JIRA 4.1 and earlier
+//					tester.setFormElement("indexPath", JIRAHomeDir + FS + "indexes");	
+//				}
+//				tester.submit();
+//			} else {
+//				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin", true);// GUI login with default user
+//				tester.gotoPage("secure/Dashboard.jspa");
+//				tester.gotoPage("secure/admin/XmlRestore!default.jspa");
+//				tester.setWorkingForm("jiraform");
+//				if (System.getProperty("jira.deploy.version", "4.2.2").equals("4.2.2")) { 
+//					tester.setFormElement("filename", fileName);
+//				} else {
+//					tester.setFormElement("filename", restoreSourceFile);
+//				}
+//				tester.submit();
+//				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin", true);// Relogin after import
+//			}
+//		} catch(AssertionFailedError e) {
+//			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
+//			throw new RuntimeException("Failed to restore data from "+restoreSourceFile, e);
+//		} 
 	}
 }

@@ -24,28 +24,17 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.stopped"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Resolve Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertTextPresent("Resolve Issue");
 		issueHandler.resolve();
-		fixture.tester.assertTextPresent("Resolved");
 		assertEquals("Wrong response received after resolving issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.resolved"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Close Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.assertTextPresent("Close Issue");
-		fixture.tester.submit();
-		fixture.tester.assertTextPresent("Closed");
+		issueHandler.close();
 		assertEquals("Wrong response received after closing issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.closed"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Reopen Issue");
-		fixture.tester.setWorkingForm("jiraform");
-		fixture.tester.submit();
-		fixture.tester.assertTextPresent("Reopened");
+		issueHandler.reopen();
 		assertEquals("Wrong response received after reopening issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.reopened"), 
 				fixture.getNextRequest().getEntityAsText());
