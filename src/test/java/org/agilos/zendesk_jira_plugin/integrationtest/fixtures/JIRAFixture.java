@@ -1,5 +1,6 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
+import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRA;
 import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
 import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
 import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
@@ -11,7 +12,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import junit.framework.AssertionFailedError;
 import net.sourceforge.jwebunit.WebTester;
 
 import org.agilos.jira.soapclient.RemoteException;
@@ -22,7 +22,6 @@ import org.agilos.jira.soapclient.RemoteUser;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 /**
@@ -46,14 +45,12 @@ public class JIRAFixture {
 
 	private static final char FS = File.separatorChar;
 
-	public WebTester tester; 
 	public static Selenium selenium;    
 
 	protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
-		tester = jiraClient.getFuncTestHelperFactory().getTester();	
 		selenium = JIRAClient.selenium;
 	}
 
@@ -61,7 +58,7 @@ public class JIRAFixture {
 	 * Connects to JIRA
 	 */
 	public void connect() throws Exception {
-		jiraClient.login();
+		jiraClient.connect();
 	}
 
 	public RemoteProject createProjectWithKeyAndNameAndLead(String key, String projectName, String ProjectLead) throws Exception {
@@ -83,8 +80,6 @@ public class JIRAFixture {
 		log.info("Deleting project: "+key+" "+projectMap.get(key));
 		jiraClient.getService().deleteProject(jiraClient.getToken(), key);
 	}
-
-
 
 	/**
 	 * Creates user and adds the user to the developers role (to enable editing permission)
@@ -126,13 +121,6 @@ public class JIRAFixture {
 		RemoteUser user = jiraClient.getService().getUser(jiraClient.getToken(), userName);
 		jiraClient.getService().removeUserFromGroup(jiraClient.getToken(), group, user);		
 	}
-	
-	public void login(String username, String password) {
-		selenium.open("login.jsp");
-		selenium.type("login-form-username", username);
-		selenium.type("login-form-password", password);
-		selenium.click("login-form-submit");
-	}
 
 	//Needs to exterminate all data before each test to ensure a stable test environment
 	public void cleanData() {
@@ -161,64 +149,35 @@ public class JIRAFixture {
 	}
 
 	/**
-	 * Loads data from the indicated backup file into JIRA. The file should be located in the <code>jira.xml.data.location</code> directory indicated in the 
-	 * localtest.properties file (Generated during the pre-integration-test phase and located in the test-classes folder ).
-	 * 
-	 * Handles two cases, either a initial setup of JIRA, or a XML restore in a already configured JIRA.
+	 * Loads data from the indicated backup file into JIRA. The file should be located in the 
+	 * <code>jira.xml.data.location</code> directory indicated in the localtest.properties file 
+	 * (Generated during the pre-integration-test phase and located in the test-classes folder ).
 	 */
 	public void loadData (String fileName) { 
-		String restoreSourceFile = jiraClient.getFuncTestHelperFactory().getEnvironmentData().getXMLDataLocation().getAbsolutePath() + FS + fileName;
-		String JIRAHomeDir = System.getProperty("jiraserver.deploy.dir") + FS + "data" + FS ;		
+		String restoreSourceFile = "src/test/xml" + FS + fileName;
 
 		// Copy
-		File restorefile = new File(JIRAHomeDir + FS + "import" + FS + fileName); 
+		File jiraImportDir = new File(JIRA.HOME_DIR + "/import"); 
 		try {
-			FileUtils.copyFile(new File(restoreSourceFile), restorefile);
+			FileUtils.copyFileToDirectory(new File(restoreSourceFile), jiraImportDir);
 		} catch (IOException e1) {
-			throw new RuntimeException("Failed to restore data from "+restoreSourceFile, e1);
+			throw new RuntimeException("Failed to copy backup file to " + restoreSourceFile, e1);
 		}
 		
-		login("admin", "admin");
+		jiraClient.login("admin", "admin");
 		
 		log.info("Restoring data from '" + restoreSourceFile + "'");		
 		selenium.open("secure/admin/XmlRestore!default.jspa");
-		selenium.waitForPageToLoad("1000");
+		selenium.waitForPageToLoad("5000");
 		
-		if (System.getProperty("jira.deploy.version", "4.2.2-b589").equals("4.2.2-b589")) { 
+		jiraClient.administratorAccess("admin");
+		
+		if (System.getProperty("jira.deploy.version", "4.3.2").equals("4.3.2")) { 
 			selenium.type("filename", fileName);
 		} else {
 			selenium.type("filename", restoreSourceFile);
 		}
 		selenium.click("restore_submit");
-		selenium.waitForPageToLoad("1200000");
-		
-//		try	{
-//			log.info("Restoring data from '" + restoreSourceFile + "'");			
-//			
-//			if (tester.getDialog().getResponsePageTitle().indexOf(webText.getString("jira_introduction_screen_title")) != -1) {
-//				tester.gotoPage("secure/SetupImport!default.jspa");
-//				tester.setWorkingForm("jiraform");
-//				tester.setFormElement("filename", restoreSourceFile);
-//				if (tester.getDialog().isTextInResponse("indexPath")) { //JIRA 4.1 and earlier
-//					tester.setFormElement("indexPath", JIRAHomeDir + FS + "indexes");	
-//				}
-//				tester.submit();
-//			} else {
-//				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin", true);// GUI login with default user
-//				tester.gotoPage("secure/Dashboard.jspa");
-//				tester.gotoPage("secure/admin/XmlRestore!default.jspa");
-//				tester.setWorkingForm("jiraform");
-//				if (System.getProperty("jira.deploy.version", "4.2.2").equals("4.2.2")) { 
-//					tester.setFormElement("filename", fileName);
-//				} else {
-//					tester.setFormElement("filename", restoreSourceFile);
-//				}
-//				tester.submit();
-//				jiraClient.getFuncTestHelperFactory().getNavigation().login("admin", "admin", true);// Relogin after import
-//			}
-//		} catch(AssertionFailedError e) {
-//			if (log.isDebugEnabled()) log.debug("Received unexpected text: "+tester.getDialog().getResponseText());
-//			throw new RuntimeException("Failed to restore data from "+restoreSourceFile, e);
-//		} 
+		selenium.waitForPageToLoad("1200000");		
 	}
 }

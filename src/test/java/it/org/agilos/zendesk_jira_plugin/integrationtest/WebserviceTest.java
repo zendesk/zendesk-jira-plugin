@@ -17,12 +17,12 @@ public class WebserviceTest extends JIRATest {
 	@Test (groups = {"regressionTests"} )
 	public void testLoginInvalidUser() throws Exception {
 		try {
-			ZendeskWSClient.getSoapService().login("Invalid user", JIRAClient.loginPassword);
+			ZendeskWSClient.getSoapService().login("Invalid user", JIRA.LOGIN_PASSWORD);
 			assertTrue("No authenticationexception throw on invalid user", false);
 		} catch (RemoteAuthenticationException e) {
 			// Expected behavior
 		} 
-		ZendeskWSClient.getSoapService().login(JIRAClient.loginName, JIRAClient.loginPassword);
+		ZendeskWSClient.getSoapService().login(JIRA.LOGIN_NAME, JIRA.LOGIN_PASSWORD);
 	}
 	
 	/**
@@ -31,12 +31,12 @@ public class WebserviceTest extends JIRATest {
 	@Test (groups = {"regressionTests"} )
 	public void testLoginInvalidPassword() throws Exception  {
 		try {
-			ZendeskWSClient.getSoapService().login(JIRAClient.loginName, "Invalid password");
+			ZendeskWSClient.getSoapService().login(JIRA.LOGIN_NAME, "Invalid password");
 			assertTrue("No authenticationexception throw on invalid password", false);
 		} catch (RemoteAuthenticationException e) {
 			// Expected behavior
 		} 
-		ZendeskWSClient.getSoapService().login(JIRAClient.loginName, JIRAClient.loginPassword);
+		ZendeskWSClient.getSoapService().login(JIRA.LOGIN_NAME, JIRA.LOGIN_PASSWORD);
 	}
 	
 	/**

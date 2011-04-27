@@ -146,13 +146,13 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 
 		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
 		
-		fixture.tester.gotoPage("browse/"+issueKey);
+		selenium.open("browse/"+issueKey);
 		issueHandler.attachFile();
 		//fixture.tester.setWorkingForm("jiraform");
 		
 		attachFile("filename.1", uploadFile);
-		fixture.tester.setFormElement("comment", comment);
-		fixture.tester.submit();
+		selenium.type("comment", comment);
+		selenium.click("submit");
 		
 		Request request = fixture.getNextRequest(); 
 		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentWithComment.1"), request.getEntityAsText());	
@@ -207,14 +207,19 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	
 	public void attachFile(String fieldName, File file) {
 		UploadFileSpec bigFile = new UploadFileSpec(file);
-        try {
-        	fixture.tester.getDialog().getResponse().getFormWithID("attach-file").setParameter(fieldName, new UploadFileSpec[] {
-                bigFile
-            });
-        }
-        catch(SAXException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//        	fixture.tester.getDialog().getResponse().getFormWithID("attach-file").setParameter(fieldName, new UploadFileSpec[] {
+//                bigFile
+//            });
+//        }
+//        catch(SAXException e) {
+//            throw new RuntimeException(e);
+//        }
+
+		selenium.type("//body[@id='jira']/form[2]/input", 
+				System.getProperty("user.home") + "/projects/zendesk-jira-plugin/src/test/attachments/" + file);
+		selenium.click("attach-file-submit");
+		selenium.waitForPageToLoad("30000");
     }
 }
 	

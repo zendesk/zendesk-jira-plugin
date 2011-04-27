@@ -68,7 +68,7 @@ public class AgilosSoapServiceImpl implements AgilosSoapService {
     }
 
     public RemoteUser[] getAssignableUsers(String token, String projectKey) throws RemoteException {
-        log.error("Returning assignable users for prject "+projectKey);
+        log.debug("Returning assignable users for project "+projectKey);
         try {
             tokenManager.retrieveUserNoPermissionCheck(token);
             return userService.getAssignableUsers(projectKey);

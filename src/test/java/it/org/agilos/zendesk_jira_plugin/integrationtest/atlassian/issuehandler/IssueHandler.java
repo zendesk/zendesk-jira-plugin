@@ -1,47 +1,48 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler;
 
-import static org.testng.AssertJUnit.assertEquals;
 import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.TestDataFactory;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.FuncTestHelperFactory;
-import net.sourceforge.jwebunit.WebTester;
+
+import com.thoughtworks.selenium.Selenium;
 
 /**
  * The default IssueHandler. Methods may be overloaded in version specific implementations
  */
 public class IssueHandler {
-    protected WebTester tester = JIRAClient.instance().getFuncTestHelperFactory().getTester();
+    protected Selenium selenium = JIRAClient.selenium;
 
     public void update() {
-        tester.clickButton("Update");
+        selenium.click("Update");
     }
 
     public void resolve() {
-    	tester.clickLinkWithText("Resolve Issue");
-		tester.setWorkingForm("jiraform");
-		tester.assertTextPresent("Resolve Issue");
-		tester.clickButton("Resolve");
-		tester.assertTextPresent("Resolved");
+    	selenium.click("link=Resolve Issue");
+    	selenium.isTextPresent("Resolve issue");
+    	selenium.click("issue-workflow-transition-submit");
+    	selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Resolved");
     }
     public void close() {
-    	tester.clickLinkWithText("Close Issue");
-		tester.setWorkingForm("jiraform");
-    	tester.assertTextPresent("Close Issue");
-    	tester.submit();
-    	tester.assertTextPresent("Closed");
+    	selenium.click("link=Close Issue");
+    	selenium.isTextPresent("Close Issue");
+    	selenium.click("issue-workflow-transition-submit");
+    	selenium.waitForPageToLoad("3000");
+    	selenium.isTextPresent("Closed");
     }
     public void reopen() {
-		tester.clickLinkWithText("Reopen Issue");
-		tester.setWorkingForm("jiraform");
-		tester.submit();
-		tester.assertTextPresent("Reopened");
+		selenium.click("link=Reopen Issue");
+    	selenium.isTextPresent("Reopen Issue");
+    	selenium.click("issue-workflow-transition-submit");
+    	selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Reopened");
     }
 
     public void attachFile() {
-        tester.clickLink("attach_file");
+		selenium.click("//a[@id='opsbar-operations_more']/span");
+		selenium.click("attach-file");
     }
 
     public void editIssue() {
-        tester.clickLink("edit_issue");
+		selenium.click("editIssue");
+    	selenium.waitForPageToLoad("3000");
     }
 }

@@ -8,18 +8,21 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 
 	@Test (groups = {"regressionTests"} )
 	public void testDefaultWorkflow() {
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.assertTextPresent("Open");
-		fixture.tester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
-
-		fixture.tester.clickLinkWithText("Start Progress");
-		fixture.tester.assertTextPresent("In Progress");
+		selenium.open("browse/"+issueKey);
+		selenium.isTextPresent("Open");
+		selenium.click("assign-to-me");  //Need to assign the issue to current user to gain access to all workflow actions
+		selenium.waitForPageToLoad("3000");
+		
+		selenium.click("link=Start Progress");
+		selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("In Progress");
 		assertEquals("Wrong response received setting issue 'In progress'", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.started"), 
 				fixture.getNextRequest().getEntityAsText());
 
-		fixture.tester.clickLinkWithText("Stop Progress");
-		fixture.tester.assertTextPresent("Open");
+		selenium.click("link=Stop Progress");
+		selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Open");
 		assertEquals("Wrong response received setting stopping progress on issue", 
 				TestDataFactory.getSoapResponse("testDefaultWorkflow.stopped"), 
 				fixture.getNextRequest().getEntityAsText());
@@ -44,12 +47,12 @@ public class WorkflowNotificationTest extends AbstractNotificationTest {
 	public void testCustomWorkflow() {
 		//ToDo Implement assignment of custom workflow to project, see http://jira.agilos.org/browse/ZEN-68
 		
-		fixture.tester.gotoPage("browse/"+issueKey);
-		fixture.tester.assertTextPresent("Open");
-		fixture.tester.clickLinkWithText("to me"); //Need to assign the issue to current user to gain access to all workflow actions
+		selenium.open("browse/"+issueKey);
+		selenium.isTextPresent("Open");
+		selenium.click("link=to me"); //Need to assign the issue to current user to gain access to all workflow actions
 		
-		fixture.tester.clickLinkWithText("Investigate");
-		fixture.tester.assertTextPresent("Investigate");
+		selenium.click("link=Investigate");
+		selenium.isTextPresent("Investigate");
 		assertEquals("Wrong response received after setting issue to investigating", 
 				TestDataFactory.getSoapResponse("testCustomWorkflow.investigating"), 
 				fixture.getNextRequest().getEntityAsText());

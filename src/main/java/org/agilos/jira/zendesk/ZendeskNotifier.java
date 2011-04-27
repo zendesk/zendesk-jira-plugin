@@ -11,9 +11,8 @@ import java.util.Map;
 /**
  * This listens for JIRA change notifications and exposes the configuration options for the plugin.
  * <p/>
- * The <code>ZendeskNotifier</code> will filter all irrelevant updates before delegation the further hadling to the <code>NotificationDispatcher</code>.
- *
- * @author mikis
+ * The <code>ZendeskNotifier</code> will filter all irrelevant updates before delegation the further 
+ * handling to the <code>NotificationDispatcher</code>.
  */
 public class ZendeskNotifier extends AbstractIssueEventListener {
     public static final String ZENDESK_URL_PARAMETER = "ZendeskUrl";

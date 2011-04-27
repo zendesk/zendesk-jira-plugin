@@ -8,6 +8,8 @@ import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.testng.annotations.BeforeMethod;
 import org.testng.log4testng.Logger;
 
+import com.thoughtworks.selenium.Selenium;
+
 public abstract class JIRATest {
 
 	private Logger log = Logger.getLogger(JIRATest.class);
@@ -17,14 +19,18 @@ public abstract class JIRATest {
 	protected static final String PROJECT_DESCRIPTION = "This is a Zendesk JIRA plugin integrationtest project " + new Date();	 
 
 	protected abstract JIRAFixture getFixture() throws Exception;
+	
+	protected Selenium selenium;
 
     protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 
 	@BeforeMethod (alwaysRun = true)
 	void setUpTest() throws Exception {
-		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.2.2")+".xml");
+		selenium = getFixture().selenium;
+		
+		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.3.2")+".xml");
 		try {
-	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.2.2-b589")+".xml");
+	    	getFixture().loadData("restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.3.2")+".xml");
 			getFixture().connect();
 			getFixture().createUserWithUsername(USER_ID);
 			getFixture().createProjectWithKeyAndNameAndLead(PROJECT_KEY, "WebserviceTest project", USER_ID); 

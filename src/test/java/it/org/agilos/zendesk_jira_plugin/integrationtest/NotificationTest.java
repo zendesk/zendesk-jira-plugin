@@ -54,7 +54,7 @@ public class NotificationTest extends AbstractNotificationTest {
 		assertEquals("Wrong comment response received after changing description", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
 		}
 	
-	//@Test  (groups = {"regressionTests"} )
+	@Test  (groups = {"regressionTests"} )
 	public void testIssueMoveNotification() throws Exception  {
 		String newProjectKey = "IMN";
     	RemoteProject project = fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  
@@ -81,7 +81,7 @@ public class NotificationTest extends AbstractNotificationTest {
 	 */
 	@Test (groups = {"regressionTests"} )
 	public void testNotificationLoops() throws Exception  {
-		getFixture().getJiraClient().login("zendesk","zendeskpw");
+		getFixture().getJiraClient().connect("zendesk","zendeskpw");
 
 		fixture.updateIssueWithDescription(issueKey, "This is a changed description by the zendesk user, no notification should be sent");
 		assertEquals("Notification received for Zendesk user update, ", null, fixture.getNextRequest());

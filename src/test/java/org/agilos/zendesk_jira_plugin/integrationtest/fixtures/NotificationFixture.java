@@ -70,12 +70,12 @@ public class NotificationFixture extends JIRAFixture {
 
 	public void updateIssueWithDescriptionAndComment (String issueKey, String description, String comment) throws Exception {
 		log.info("Changing description on issue "+ issueKey + " to "+description +" and adding comment: "+comment);
-		tester.gotoPage("browse/"+issueKey);
+		selenium.open("browse/"+issueKey);
 		issueHandler.editIssue();
-        tester.setFormElement("description", description);
-        tester.setFormElement("comment",comment);
-
-        tester.submit();
+        selenium.type("description", description);
+        selenium.type("comment",comment);
+		selenium.click("issue-edit-submit");
+		selenium.waitForPageToLoad("3000");
 	}
 
 	public void updateIssueWithComment (String issueKey, String comment) throws Exception {
@@ -146,23 +146,21 @@ public class NotificationFixture extends JIRAFixture {
 	 * @return The new issueKey
 	 */
 	public String moveIssue(String issueKey, RemoteProject newProjectName) {
-		tester.gotoPage("browse/"+issueKey);
-		tester.clickLink("move_issue");
+		selenium.open("browse/"+issueKey);
+		selenium.click("opsbar-operations_more");
+		selenium.click("move-issue");
+		selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Step 1 of 4:");		
+		selenium.select("project", "label=" + newProjectName.getName());
+		selenium.click("next_submit");
+		selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Step 3 of 4:");
+		selenium.click("next_submit");
+		selenium.waitForPageToLoad("3000");
+		selenium.isTextPresent("Step 4 of 4:");
+		selenium.click("move_submit");
+		selenium.waitForPageToLoad("3000");
 
-		tester.assertTextPresent("Move Issue: "+issueKey);
-		tester.setWorkingForm("jiraform");
-		tester.selectOption("pid", newProjectName.getName());
-		tester.submit();
-
-		tester.assertTextPresent("Move Issue: Update Fields");
-		tester.setWorkingForm("jiraform");
-		tester.submit();
-
-		tester.setWorkingForm("jiraform");
-		tester.assertTextPresent("Move Issue: Confirm"); 
-		tester.submit();
-
-		tester.assertTitleEquals("");
 		return null;
 	}
 	

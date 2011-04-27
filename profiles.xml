@@ -1,6 +1,12 @@
 <profilesXml>
 	<profiles>
 		<profile>
+            <id>jira4.2</id>
+            <properties>
+        		<jira.deploy.version>4.2.2-b589</jira.deploy.version>
+            </properties>
+        </profile>
+		<profile>
             <id>jira4.1</id>
             <properties>
         		<jira.deploy.version>4.1.1</jira.deploy.version>

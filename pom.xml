@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.agilos</groupId>
     <artifactId>zendesk-jira-plugin</artifactId>
-    <version>1.4.0.4</version>
+    <version>1.4.0.5</version>
 
     <organization>
         <name>Agilos</name>
@@ -172,8 +172,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -412,8 +412,8 @@
             Default build configuration depending on JIRA version, may be
             overridden by profile settings in profiles.xml
         -->
-        <jira.version>4.2.2-b589</jira.version>
-        <jira.deploy.version>4.2.2-b589</jira.deploy.version>
+        <jira.version>4.3.2</jira.version>
+        <jira.deploy.version>4.3.2</jira.deploy.version>
         <!-- Disable Atlassian PDK integrationstest JIRA startup -->
         <jira.plugin.install>false</jira.plugin.install>
         <jira.start>false</jira.start>
