@@ -12,8 +12,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import net.sourceforge.jwebunit.WebTester;
-
 import org.agilos.jira.soapclient.RemoteException;
 import org.agilos.jira.soapclient.RemoteGroup;
 import org.agilos.jira.soapclient.RemotePermissionScheme;

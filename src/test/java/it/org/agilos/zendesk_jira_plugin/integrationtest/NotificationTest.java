@@ -21,27 +21,40 @@ public class NotificationTest extends AbstractNotificationTest {
     @Test (groups = {"regressionTests"} )
     public void testCommentAddedNotification() throws Exception  {
     	fixture.updateIssueWithComment(issueKey, "Test comment");
-		assertEquals("Wrong response received after changing comment", TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), fixture.getNextRequest().getEntityAsText());
+		assertEquals("Wrong response received after changing comment", 
+				TestDataFactory.getSoapResponse("testCommentAddedNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());
 	}
     
 	@Test (groups = {"regressionTests", "jira3-failing"} )  //Doesn't work on JIRA 3, priority field is set, even though the test doesn't touch the field.
 	public void testDescriptionAndCommentChangedNotification() throws Exception  {
-		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a description and comment change test", "This is the comment part of the summery + comment change");
-		assertEquals("Wrong change response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
-	    assertEquals("Wrong comment response received after changing description and comment", TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+		fixture.updateIssueWithDescriptionAndComment(issueKey, "This is a description and comment change test", 
+				"This is the comment part of the summery + comment change");
+		assertEquals("Wrong change response received after changing description and comment", 
+				TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());		
+	    assertEquals("Wrong comment response received after changing description and comment", 
+	    		TestDataFactory.getSoapResponse("testDescriptionAndCommentChangedNotification.2"), 
+	    		fixture.getNextRequest().getEntityAsText());		
 	}
 	
 	@Test (groups = {"regressionTests"} )
 	public void testSummeryChangedNotification() throws Exception  {
 		fixture.updateIssueWithSummary(issueKey, "This is a changed summary");
-		assertEquals("Wrong change response received after changing comment", TestDataFactory.getSoapResponse("testSummaryChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
-		assertEquals("Wrong comment response received after changing comment", TestDataFactory.getSoapResponse("testSummaryChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong change response received after changing comment", 
+				TestDataFactory.getSoapResponse("testSummaryChangedNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong comment response received after changing comment", 
+				TestDataFactory.getSoapResponse("testSummaryChangedNotification.2"), 
+				fixture.getNextRequest().getEntityAsText());		
 		}
 	
 	@Test (groups = {"regressionTests", "jira3-failing"} )
 	public void testStatusChangedNotification() throws Exception  {
 		fixture.setIssueToResolved(issueKey);
-		assertEquals("Wrong response received after resolving issue", TestDataFactory.getSoapResponse("testStatusChangedNotification.1"), fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong response received after resolving issue", 
+				TestDataFactory.getSoapResponse("testStatusChangedNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());		
 	}
 	
 	/**
@@ -50,17 +63,26 @@ public class NotificationTest extends AbstractNotificationTest {
 	@Test (groups = {"regressionTests"} )	
 	public void testDescriptionChangedNotification() throws Exception  {
 		fixture.updateIssueWithDescription(issueKey, "This is a changed description");
-		assertEquals("Wrong change response received after changing description", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), fixture.getNextRequest().getEntityAsText());
-		assertEquals("Wrong comment response received after changing description", TestDataFactory.getSoapResponse("testDescriptionChangedNotification.2"), fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong change response received after changing description", 
+				TestDataFactory.getSoapResponse("testDescriptionChangedNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());
+		assertEquals("Wrong comment response received after changing description", 
+				TestDataFactory.getSoapResponse("testDescriptionChangedNotification.2"), 
+				fixture.getNextRequest().getEntityAsText());		
 		}
 	
 	@Test  (groups = {"regressionTests"} )
 	public void testIssueMoveNotification() throws Exception  {
 		String newProjectKey = "IMN";
-    	RemoteProject project = fixture.createProjectWithKeyAndNameAndLead(newProjectKey, "Issue move notification test project", USER_ID);  
+    	RemoteProject project = fixture.createProjectWithKeyAndNameAndLead(newProjectKey, 
+    			"Issue move notification test project", USER_ID);  
 		fixture.moveIssue(issueKey, project);
-		assertEquals("Wrong change response received after changing comment", TestDataFactory.getSoapResponse("testIssueMoveNotification.1"), fixture.getNextRequest().getEntityAsText());		
-		assertEquals("Wrong comment response received after changing comment", TestDataFactory.getSoapResponse("testIssueMoveNotification.2"), fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong change response received after changing comment", 
+				TestDataFactory.getSoapResponse("testIssueMoveNotification.1"), 
+				fixture.getNextRequest().getEntityAsText());		
+		assertEquals("Wrong comment response received after changing comment", 
+				TestDataFactory.getSoapResponse("testIssueMoveNotification.2"), 
+				fixture.getNextRequest().getEntityAsText());		
 		}
 	
 	/**
@@ -83,7 +105,8 @@ public class NotificationTest extends AbstractNotificationTest {
 	public void testNotificationLoops() throws Exception  {
 		getFixture().getJiraClient().connect("zendesk","zendeskpw");
 
-		fixture.updateIssueWithDescription(issueKey, "This is a changed description by the zendesk user, no notification should be sent");
+		fixture.updateIssueWithDescription(issueKey, 
+				"This is a changed description by the zendesk user, no notification should be sent");
 		assertEquals("Notification received for Zendesk user update, ", null, fixture.getNextRequest());
 	}
 	
@@ -95,7 +118,8 @@ public class NotificationTest extends AbstractNotificationTest {
 		String commentsValue = "false";
 		getFixture().getJiraClient().setCommentsPublic(commentsValue);
 		
-		fixture.updateIssueWithComment(issueKey, "Adding comment after public commets attributes has been set to "+commentsValue);
+		fixture.updateIssueWithComment(issueKey, 
+				"Adding comment after public commets attributes has been set to "+commentsValue);
 		assertEquals("Wrong response received for private comment notification", 
 				TestDataFactory.getSoapResponse("testPrivateNotification.1"), 
 				fixture.getNextRequest().getEntityAsText());
@@ -103,7 +127,8 @@ public class NotificationTest extends AbstractNotificationTest {
 		commentsValue = "true";
 		getFixture().getJiraClient().setCommentsPublic(commentsValue);
 		
-		fixture.updateIssueWithComment(issueKey, "Adding comment after public commets attributes has been set to "+commentsValue);
+		fixture.updateIssueWithComment(issueKey, 
+				"Adding comment after public commets attributes has been set to " + commentsValue);
 		assertEquals("Wrong response received for public comment notification", 
 				TestDataFactory.getSoapResponse("testPrivateNotification.2"), 
 				fixture.getNextRequest().getEntityAsText());
@@ -114,7 +139,8 @@ public class NotificationTest extends AbstractNotificationTest {
 		String commentsValue = "fllll";
 		getFixture().getJiraClient().setCommentsPublic(commentsValue);
 		
-		fixture.updateIssueWithComment(issueKey, "Adding comment after public commets attributes has been set to "+commentsValue);
+		fixture.updateIssueWithComment(issueKey, 
+				"Adding comment after public commets attributes has been set to " + commentsValue);
 		assertEquals("Wrong response received for garbage comment notification is-public setting", 
 				TestDataFactory.getSoapResponse("testPrivateNotificationInvalidString.1"), 
 				fixture.getNextRequest().getEntityAsText());
@@ -122,13 +148,15 @@ public class NotificationTest extends AbstractNotificationTest {
 		commentsValue = "false";
 		getFixture().getJiraClient().setCommentsPublic(commentsValue);
 		
-		fixture.updateIssueWithComment(issueKey, "Adding comment after public commets attributes has been set to "+commentsValue);
+		fixture.updateIssueWithComment(issueKey, 
+				"Adding comment after public commets attributes has been set to " + commentsValue);
 		assertEquals("Wrong response received for public comment notification", 
 				TestDataFactory.getSoapResponse("testPrivateNotificationInvalidString.2"), 
 				fixture.getNextRequest().getEntityAsText());
 	}
 	/**
-	 * Test whether issues without a Zendesk ticket ID are handled correctly, eg. no Zendesk notification should be generated.
+	 * Test whether issues without a Zendesk ticket ID are handled correctly, eg. no Zendesk notification should be 
+	 * generated.
 	 */
 	@Test (groups = {"regressionTests"} )
 	public void testNonZendeskassociatedIssueUpdate() throws Exception {
@@ -138,8 +166,10 @@ public class NotificationTest extends AbstractNotificationTest {
 		newIssue.setSummary("Non Zendesk issue (No Zendesk ID)");
 		newIssue = fixture.createIssue(newIssue);
 		
-		fixture.updateIssueWithDescription(newIssue.getKey(), "This issue doesn't have a Zendesk ID associated, no notification should be set");
-		assertEquals("Notification received for update of issue with a defined Zendesk ticket ID, ", null, fixture.getNextRequest());
+		fixture.updateIssueWithDescription(newIssue.getKey(), 
+				"This issue doesn't have a Zendesk ID associated, no notification should be set");
+		assertEquals("Notification received for update of issue with a defined Zendesk ticket ID, ", 
+				null, fixture.getNextRequest());
 	}
 	
 	/**

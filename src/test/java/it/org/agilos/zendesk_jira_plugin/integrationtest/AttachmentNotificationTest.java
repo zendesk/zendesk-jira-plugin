@@ -9,9 +9,6 @@ import org.agilos.zendesk_jira_plugin.integrationtest.notifications.AttachmentRe
 import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.UploadFileSpec;
 
 /**
  * ZEN-47 Upload of attachments to Zendesk, http://jira.agilos.org/browse/ZEN-47
@@ -206,7 +203,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	}
 	
 	public void attachFile(String fieldName, File file) {
-		UploadFileSpec bigFile = new UploadFileSpec(file);
+//		UploadFileSpec bigFile = new UploadFileSpec(file);
 //        try {
 //        	fixture.tester.getDialog().getResponse().getFormWithID("attach-file").setParameter(fieldName, new UploadFileSpec[] {
 //                bigFile

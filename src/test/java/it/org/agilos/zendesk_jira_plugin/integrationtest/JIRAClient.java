@@ -9,8 +9,12 @@ import org.agilos.jira.soapclient.JiraSoapService;
 import org.agilos.jira.soapclient.JiraSoapServiceService;
 import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverBackedSelenium;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
 
 /**
@@ -36,6 +40,7 @@ public class JIRAClient {
 	private Logger log = Logger.getLogger(JIRAClient.class.getName());
 
 	public static Selenium selenium;
+	public static WebDriver driver;
 	private Thread shutDownHook;
 
 	private JIRAClient() {
@@ -43,11 +48,14 @@ public class JIRAClient {
 		if (System.getProperty("test.server.properties") == null || System.getProperty("test.server.properties").equals("")) 
 			System.setProperty("test.server.properties", "test-jira-4.0.properties");
 
-		selenium = new DefaultSelenium( "localhost", 4444, "*firefox", JIRA.URL);
-		selenium.start();
+		driver = new FirefoxDriver();
+		//driver.get("http://www.google.com");
+		
+		selenium = new WebDriverBackedSelenium(driver, JIRA.URL);
 
+		
 		shutDownHook = new Thread(new ShutDownHook(selenium));
-		shutDownHook.setName("SeleniumServerShutDownHook");
+		shutDownHook.setName("SeleniumShutDownHook");
 		Runtime.getRuntime().addShutdownHook(shutDownHook);
 	}
 
@@ -109,7 +117,11 @@ public class JIRAClient {
 	public void setCommentsPublic(String publicComments) {
 		gotoListenerConfiguration();
 		log.info("Setting public comment value to "+publicComments);
-		selenium.type("//input[@name='Public comments']", "publicComments");
+		//selenium.type("Public comments", publicComments);
+		WebElement element = driver.findElement(By.name("Public comments"));
+		element.clear();
+		element.sendKeys(publicComments);
+		//selenium.type("//input[@name='Public comments']", "publicComments");
 		selenium.click("update_submit");
 		selenium.isTextPresent(publicComments);
 	}	

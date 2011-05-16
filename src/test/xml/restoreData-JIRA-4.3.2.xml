@@ -1,0 +1,1721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+
+___ Exported on _____________________________
+
+     on                                            : Wednesday, April 13, 2011 9:30:51 PM CEST
+     by                                            : admin ( Integration test admin user )
+
+___ Environment ____________________________
+
+     JIRA Build                                    : 4.3.2#616-r148546
+     Build Date                                    : Fri Apr 08 00:00:00 CEST 2011
+     JIRA Installation Type                        : Standalone
+     Java Version                                  : 1.6.0_24 - Sun Microsystems Inc.
+     Current Working Directory                     : /home/mikis/products/test-jiras/JIRA-4.3.2
+     Maximum Allowable Memory                      : 358MB
+     Total Memory                                  : 358MB
+     Free Memory                                   : 94MB
+     Used Memory                                   : 264MB
+     Memory Pool: Code Cache                       : Code Cache: init = 2555904(2496K) used = 9448320(9226K) committed = 9633792(9408K) max = 50331648(49152K)
+     Memory Pool: PS Eden Space                    : PS Eden Space: init = 67174400(65600K) used = 46085384(45005K) committed = 82051072(80128K) max = 84803584(82816K)
+     Memory Pool: PS Survivor Space                : PS Survivor Space: init = 11141120(10880K) used = 851968(832K) committed = 24903680(24320K) max = 24903680(24320K)
+     Memory Pool: PS Old Gen                       : PS Old Gen: init = 178978816(174784K) used = 229262888(223889K) committed = 268435456(262144K) max = 268435456(262144K)
+     Memory Pool: PS Perm Gen                      : PS Perm Gen: init = 21757952(21248K) used = 112472760(109836K) committed = 179503104(175296K) max = 268435456(262144K)
+     JVM Input Arguments                           : -Djava.util.logging.config.file=/home/mikis/products/test-jiras/JIRA-4.3.2/conf/logging.properties -XX:MaxPermSize=256m -Xms256m -Xmx384m -Djava.awt.headless=true -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Dmail.mime.decodeparameters=true -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djava.endorsed.dirs=/home/mikis/products/test-jiras/JIRA-4.3.2/endorsed -Dcatalina.base=/home/mikis/products/test-jiras/JIRA-4.3.2 -Dcatalina.home=/home/mikis/products/test-jiras/JIRA-4.3.2 -Djava.io.tmpdir=/home/mikis/products/test-jiras/JIRA-4.3.2/temp
+
+___ Database Configuration _________________
+
+     Loading entityengine.xml from                 : file:/home/mikis/products/test-jiras/JIRA-4.3.2/atlassian-jira/WEB-INF/classes/entityengine.xml
+     Entity model field type name                  : hsql
+     Entity model schema name                      : PUBLIC
+     Database Version                              : HSQL Database Engine - 1.8.0
+     Database Driver                               : HSQL Database Engine Driver - 1.8.0
+     Database URL                                  : jdbc:hsqldb:/home/mikis/products/test-jiras/JIRA-4.3.2/database/jiradb
+     Database JNDI address                         : java:comp/env/jdbc/JiraDS
+
+___ Core Application Properties ____________
+
+     Version                                       : 4.3.2
+     Build #                                       : 616
+     Build Date                                    : Fri Apr 08 00:00:00 CEST 2011
+     Installation Type                             : Standalone
+     Server ID                                     : ADDB-GGBW-V7CZ-OS3I
+     Base URL                                      : http://localhost:1990
+     Default Language                              : English (UK)
+     External User Management                      : OFF
+     CROWD Integration                             : ON
+
+___ Application Properties _________________
+
+     com.atlassian.sal.jira:build                  : 2
+     jira.ajax.autocomplete.issuepicker.enabled    : true
+     jira.ajax.autocomplete.labelsuggestion.limit  : 20
+     jira.ajax.autocomplete.limit                  : 20
+     jira.ajax.autocomplete.userpicker.limit       : 5000
+     jira.alertheader.visibility                   : private
+     jira.assignee.change.is.sent.to.both.parties  : true
+     jira.attachment.allow.zip.support             : true
+     jira.attachment.do.not.expand.as.zip.extensions.list : docx, docm, dotx, dotm, xlsx, xlsm, xltx, xltm, xlsb, xlam, pptx, pptm, potx, potm, ppam, ppsx, ppsm, sldx, sldm, thmx, odt, odp, ods, odg, odb, odf, ott, otp, ots, otg, odm, sxw, stw, sxc, stc, sxi, sti, sxd, std, sxg
+     jira.attachment.download.mime.sniffing.workaround : workaround
+     jira.attachment.number.of.zip.entries         : 30
+     jira.autoexport                               : true
+     jira.avatar.default.id                        : 10011
+     jira.avatar.megapixels                        : 10
+     jira.avatar.user.anonymous.id                 : 10063
+     jira.avatar.user.default.id                   : 10062
+     jira.baseurl                                  : http://localhost:1990
+     jira.browser.unsupported.warnings.disabled    : false
+     jira.bulk.edit.limit.issue.count              : 1000
+     jira.chart.days.previous.limit.daily          : 300
+     jira.chart.days.previous.limit.hourly         : 10
+     jira.chart.days.previous.limit.monthly        : 7500
+     jira.chart.days.previous.limit.quarterly      : 22500
+     jira.chart.days.previous.limit.weekly         : 1750
+     jira.chart.days.previous.limit.yearly         : 36500
+     jira.clone.linktype.name                      : Cloners
+     jira.clone.prefix                             : CLONE -
+     jira.comment.level.visibility.groups          : false
+     jira.constant.default.resolution              : 1
+     jira.dashboard.max.gadgets                    : 20
+     jira.databasequery.batch.size                 : 100
+     jira.date.picker.java.format                  : d/MMM/yy
+     jira.date.picker.javascript.format            : %e/%b/%y
+     jira.date.time.picker.java.format             : dd/MMM/yy h:mm a
+     jira.date.time.picker.javascript.format       : %e/%b/%y %I:%M %p
+     jira.date.time.picker.use.iso8061             : false
+     jira.disable.login.gadget                     : false
+     jira.disable.multipart.get.http.request       : true
+     jira.edition                                  : enterprise
+     jira.email.fromheader.format                  : ${fullname} (JIRA)
+     jira.exportimport.cleanxml                    : true
+     jira.home                                     : /home/mikis/products/test-jiras/JIRA-4.3.2/data
+     jira.i18n.default.locale                      : en_UK
+     jira.i18n.include.meta-data                   : true
+     jira.i18n.language.index                      : english
+     jira.importid.prefix                          : unconfigured
+     jira.index.batch.maxbuffereddocs              : 300
+     jira.index.batch.maxmergedocs                 : 2147483647
+     jira.index.batch.mergefactor                  : 50
+     jira.index.interactive.maxbuffereddocs        : 300
+     jira.index.interactive.maxmergedocs           : 2147483647
+     jira.index.interactive.mergefactor            : 4
+     jira.index.lock.waittime                      : 30000
+     jira.index.max.reindexes                      : 4000
+     jira.index.maxfieldlength                     : 10000
+     jira.index.update.bulk.optimization           : 400
+     jira.issue.actions.order                      : asc
+     jira.issue.desc.environment                   : For example operating system, software platform and/or hardware specifications (include as appropriate for the issue).
+     jira.issue.desc.original.timetrack            : This value can not be changed after work has begun on the issue.
+     jira.issue.desc.timetrack                     : An estimate of how much work remains until this issue will be resolved.<br>
+                                                     The format of this is ' *w *d *h *m ' (representing weeks, days, hours and minutes - where * can be any number)<br>
+                                                     Examples: 4d, 5h 30m, 60m and 3w.
+     jira.issueindex.fetch.size                    : 200
+     jira.jql.autocomplete.disabled                : false
+     jira.lf.application.id                        : jira
+     jira.lf.date.complete                         : dd/MMM/yy h:mm a
+     jira.lf.date.day                              : EEEE h:mm a
+     jira.lf.date.dmy                              : dd/MMM/yy
+     jira.lf.date.relativize                       : true
+     jira.lf.date.time                             : h:mm a
+     jira.lf.edit.version                          : 601
+     jira.lf.gadget.color1                         : #369
+     jira.lf.gadget.color2                         : #900925
+     jira.lf.gadget.color3                         : #d94625
+     jira.lf.gadget.color4                         : #346006
+     jira.lf.gadget.color5                         : #003366
+     jira.lf.gadget.color6                         : #411E66
+     jira.lf.gadget.color7                         : #bbb
+     jira.lf.logo.height                           : 30
+     jira.lf.logo.url                              : /images/jira111x30.png
+     jira.lf.logo.width                            : 111
+     jira.lf.menu.bgcolour                         : #3c78b5
+     jira.lf.menu.separator                        : #f0f0f0
+     jira.lf.menu.textcolour                       : #ffffff
+     jira.lf.text.activelinkcolour                 : #3c78b5
+     jira.lf.text.headingcolour                    : #3c78b5
+     jira.lf.text.linkcolour                       : #3c78b5
+     jira.lf.top.bgcolour                          : #114070
+     jira.lf.top.hilightcolour                     : #325c82
+     jira.lf.top.separator.bgcolor                 : #114070
+     jira.lf.top.textcolour                        : #ffffff
+     jira.lf.top.texthilightcolour                 : #f0f0f0
+     jira.max.AdminPage.history.items              : 5
+     jira.max.Issue.history.items                  : 50
+     jira.max.JQLQuery.history.items               : 10
+     jira.max.history.items                        : 10
+     jira.max.issue.filter.dropdown.items          : 10
+     jira.max.issue.history.dropdown.items         : 6
+     jira.maximum.authentication.attempts.allowed  : 5
+     jira.mode                                     : private
+     jira.option.allowattachments                  : true
+     jira.option.allowcookies                      : true
+     jira.option.allowthumbnails                   : true
+     jira.option.allowunassigned                   : true
+     jira.option.captcha.on.signup                 : false
+     jira.option.emailvisible                      : show
+     jira.option.ignore.url.with.key               : true
+     jira.option.indexing                          : true
+     jira.option.issuelinking                      : false
+     jira.option.logoutconfirm                     : never
+     jira.option.precedence.header.exclude         : false
+     jira.option.rpc.allow                         : true
+     jira.option.trackback.receive                 : true
+     jira.option.trackback.send                    : false
+     jira.option.user.externalmanagement           : false
+     jira.option.user.externalpasswordmanagement   : false
+     jira.option.voting                            : true
+     jira.option.watching                          : true
+     jira.option.web.usegzip                       : false
+     jira.path.attachments                         : d:\projects\Agilos\zendesk-jira-plugin\target\jira\jira-config\jira-home\data\attachments
+     jira.path.attachments.use.default.directory   : true
+     jira.path.index                               : d:\projects\Agilos\zendesk-jira-plugin\target\jira/home/indexes
+     jira.path.index.use.default.directory         : true
+     jira.project.summary.max.issues               : 3
+     jira.projectkey.description                   : admin.projects.key.description
+     jira.projectkey.pattern                       : ([A-Z][A-Z]+)
+     jira.projectkey.reservedwords.list            : PRN, AUX, CLOCK$, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, CON, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9
+     jira.projectkey.warning                       : admin.errors.must.specify.unique.project.key
+     jira.releasenotes.default                     : Html
+     jira.releasenotes.templatenames               : Html, Text
+     jira.releasenotes.templates                   : releasenotes-html.vm, releasenotes-text.vm
+     jira.scheme.default.issue.type                : 10000
+     jira.schemes.comparison.max                   : 5
+     jira.screenshotapplet.enabled                 : true
+     jira.screenshotapplet.linux.enabled           : false
+     jira.search.fullcontentview.pagebreaks        : true
+     jira.search.maxclauses                        : 65000
+     jira.search.views.default.max                 : 1000
+     jira.sendmail.recipient.batch.size            : 100
+     jira.setup                                    : true
+     jira.subscription.email.max.issues            : 200
+     jira.subtask.quickcreateform.fields           : summary,issuetype,assignee,timetracking
+     jira.subtask.quickcreateform.template         : templates/jira/issue/subtask/quickcreationform-vertical.vm
+     jira.table.cols.dashboard                     : issuetype, issuekey, summary, priority
+     jira.table.cols.linkedissue                   : issuetype, issuekey, summary, status, priority
+     jira.table.cols.subtasks                      : issuetype, status, assignee, progress
+     jira.table.cols.voted                         : issuetype, issuekey, summary, priority, status
+     jira.table.cols.watched                       : issuetype, issuekey, summary, priority, status
+     jira.table.gadget.max.rows                    : 50
+     jira.thumbnail.maxheight                      : 200
+     jira.thumbnail.maxwidth                       : 200
+     jira.timetracking.copy.comment.to.work.desc.on.transition : true
+     jira.timetracking.days.per.week               : 7
+     jira.timetracking.estimates.legacy.behaviour  : true
+     jira.timetracking.format                      : pretty
+     jira.timetracking.hours.per.day               : 24
+     jira.title                                    : Agilis Test JIRA
+     jira.trustedapp.key.private.data              : null
+     jira.trustedapp.key.public.data               : null
+     jira.trustedapp.uid                           : jira:12427782
+     jira.trustedapps.timeout.default              : 10000
+     jira.trustedapps.urlmatch.default             : /sr/jira.issueviews:searchrequest
+                                                     /secure/RunPortlet
+                                                     /rest
+                                                     /rpc/soap
+                                                     /plugins/servlet/streams
+                                                     /plugins/servlet/applinks
+     jira.user.avatar.enabled                      : true
+     jira.usermanagement.maxdisplaymembers         : 200
+     jira.version.patched                          : 616
+     jira.view.issue.links.sort.order              : type, status, priority
+     jira.view.issue.show.quicksubtask.when.no.subtasks : false
+     jira.viewcvs.root.type                        : cvsroot
+     jira.webresource.flushcounter                 : 2
+     jira.webresource.superbatch.flushcounter      : 1
+     jira.websudo.is.disabled                      : false
+     jira.websudo.timeout                          : 10
+     jira.whitelist.disabled                       : false
+     jira.whitelist.rules                          : null
+     user.default.share.private                    : true
+     user.issues.per.page                          : 50
+     user.keyboard.shortcuts.disabled              : false
+     user.notifications.mimetype                   : text
+     user.notify.own.changes                       : true
+     user.show.actions.in.navigator                : true
+     webwork.i18n.encoding                         : UTF-8
+     webwork.multipart.maxSize                     : 10485760
+
+___ License Details ________________________
+
+     License Set                                   : true
+     Entitled To Support                           : true
+     Evaluation                                    : false
+     Description                                   : JIRA Unlimited Users: Open Source License
+     SEN                                           : SEN-678432
+     Organisation                                  : Agilis Software ApS
+     Partner                                       : 
+     Maximum Number Of Users                       : Unlimited
+
+
+___ Database Statistics ____________________
+
+     Issues                                        : 0
+     Projects                                      : 1
+     Custom Fields                                 : 1
+     Workflows                                     : 1
+     Users                                         : 5
+     Groups                                        : 3
+     Attachments                                   : 0
+     Comments                                      : 0
+
+___ Upgrade History ________________________
+
+     4.3.2#616
+          Time Performed                                : 2011-04-13 21:29:37.824
+          Original Version                              : 4.2.2-b589#589
+
+     4.2.2-b589#589
+          Time Performed                                : 2011-01-16 21:00:22.262
+          Original Version                              : 4.1.1#522
+
+     4.1.1#522
+          Time Performed                                : 2010-04-28 09:44:07.196
+          Original Version                              : 4.0#466
+
+     4.0#466
+          Time Performed                                : Unknown
+
+
+___ File Paths _____________________________
+
+     JIRA Home                                     : /home/mikis/products/test-jiras/JIRA-4.3.2/data
+     Location of atlassian-jira.log                : /home/mikis/products/test-jiras/JIRA-4.3.2/data/log/atlassian-jira.log
+     Index Path                                    : /home/mikis/products/test-jiras/JIRA-4.3.2/data/caches/indexes
+     Attachment Path                               : /home/mikis/products/test-jiras/JIRA-4.3.2/data/data/attachments
+
+___ User Plugins ___________________________
+
+     Number                                        : 0
+
+___ System Plugins _________________________
+
+     Number                                        : 48
+     Apache HttpClient OSGi bundle                 : org.apache.httpcomponents.httpclient-4.0
+          Version                                       : 4.0
+          Status                                        : enabled
+          Vendor                                        : Apache Software Foundation
+          Description                                   : HttpComponents Client (OSGi bundle)
+
+     Apache HttpCore OSGi bundle                   : org.apache.httpcomponents.httpcore-4.0
+          Version                                       : 4.0
+          Status                                        : enabled
+          Vendor                                        : Apache Software Foundation
+          Description                                   : HttpComponents Core (OSGi bundle)
+
+     Applinks Product Plugin                       : com.atlassian.applinks.applinks-plugin
+          Version                                       : 3.3
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin that facilitates discovery, connections and authentication with remote applications
+
+     Atlassian Embedded Crowd - Administration Plugin : com.atlassian.crowd.embedded.admin
+          Version                                       : 1.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides the administration of local and remote user directories.
+
+     Atlassian Gadgets OAuth Service Provider Plugin : com.atlassian.gadgets.oauth.serviceprovider
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin that makes OAuth Service Providers Gadget aware.
+
+     Atlassian OAuth Admin Plugin                  : com.atlassian.oauth.admin
+          Version                                       : 1.2.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin that provides a single tabbed view for administering OAuth consumers and service provider information.
+
+     Atlassian OAuth Consumer Plugin               : com.atlassian.oauth.consumer
+          Version                                       : 1.2.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin that makes it possible for applications to become Consumers.
+
+     Atlassian OAuth Consumer SPI                  : com.atlassian.oauth.atlassian-oauth-consumer-spi-1.2.2
+          Version                                       : 1.2.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Consumer SPIs to allow applications to provide custom implementations of storing token and consumer info
+
+     Atlassian OAuth Service Provider Plugin       : com.atlassian.oauth.serviceprovider
+          Version                                       : 1.2.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin that makes it possible for applications to become Service Providers.
+
+     Atlassian OAuth Service Provider SPI          : com.atlassian.oauth.atlassian-oauth-service-provider-spi-1.2.2
+          Version                                       : 1.2.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Service Provider SPIs to allow applications to provide custom implementations of storing token consumer info
+
+     Atlassian REST - Module Types                 : com.atlassian.plugins.rest.atlassian-rest-module
+          Version                                       : 2.4.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : A plugin that contains REST module types
+
+     Atlassian Template Renderer API               : com.atlassian.templaterenderer.api
+          Version                                       : 1.2.3
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : API and plugins for easily rendering content from different template engines.
+
+     Atlassian Template Renderer Velocity 1.6 Plugin : com.atlassian.templaterenderer.atlassian-template-renderer-velocity1.6-plugin
+          Version                                       : 1.2.3
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : API and plugins for easily rendering content from different template engines.
+
+     Atlassian UI Plugin                           : com.atlassian.auiplugin
+          Version                                       : 3.3.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : An Atlassian plugin that contains the core javascript files used in Atlassian products.
+
+     Atlassian Universal Plugin Manager Plugin     : com.atlassian.upm.atlassian-universal-plugin-manager-plugin
+          Version                                       : 1.3.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian Pty Ltd
+          Description                                   : This is the plugin that provides the Atlassian Universal Plugin Manager.
+
+     BND Library                                   : biz.aQute.bndlib-0.0.255
+          Version                                       : 0.0.255
+          Status                                        : enabled
+          Vendor                                        : aQute SARL http://www.aQute.biz
+          Description                                   : JAR Processing Library for creating and verifying OSGi manifest headers
+
+     Crowd REST API                                : crowd-rest-application-management
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems
+          Description                                   : Crowd REST API - Application Management
+
+     Crowd REST API                                : crowd-rest-plugin
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems
+          Description                                   : Crowd REST API
+
+     Crowd System Password Encoders                : crowd.system.passwordencoders
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems
+          Description                                   : Crowd Password Encoders shipped with Crowd
+
+     Embedded Gadgets Plugin                       : com.atlassian.gadgets.embedded
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin which allows gadgets to be embedded in pages
+
+     FishEye Plugin                                : com.atlassian.jirafisheyeplugin
+          Version                                       : 3.1.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems
+          Description                                   : JIRA Fisheye Plugin
+
+     Gadget Dashboard Plugin                       : com.atlassian.gadgets.dashboard
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin which renders a dashboard of gadgets
+
+     Gadget Directory Plugin                       : com.atlassian.gadgets.directory
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin which renders a directory of gadgets
+
+     Gadget Spec Publisher Plugin                  : com.atlassian.gadgets.publisher
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin which provides a way to publish gadget specs found in plugins
+
+     ICU4J                                         : com.atlassian.bundles.icu4j-3.8.0.1
+          Version                                       : 3.8.0.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian Pty Ltd
+          Description                                   : ICU4J as an OSGi bundle
+
+     JDOM DOM Processor                            : com.springsource.org.jdom-1.0.0
+          Version                                       : 1.0.0
+          Status                                        : enabled
+          Vendor                                        : SpringSource
+          Description                                   : 
+
+     JIRA Activity Stream Plugin                   : com.atlassian.streams.streams-jira-plugin
+          Version                                       : 3.1.4
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Lists recent activity in a single project, or in all projects.
+
+     JIRA Bamboo Plugin                            : com.atlassian.jira.plugin.ext.bamboo
+          Version                                       : 4.1.3
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems Pty Ltd
+          Description                                   : Allows you to see builds and telemetry from a remote Bamboo server
+
+     JIRA Gadgets Plugin                           : com.atlassian.jira.gadgets
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides Gadgets and REST endpoints bundled with JIRA
+
+     JIRA Importers Plugin (JIM)                   : com.atlassian.jira.plugins.jira-importers-plugin
+          Version                                       : 2.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : A plugin (originally part of JIRA 4.2 and older) which provides capability to import to JIRA issues from 3rd party issue trackers: Bugzilla, FogBugz and Mantis.
+
+     JIRA OAuth Consumer SPI Plugin                : com.atlassian.jira.oauth.consumer
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides the Consumer SPI implementation required for OAuth in JIRA.
+
+     JIRA OAuth Service Provider SPI Plugin        : com.atlassian.jira.oauth.serviceprovider
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides the OAuth Service Provider SPI implementation required for OAuth in JIRA.
+
+     JIRA REST Plugin                              : com.atlassian.jira.rest
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides a REST interface for JIRA
+
+     JIRA Shared Application Access Layer (SAL) Plugin : com.atlassian.sal.jira
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian Software Systems
+          Description                                   : JIRA implementation of the Shared Application Access Layer (SAL)
+
+     JIRA Usage Hints                              : jira.usage.hints
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : This library includes the web fragments for JIRA usage hints displayed on issue operation dialogs. It should never be disabled.
+
+     JQL Functions                                 : jira.jql.function
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : This plugin implements a JQL function in JIRA.
+
+     JSON Library                                  : com.atlassian.bundles.json-20070829.0.0.1
+          Version                                       : 20070829.0.0.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian Pty Ltd
+          Description                                   : Library for manipulating JSON
+
+     Joda-Time                                     : joda-time-1.6
+          Version                                       : 1.6
+          Status                                        : enabled
+          Vendor                                        : 
+          Description                                   : 
+
+     Keyboard Shortcuts Plugin                     : jira.keyboard.shortcuts
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : A plugin that defines a number of keyboard shortcuts.
+
+     Neko HTML                                     : com.atlassian.bundles.nekohtml-1.9.12.1
+          Version                                       : 1.9.12.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian Pty Ltd
+          Description                                   : Neko HTML library as an OSGi bundle
+
+     Opensocial Plugin                             : com.atlassian.gadgets.opensocial
+          Version                                       : 3.0.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Plugin for OpenSocial API Support and Gadget Rendering
+
+     ROME, RSS and atOM utilitiEs for Java         : rome.rome-1.0
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Sun Microsystems
+          Description                                   : All Roads Lead to ROME. ROME is a set of Atom/RSS Java utilities that make it		easy to work in Java with most syndication formats. Today it accepts all flavors of RSS		(0.90, 0.91, 0.92, 0.93, 0.94, 1.0 and 2.0), Atom 0.3 and Atom 1.0 feeds. Rome includes		a set of parsers and generators for the various flavors of feeds, as well as converters		to convert from one format to another. The parsers can give you back Java objects that		are either specific for the format you want to work with, or a generic normalized		SyndFeed object that lets you work on with the data without bothering about the		underlying format.
+
+     ROME: RSS/Atom syndication and publishing tools : com.springsource.com.sun.syndication-0.9.0
+          Version                                       : 0.9.0
+          Status                                        : enabled
+          Vendor                                        : SpringSource
+          Description                                   : 
+
+     RPC JIRA Plugin                               : com.atlassian.jira.ext.rpc
+          Version                                       : 4.3.2
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : The standard JIRA RPC services, both SOAP and XML-RPC.
+
+     Support Tools Plugin                          : com.atlassian.support.stp
+          Version                                       : 2.3.1
+          Status                                        : enabled
+          Vendor                                        : Atlassian Support
+          Description                                   : This is the Support Tools Plugin, developed to help Atlassian customers with our products.
+
+     User Format                                   : jira.user.format
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : This plugin renders a user in JIRA.
+
+     User Profile Panels                           : jira.user.profile.panels
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : This library includes the panels included on the user profile page.
+
+     jira-ical-feed                                : com.atlassian.jira.extra.jira-ical-feed
+          Version                                       : 1.0
+          Status                                        : enabled
+          Vendor                                        : Atlassian
+          Description                                   : Provides an iCal feed of JIRA issues and versions
+
+
+___ Listeners ______________________________
+
+     Instance Count                                : 4
+
+     Mail Listener                                 : com.atlassian.jira.event.listeners.mail.MailListener
+     ZendeskNotifier                               : org.agilos.jira.zendesk.ZendeskNotifier
+          LoginName                                     : jira
+          LoginPassword                                 : jira
+          TicketIDField                                 : Zendesk TicketID
+          ZendeskApplicationLogin                       : zendesk
+          ZendeskUrl                                    : http://localhost:8182
+     Issue Assignment Listener                     : com.atlassian.jira.event.listeners.history.IssueAssignHistoryListener
+     Issue Index Listener                          : com.atlassian.jira.event.listeners.search.IssueIndexListener
+
+___ Services _______________________________
+
+     Instance Count                                : 2
+
+     Mail Queue Service                            : com.atlassian.jira.service.services.mail.MailQueueService
+          Service Delay                                 : 60000ms
+     Last Run                                      : 4/13/11 9:29 PM
+     Service Provider Token Remover                : com.atlassian.sal.jira.scheduling.JiraPluginSchedulerService
+          Service Delay                                 : 28800000ms
+     Last Run                                      : 4/13/11 9:30 PM
+          pluginJobName                                 : Service Provider Token Remover
+          repeatInterval                                : 28800000
+          initiallyFired                                : true
+
+___ Trusted Applications ___________________
+
+     Instance Count                                : 0
+
+
+ -->
+<entity-engine-xml>
+    <Application id="1" name="crowd-embedded" lowerName="crowd-embedded" createdDate="2011-04-13 21:29:36.662" updatedDate="2011-04-13 21:29:36.662" active="1" description="" applicationType="CROWD" credential="X"/>
+    <Avatar id="10000" fileName="codegeist.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10001" fileName="eamesbird.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10002" fileName="jm_black.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10003" fileName="jm_brown.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10004" fileName="jm_orange.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10005" fileName="jm_red.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10006" fileName="jm_white.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10007" fileName="jm_yellow.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10008" fileName="monster.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10009" fileName="rainbow.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10010" fileName="kangaroo.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10011" fileName="rocket.png" contentType="image/png" avatarType="project" systemAvatar="1"/>
+    <Avatar id="10040" fileName="Avatar-1.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10041" fileName="Avatar-2.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10042" fileName="Avatar-3.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10043" fileName="Avatar-4.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10044" fileName="Avatar-5.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10045" fileName="Avatar-6.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10046" fileName="Avatar-7.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10047" fileName="Avatar-8.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10048" fileName="Avatar-9.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10049" fileName="Avatar-10.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10050" fileName="Avatar-11.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10051" fileName="Avatar-12.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10052" fileName="Avatar-13.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10053" fileName="Avatar-14.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10054" fileName="Avatar-15.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10055" fileName="Avatar-16.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10056" fileName="Avatar-17.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10057" fileName="Avatar-18.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10058" fileName="Avatar-19.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10059" fileName="Avatar-20.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10060" fileName="Avatar-21.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10061" fileName="Avatar-22.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10062" fileName="Avatar-default.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <Avatar id="10063" fileName="Avatar-unknown.png" contentType="image/png" avatarType="user" systemAvatar="1"/>
+    <ConfigurationContext id="10000" key="issuetype" fieldconfigscheme="10000"/>
+    <ConfigurationContext id="10020" key="customfield_10000" fieldconfigscheme="10010"/>
+    <CustomField id="10000" customfieldtypekey="com.atlassian.jira.plugin.system.customfieldtypes:textfield" customfieldsearcherkey="com.atlassian.jira.plugin.system.customfieldtypes:textsearcher" name="Zendesk TicketID" description="The ticket ID of the corresponding Zendesk ticket"/>
+    <Directory id="1" directoryName="JIRA Internal Directory" lowerDirectoryName="jira internal directory" createdDate="2011-04-13 21:29:36.669" updatedDate="2011-04-13 21:29:36.669" active="1" description="JIRA default internal directory" implementationClass="com.atlassian.crowd.directory.InternalDirectory" lowerImplementationClass="com.atlassian.crowd.directory.internaldirectory" type="INTERNAL" position="0"/>
+    <DirectoryAttribute directoryId="1" name="user_encryption_method" value="atlassian-security"/>
+    <DirectoryOperation directoryId="1" operationType="CREATE_GROUP"/>
+    <DirectoryOperation directoryId="1" operationType="CREATE_ROLE"/>
+    <DirectoryOperation directoryId="1" operationType="CREATE_USER"/>
+    <DirectoryOperation directoryId="1" operationType="DELETE_GROUP"/>
+    <DirectoryOperation directoryId="1" operationType="DELETE_ROLE"/>
+    <DirectoryOperation directoryId="1" operationType="DELETE_USER"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_GROUP"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_GROUP_ATTRIBUTE"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_ROLE"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_ROLE_ATTRIBUTE"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_USER"/>
+    <DirectoryOperation directoryId="1" operationType="UPDATE_USER_ATTRIBUTE"/>
+    <EventType id="1" name="Issue Created" description="This is the &apos;Issue Created&apos; event type." type="jira.system.event.type"/>
+    <EventType id="2" name="Issue Updated" description="This is the &apos;Issue Updated&apos; event type." type="jira.system.event.type"/>
+    <EventType id="3" name="Issue Assigned" description="This is the &apos;Issue Assigned&apos; event type." type="jira.system.event.type"/>
+    <EventType id="4" name="Issue Resolved" description="This is the &apos;Issue Resolved&apos; event type." type="jira.system.event.type"/>
+    <EventType id="5" name="Issue Closed" description="This is the &apos;Issue Closed&apos; event type." type="jira.system.event.type"/>
+    <EventType id="6" name="Issue Commented" description="This is the &apos;Issue Commented&apos; event type." type="jira.system.event.type"/>
+    <EventType id="7" name="Issue Reopened" description="This is the &apos;Issue Reopened&apos; event type." type="jira.system.event.type"/>
+    <EventType id="8" name="Issue Deleted" description="This is the &apos;Issue Deleted&apos; event type." type="jira.system.event.type"/>
+    <EventType id="9" name="Issue Moved" description="This is the &apos;Issue Moved&apos; event type." type="jira.system.event.type"/>
+    <EventType id="10" name="Work Logged On Issue" description="This is the &apos;Work Logged On Issue&apos; event type." type="jira.system.event.type"/>
+    <EventType id="11" name="Work Started On Issue" description="This is the &apos;Work Started On Issue&apos; event type." type="jira.system.event.type"/>
+    <EventType id="12" name="Work Stopped On Issue" description="This is the &apos;Work Stopped On Issue&apos; event type." type="jira.system.event.type"/>
+    <EventType id="13" name="Generic Event" description="This is the &apos;Generic Event&apos; event type." type="jira.system.event.type"/>
+    <EventType id="14" name="Issue Comment Edited" description="This is the &apos;Issue Comment Edited&apos; event type." type="jira.system.event.type"/>
+    <EventType id="15" name="Issue Worklog Updated" description="This is the &apos;Issue Worklog Updated&apos; event type." type="jira.system.event.type"/>
+    <EventType id="16" name="Issue Worklog Deleted" description="This is the &apos;Issue Worklog Deleted&apos; event type." type="jira.system.event.type"/>
+    <ExternalEntity id="10" name="admin" type="com.atlassian.jira.user.OfbizExternalEntityStore"/>
+    <ExternalEntity id="11" name="mikis" type="com.atlassian.jira.user.OfbizExternalEntityStore"/>
+    <FieldConfigScheme id="10000" name="Default Issue Type Scheme" description="Default issue type scheme is the list of global issue types. All newly created issue types will automatically be added to this scheme." fieldid="issuetype"/>
+    <FieldConfigScheme id="10010" name="Default Configuration Scheme for Zendesk TicektID" description="Default configuration scheme generated by JIRA" fieldid="customfield_10000"/>
+    <FieldConfigSchemeIssueType id="10001" fieldconfigscheme="10000" fieldconfiguration="10000"/>
+    <FieldConfigSchemeIssueType id="10020" fieldconfigscheme="10010" fieldconfiguration="10010"/>
+    <FieldConfiguration id="10000" name="Default Configuration for Issue Type" description="Default configuration generated by JIRA" fieldid="issuetype"/>
+    <FieldConfiguration id="10010" name="Default Configuration for Zendesk TicektID" description="Default configuration generated by JIRA" fieldid="customfield_10000"/>
+    <FieldScreen id="1" name="Default Screen" description="Allows to update all system fields."/>
+    <FieldScreen id="2" name="Workflow Screen" description="This screen is used in the workflow and enables you to assign issues"/>
+    <FieldScreen id="3" name="Resolve Issue Screen" description="Allows to set resolution, change fix versions and assign an issue."/>
+    <FieldScreenLayoutItem id="10000" fieldidentifier="summary" sequence="0" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10001" fieldidentifier="issuetype" sequence="1" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10002" fieldidentifier="security" sequence="2" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10003" fieldidentifier="priority" sequence="3" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10004" fieldidentifier="duedate" sequence="4" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10005" fieldidentifier="components" sequence="5" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10006" fieldidentifier="versions" sequence="6" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10007" fieldidentifier="fixVersions" sequence="7" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10008" fieldidentifier="assignee" sequence="8" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10009" fieldidentifier="reporter" sequence="9" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10010" fieldidentifier="environment" sequence="10" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10011" fieldidentifier="description" sequence="11" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10012" fieldidentifier="timetracking" sequence="12" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10013" fieldidentifier="attachment" sequence="13" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10014" fieldidentifier="assignee" sequence="0" fieldscreentab="10001"/>
+    <FieldScreenLayoutItem id="10015" fieldidentifier="resolution" sequence="0" fieldscreentab="10002"/>
+    <FieldScreenLayoutItem id="10016" fieldidentifier="fixVersions" sequence="1" fieldscreentab="10002"/>
+    <FieldScreenLayoutItem id="10017" fieldidentifier="assignee" sequence="2" fieldscreentab="10002"/>
+    <FieldScreenLayoutItem id="10030" fieldidentifier="customfield_10000" sequence="14" fieldscreentab="10000"/>
+    <FieldScreenLayoutItem id="10040" fieldidentifier="labels" sequence="15" fieldscreentab="10000"/>
+    <FieldScreenScheme id="1" name="Default Screen Scheme" description="Default Screen Scheme"/>
+    <FieldScreenSchemeItem id="10000" fieldscreen="1" fieldscreenscheme="1"/>
+    <FieldScreenTab id="10000" name="Field Tab" sequence="0" fieldscreen="1"/>
+    <FieldScreenTab id="10001" name="Field Tab" sequence="0" fieldscreen="2"/>
+    <FieldScreenTab id="10002" name="Field Tab" sequence="0" fieldscreen="3"/>
+    <GadgetUserPreference id="10000" portletconfiguration="10000" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10001" portletconfiguration="10001" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10002" portletconfiguration="10002" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10003" portletconfiguration="10003" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10004" portletconfiguration="10004" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10005" portletconfiguration="10005" userprefkey="isConfigured" userprefvalue="true"/>
+    <GadgetUserPreference id="10006" portletconfiguration="10006" userprefkey="isConfigured" userprefvalue="true"/>
+    <GenericConfiguration id="10000" datatype="DefaultValue" datakey="10000" xmlvalue="&lt;string&gt;1&lt;/string&gt;"/>
+    <Group id="10000" groupName="jira-administrators" lowerGroupName="jira-administrators" active="1" local="0" createdDate="2011-04-13 21:29:36.691" updatedDate="2011-04-13 21:29:36.691" description="" type="GROUP" directoryId="1"/>
+    <Group id="10001" groupName="jira-developers" lowerGroupName="jira-developers" active="1" local="0" createdDate="2011-04-13 21:29:36.691" updatedDate="2011-04-13 21:29:36.691" description="" type="GROUP" directoryId="1"/>
+    <Group id="10002" groupName="jira-users" lowerGroupName="jira-users" active="1" local="0" createdDate="2011-04-13 21:29:36.691" updatedDate="2011-04-13 21:29:36.691" description="" type="GROUP" directoryId="1"/>
+    <IssueType id="1" sequence="1" name="Bug" description="A problem which impairs or prevents the functions of the product." iconurl="/images/icons/bug.gif"/>
+    <IssueType id="2" sequence="2" name="New Feature" description="A new feature of the product, which has yet to be developed." iconurl="/images/icons/newfeature.gif"/>
+    <IssueType id="3" sequence="3" name="Task" description="A task that needs to be done." iconurl="/images/icons/task.gif"/>
+    <IssueType id="4" sequence="4" name="Improvement" description="An improvement or enhancement to an existing feature or task." iconurl="/images/icons/improvement.gif"/>
+    <IssueTypeScreenScheme id="1" name="Default Issue Type Screen Scheme" description="The default issue type screen scheme"/>
+    <IssueTypeScreenSchemeEntity id="10000" scheme="1" fieldscreenscheme="1"/>
+    <ListenerConfig id="10001" clazz="com.atlassian.jira.event.listeners.mail.MailListener" name="Mail Listener"/>
+    <ListenerConfig id="10020" clazz="org.agilos.jira.zendesk.ZendeskNotifier" name="ZendeskNotifier"/>
+    <ListenerConfig id="10220" clazz="com.atlassian.jira.event.listeners.history.IssueAssignHistoryListener" name="Issue Assignment Listener"/>
+    <ListenerConfig id="10221" clazz="com.atlassian.jira.event.listeners.search.IssueIndexListener" name="Issue Index Listener"/>
+    <Membership id="10000" parentId="10000" childId="10000" membershipType="GROUP_USER" parentName="jira-administrators" lowerParentName="jira-administrators" childName="mikis" lowerChildName="mikis" directoryId="1"/>
+    <Membership id="10001" parentId="10001" childId="10000" membershipType="GROUP_USER" parentName="jira-developers" lowerParentName="jira-developers" childName="mikis" lowerChildName="mikis" directoryId="1"/>
+    <Membership id="10002" parentId="10002" childId="10000" membershipType="GROUP_USER" parentName="jira-users" lowerParentName="jira-users" childName="mikis" lowerChildName="mikis" directoryId="1"/>
+    <Membership id="10010" parentId="10002" childId="10010" membershipType="GROUP_USER" parentName="jira-users" lowerParentName="jira-users" childName="greenpepper" lowerChildName="greenpepper" directoryId="1"/>
+    <Membership id="10011" parentId="10002" childId="10011" membershipType="GROUP_USER" parentName="jira-users" lowerParentName="jira-users" childName="bamboo" lowerChildName="bamboo" directoryId="1"/>
+    <Membership id="10012" parentId="10000" childId="10011" membershipType="GROUP_USER" parentName="jira-administrators" lowerParentName="jira-administrators" childName="bamboo" lowerChildName="bamboo" directoryId="1"/>
+    <Membership id="10013" parentId="10000" childId="10010" membershipType="GROUP_USER" parentName="jira-administrators" lowerParentName="jira-administrators" childName="greenpepper" lowerChildName="greenpepper" directoryId="1"/>
+    <Membership id="10092" parentId="10001" childId="10011" membershipType="GROUP_USER" parentName="jira-developers" lowerParentName="jira-developers" childName="bamboo" lowerChildName="bamboo" directoryId="1"/>
+    <Membership id="10470" parentId="10002" childId="10270" membershipType="GROUP_USER" parentName="jira-users" lowerParentName="jira-users" childName="admin" lowerChildName="admin" directoryId="1"/>
+    <Membership id="10471" parentId="10001" childId="10270" membershipType="GROUP_USER" parentName="jira-developers" lowerParentName="jira-developers" childName="admin" lowerChildName="admin" directoryId="1"/>
+    <Membership id="10472" parentId="10000" childId="10270" membershipType="GROUP_USER" parentName="jira-administrators" lowerParentName="jira-administrators" childName="admin" lowerChildName="admin" directoryId="1"/>
+    <Membership id="10500" parentId="10002" childId="10300" membershipType="GROUP_USER" parentName="jira-users" lowerParentName="jira-users" childName="zendesk" lowerChildName="zendesk" directoryId="1"/>
+    <Membership id="10510" parentId="10001" childId="10300" membershipType="GROUP_USER" parentName="jira-developers" lowerParentName="jira-developers" childName="zendesk" lowerChildName="zendesk" directoryId="1"/>
+    <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="0" sinkNodeEntity="PermissionScheme" associationType="ProjectScheme"/>
+    <NodeAssociation sourceNodeId="10090" sourceNodeEntity="Project" sinkNodeId="1" sinkNodeEntity="IssueTypeScreenScheme" associationType="ProjectScheme"/>
+    <Notification id="10000" scheme="10000" eventTypeId="1" type="Current_Assignee"/>
+    <Notification id="10001" scheme="10000" eventTypeId="1" type="Current_Reporter"/>
+    <Notification id="10002" scheme="10000" eventTypeId="1" type="All_Watchers"/>
+    <Notification id="10003" scheme="10000" eventTypeId="2" type="Current_Assignee"/>
+    <Notification id="10004" scheme="10000" eventTypeId="2" type="Current_Reporter"/>
+    <Notification id="10005" scheme="10000" eventTypeId="2" type="All_Watchers"/>
+    <Notification id="10006" scheme="10000" eventTypeId="3" type="Current_Assignee"/>
+    <Notification id="10007" scheme="10000" eventTypeId="3" type="Current_Reporter"/>
+    <Notification id="10008" scheme="10000" eventTypeId="3" type="All_Watchers"/>
+    <Notification id="10009" scheme="10000" eventTypeId="4" type="Current_Assignee"/>
+    <Notification id="10010" scheme="10000" eventTypeId="4" type="Current_Reporter"/>
+    <Notification id="10011" scheme="10000" eventTypeId="4" type="All_Watchers"/>
+    <Notification id="10012" scheme="10000" eventTypeId="5" type="Current_Assignee"/>
+    <Notification id="10013" scheme="10000" eventTypeId="5" type="Current_Reporter"/>
+    <Notification id="10014" scheme="10000" eventTypeId="5" type="All_Watchers"/>
+    <Notification id="10015" scheme="10000" eventTypeId="6" type="Current_Assignee"/>
+    <Notification id="10016" scheme="10000" eventTypeId="6" type="Current_Reporter"/>
+    <Notification id="10017" scheme="10000" eventTypeId="6" type="All_Watchers"/>
+    <Notification id="10018" scheme="10000" eventTypeId="7" type="Current_Assignee"/>
+    <Notification id="10019" scheme="10000" eventTypeId="7" type="Current_Reporter"/>
+    <Notification id="10020" scheme="10000" eventTypeId="7" type="All_Watchers"/>
+    <Notification id="10021" scheme="10000" eventTypeId="8" type="Current_Assignee"/>
+    <Notification id="10022" scheme="10000" eventTypeId="8" type="Current_Reporter"/>
+    <Notification id="10023" scheme="10000" eventTypeId="8" type="All_Watchers"/>
+    <Notification id="10024" scheme="10000" eventTypeId="9" type="Current_Assignee"/>
+    <Notification id="10025" scheme="10000" eventTypeId="9" type="Current_Reporter"/>
+    <Notification id="10026" scheme="10000" eventTypeId="9" type="All_Watchers"/>
+    <Notification id="10027" scheme="10000" eventTypeId="10" type="Current_Assignee"/>
+    <Notification id="10028" scheme="10000" eventTypeId="10" type="Current_Reporter"/>
+    <Notification id="10029" scheme="10000" eventTypeId="10" type="All_Watchers"/>
+    <Notification id="10030" scheme="10000" eventTypeId="11" type="Current_Assignee"/>
+    <Notification id="10031" scheme="10000" eventTypeId="11" type="Current_Reporter"/>
+    <Notification id="10032" scheme="10000" eventTypeId="11" type="All_Watchers"/>
+    <Notification id="10033" scheme="10000" eventTypeId="12" type="Current_Assignee"/>
+    <Notification id="10034" scheme="10000" eventTypeId="12" type="Current_Reporter"/>
+    <Notification id="10035" scheme="10000" eventTypeId="12" type="All_Watchers"/>
+    <Notification id="10036" scheme="10000" eventTypeId="13" type="Current_Assignee"/>
+    <Notification id="10037" scheme="10000" eventTypeId="13" type="Current_Reporter"/>
+    <Notification id="10038" scheme="10000" eventTypeId="13" type="All_Watchers"/>
+    <Notification id="10040" scheme="10000" eventTypeId="14" type="Current_Assignee"/>
+    <Notification id="10041" scheme="10000" eventTypeId="14" type="Current_Reporter"/>
+    <Notification id="10042" scheme="10000" eventTypeId="14" type="All_Watchers"/>
+    <Notification id="10043" scheme="10000" eventTypeId="15" type="Current_Assignee"/>
+    <Notification id="10044" scheme="10000" eventTypeId="15" type="Current_Reporter"/>
+    <Notification id="10045" scheme="10000" eventTypeId="15" type="All_Watchers"/>
+    <Notification id="10046" scheme="10000" eventTypeId="16" type="Current_Assignee"/>
+    <Notification id="10047" scheme="10000" eventTypeId="16" type="Current_Reporter"/>
+    <Notification id="10048" scheme="10000" eventTypeId="16" type="All_Watchers"/>
+    <NotificationScheme id="10000" name="Default Notification Scheme"/>
+    <OSCurrentStepPrev id="10010" previousId="10000"/>
+    <OSCurrentStepPrev id="10011" previousId="10010"/>
+    <OSCurrentStepPrev id="10020" previousId="10011"/>
+    <OSCurrentStepPrev id="10030" previousId="10020"/>
+    <OSCurrentStepPrev id="10031" previousId="10030"/>
+    <OSCurrentStepPrev id="10032" previousId="10031"/>
+    <OSCurrentStepPrev id="10033" previousId="10032"/>
+    <OSCurrentStepPrev id="10034" previousId="10033"/>
+    <OSCurrentStepPrev id="10101" previousId="10034"/>
+    <OSCurrentStepPrev id="10111" previousId="10101"/>
+    <OSHistoryStepPrev id="10010" previousId="10000"/>
+    <OSHistoryStepPrev id="10011" previousId="10010"/>
+    <OSHistoryStepPrev id="10020" previousId="10011"/>
+    <OSHistoryStepPrev id="10030" previousId="10020"/>
+    <OSHistoryStepPrev id="10031" previousId="10030"/>
+    <OSHistoryStepPrev id="10032" previousId="10031"/>
+    <OSHistoryStepPrev id="10033" previousId="10032"/>
+    <OSHistoryStepPrev id="10034" previousId="10033"/>
+    <OSHistoryStepPrev id="10101" previousId="10034"/>
+    <OSPropertyEntry id="10000" entityName="user.format.mapping" entityId="1" propertyKey="profileLink" type="5"/>
+    <OSPropertyEntry id="10001" entityName="user.format.mapping" entityId="1" propertyKey="fullName" type="5"/>
+    <OSPropertyEntry id="10002" entityName="user.format.mapping" entityId="1" propertyKey="profileLinkSearcher" type="5"/>
+    <OSPropertyEntry id="10003" entityName="user.format.mapping" entityId="1" propertyKey="profileLinkExternal" type="5"/>
+    <OSPropertyEntry id="10004" entityName="user.format.mapping" entityId="1" propertyKey="profileLinkActionHeader" type="5"/>
+    <OSPropertyEntry id="10005" entityName="user.format.mapping" entityId="1" propertyKey="fullProfile" type="5"/>
+    <OSPropertyEntry id="10006" entityName="fisheye-jira-plugin.properties" entityId="1" propertyKey="fisheye.applinks.piggyback.enabled" type="5"/>
+    <OSPropertyEntry id="10007" entityName="jira.properties" entityId="1" propertyKey="jira.i18n.language.index" type="5"/>
+    <OSPropertyEntry id="10008" entityName="jira.properties" entityId="1" propertyKey="jira.sid.key" type="5"/>
+    <OSPropertyEntry id="10009" entityName="jira.properties" entityId="1" propertyKey="webwork.i18n.encoding" type="5"/>
+    <OSPropertyEntry id="10010" entityName="jira.properties" entityId="1" propertyKey="jira.title" type="5"/>
+    <OSPropertyEntry id="10011" entityName="jira.properties" entityId="1" propertyKey="jira.baseurl" type="5"/>
+    <OSPropertyEntry id="10012" entityName="jira.properties" entityId="1" propertyKey="jira.mode" type="5"/>
+    <OSPropertyEntry id="10013" entityName="jira.properties" entityId="1" propertyKey="jira.option.indexing" type="1"/>
+    <OSPropertyEntry id="10014" entityName="jira.properties" entityId="1" propertyKey="jira.path.index" type="5"/>
+    <OSPropertyEntry id="10015" entityName="jira.properties" entityId="1" propertyKey="jira.path.attachments" type="5"/>
+    <OSPropertyEntry id="10016" entityName="jira.properties" entityId="1" propertyKey="jira.option.allowattachments" type="1"/>
+    <OSPropertyEntry id="10017" entityName="jira.properties" entityId="1" propertyKey="License Message Text" type="6"/>
+    <OSPropertyEntry id="10018" entityName="jira.properties" entityId="1" propertyKey="License Hash 1 Text" type="6"/>
+    <OSPropertyEntry id="10019" entityName="jira.properties" entityId="1" propertyKey="jira.edition" type="5"/>
+    <OSPropertyEntry id="10022" entityName="jira.properties" entityId="1" propertyKey="jira.setup" type="5"/>
+    <OSPropertyEntry id="10023" entityName="jira.properties" entityId="1" propertyKey="jira.option.allowunassigned" type="1"/>
+    <OSPropertyEntry id="10024" entityName="jira.properties" entityId="1" propertyKey="jira.option.user.externalmanagement" type="1"/>
+    <OSPropertyEntry id="10025" entityName="jira.properties" entityId="1" propertyKey="jira.option.voting" type="1"/>
+    <OSPropertyEntry id="10026" entityName="jira.properties" entityId="1" propertyKey="jira.option.watching" type="1"/>
+    <OSPropertyEntry id="10027" entityName="jira.properties" entityId="1" propertyKey="jira.option.issuelinking" type="1"/>
+    <OSPropertyEntry id="10028" entityName="jira.properties" entityId="1" propertyKey="jira.option.emailvisible" type="5"/>
+    <OSPropertyEntry id="10029" entityName="jira.properties" entityId="1" propertyKey="jira.version.patched" type="5"/>
+    <OSPropertyEntry id="10030" entityName="jira.properties" entityId="1" propertyKey="jira.issue.desc.environment" type="5"/>
+    <OSPropertyEntry id="10031" entityName="jira.properties" entityId="1" propertyKey="jira.issue.desc.timetrack" type="5"/>
+    <OSPropertyEntry id="10032" entityName="jira.properties" entityId="1" propertyKey="jira.timetracking.days.per.week" type="5"/>
+    <OSPropertyEntry id="10033" entityName="jira.properties" entityId="1" propertyKey="jira.timetracking.hours.per.day" type="5"/>
+    <OSPropertyEntry id="10034" entityName="jira.properties" entityId="1" propertyKey="jira.issue.desc.original.timetrack" type="5"/>
+    <OSPropertyEntry id="10040" entityName="jira.properties" entityId="1" propertyKey="jira.scheme.default.issue.type" type="5"/>
+    <OSPropertyEntry id="10041" entityName="jira.properties" entityId="1" propertyKey="jira.constant.default.resolution" type="5"/>
+    <OSPropertyEntry id="10042" entityName="jira.properties" entityId="1" propertyKey="webwork.multipart.maxSize" type="5"/>
+    <OSPropertyEntry id="10043" entityName="jira.properties" entityId="1" propertyKey="jira.email.fromheader.format" type="5"/>
+    <OSPropertyEntry id="10044" entityName="jira.properties" entityId="1" propertyKey="jira.option.captcha.on.signup" type="1"/>
+    <OSPropertyEntry id="10045" entityName="jira.properties" entityId="1" propertyKey="jira.option.user.externalpasswordmanagement" type="1"/>
+    <OSPropertyEntry id="10047" entityName="jira.properties" entityId="1" propertyKey="jira.option.logoutconfirm" type="5"/>
+    <OSPropertyEntry id="10048" entityName="jira.properties" entityId="1" propertyKey="jira.option.web.usegzip" type="1"/>
+    <OSPropertyEntry id="10049" entityName="jira.properties" entityId="1" propertyKey="jira.option.rpc.allow" type="1"/>
+    <OSPropertyEntry id="10050" entityName="jira.properties" entityId="1" propertyKey="jira.option.precedence.header.exclude" type="1"/>
+    <OSPropertyEntry id="10051" entityName="jira.properties" entityId="1" propertyKey="jira.comment.level.visibility.groups" type="1"/>
+    <OSPropertyEntry id="10052" entityName="jira.properties" entityId="1" propertyKey="jira.ajax.autocomplete.issuepicker.enabled" type="1"/>
+    <OSPropertyEntry id="10053" entityName="jira.properties" entityId="1" propertyKey="jira.attachment.download.mime.sniffing.workaround" type="5"/>
+    <OSPropertyEntry id="10110" entityName="jira.properties" entityId="1" propertyKey="jira.option.allowthumbnails" type="1"/>
+    <OSPropertyEntry id="10150" entityName="ListenerConfig" entityId="10020" propertyKey="ZendeskUrl" type="5"/>
+    <OSPropertyEntry id="10160" entityName="ListenerConfig" entityId="10020" propertyKey="LoginName" type="5"/>
+    <OSPropertyEntry id="10161" entityName="ListenerConfig" entityId="10020" propertyKey="LoginPassword" type="5"/>
+    <OSPropertyEntry id="10170" entityName="ListenerConfig" entityId="10020" propertyKey="TicketIDField" type="5"/>
+    <OSPropertyEntry id="10570" entityName="jira.properties" entityId="1" propertyKey="jira.lf.edit.version" type="5"/>
+    <OSPropertyEntry id="10580" entityName="jira.properties" entityId="1" propertyKey="jira.i18n.default.locale" type="5"/>
+    <OSPropertyEntry id="10640" entityName="ListenerConfig" entityId="10020" propertyKey="ZendeskApplicationLogin" type="5"/>
+    <OSPropertyEntry id="10650" entityName="jira.properties" entityId="1" propertyKey="jira.path.index.use.default.directory" type="1"/>
+    <OSPropertyEntry id="10651" entityName="jira.properties" entityId="1" propertyKey="License20" type="6"/>
+    <OSPropertyEntry id="10652" entityName="BambooServerProperties" entityId="1" propertyKey="bamboo.config.version" type="2"/>
+    <OSPropertyEntry id="10653" entityName="jira.properties" entityId="1" propertyKey="org.apache.shindig.common.crypto.BlobCrypter:key" type="5"/>
+    <OSPropertyEntry id="10655" entityName="jira.properties" entityId="1" propertyKey="jira.avatar.default.id" type="5"/>
+    <OSPropertyEntry id="10658" entityName="jira.properties" entityId="1" propertyKey="jira.trustedapp.key.private.data" type="6"/>
+    <OSPropertyEntry id="10659" entityName="jira.properties" entityId="1" propertyKey="jira.trustedapp.key.public.data" type="6"/>
+    <OSPropertyEntry id="10660" entityName="jira.properties" entityId="1" propertyKey="jira.trustedapp.uid" type="5"/>
+    <OSPropertyEntry id="10671" entityName="jira.properties" entityId="1" propertyKey="jira.path.attachments.use.default.directory" type="1"/>
+    <OSPropertyEntry id="10691" entityName="jira.properties" entityId="1" propertyKey="jira.jql.autocomplete.disabled" type="1"/>
+    <OSPropertyEntry id="10701" entityName="jira.properties" entityId="1" propertyKey="com.atlassian.sal.jira:build" type="5"/>
+    <OSPropertyEntry id="10703" entityName="fisheye-jira-plugin.properties" entityId="1" propertyKey="FISH-375-fixed" type="5"/>
+    <OSPropertyEntry id="10711" entityName="jira.properties" entityId="1" propertyKey="jira.lf.text.linkcolour" type="5"/>
+    <OSPropertyEntry id="10712" entityName="jira.properties" entityId="1" propertyKey="jira.lf.text.activelinkcolour" type="5"/>
+    <OSPropertyEntry id="10713" entityName="jira.properties" entityId="1" propertyKey="jira.lf.text.headingcolour" type="5"/>
+    <OSPropertyEntry id="10714" entityName="jira.properties" entityId="1" propertyKey="jira.maximum.authentication.attempts.allowed" type="5"/>
+    <OSPropertyEntry id="10721" entityName="jira.properties" entityId="1" propertyKey="jira.avatar.user.default.id" type="5"/>
+    <OSPropertyEntry id="10722" entityName="jira.properties" entityId="1" propertyKey="jira.webresource.flushcounter" type="5"/>
+    <OSPropertyEntry id="10830" entityName="jira.properties" entityId="1" propertyKey="jira.avatar.user.anonymous.id" type="5"/>
+    <OSPropertyEntry id="10831" entityName="jira.properties" entityId="1" propertyKey="jira.whitelist.rules" type="6"/>
+    <OSPropertyEntry id="10832" entityName="jira.properties" entityId="1" propertyKey="jira.whitelist.disabled" type="1"/>
+    <OSPropertyEntry id="10833" entityName="ServiceConfig" entityId="10190" propertyKey="pluginJobName" type="5"/>
+    <OSPropertyEntry id="10834" entityName="ServiceConfig" entityId="10190" propertyKey="repeatInterval" type="5"/>
+    <OSPropertyEntry id="10835" entityName="ServiceConfig" entityId="10190" propertyKey="initiallyFired" type="5"/>
+    <OSPropertyNumber id="10013" value="1"/>
+    <OSPropertyNumber id="10016" value="1"/>
+    <OSPropertyNumber id="10023" value="1"/>
+    <OSPropertyNumber id="10024" value="0"/>
+    <OSPropertyNumber id="10025" value="1"/>
+    <OSPropertyNumber id="10026" value="1"/>
+    <OSPropertyNumber id="10027" value="0"/>
+    <OSPropertyNumber id="10044" value="0"/>
+    <OSPropertyNumber id="10045" value="0"/>
+    <OSPropertyNumber id="10048" value="0"/>
+    <OSPropertyNumber id="10049" value="1"/>
+    <OSPropertyNumber id="10050" value="0"/>
+    <OSPropertyNumber id="10051" value="0"/>
+    <OSPropertyNumber id="10052" value="1"/>
+    <OSPropertyNumber id="10110" value="1"/>
+    <OSPropertyNumber id="10650" value="1"/>
+    <OSPropertyNumber id="10652" value="22"/>
+    <OSPropertyNumber id="10671" value="1"/>
+    <OSPropertyNumber id="10691" value="0"/>
+    <OSPropertyNumber id="10832" value="0"/>
+    <OSPropertyString id="10000" value="jira.user.format:profile-link-user-format"/>
+    <OSPropertyString id="10001" value="jira.user.format:full-name-user-format"/>
+    <OSPropertyString id="10002" value="jira.user.format:profile-link-searcher-user-format"/>
+    <OSPropertyString id="10003" value="jira.user.format:profile-link-external-user-format"/>
+    <OSPropertyString id="10004" value="jira.user.format:profile-link-action-header-user-format"/>
+    <OSPropertyString id="10005" value="jira.user.format:full-profile-user-format"/>
+    <OSPropertyString id="10006" value="0"/>
+    <OSPropertyString id="10007" value="english"/>
+    <OSPropertyString id="10008" value="ADDB-GGBW-V7CZ-OS3I"/>
+    <OSPropertyString id="10009" value="UTF-8"/>
+    <OSPropertyString id="10010" value="Agilis Test JIRA"/>
+    <OSPropertyString id="10011" value="http://localhost:1990"/>
+    <OSPropertyString id="10012" value="private"/>
+    <OSPropertyString id="10014" value="d:\projects\Agilos\zendesk-jira-plugin\target\jira/home/indexes"/>
+    <OSPropertyString id="10015" value="d:\projects\Agilos\zendesk-jira-plugin\target\jira\jira-config\jira-home\data\attachments"/>
+    <OSPropertyString id="10019" value="enterprise"/>
+    <OSPropertyString id="10022" value="true"/>
+    <OSPropertyString id="10028" value="show"/>
+    <OSPropertyString id="10029" value="616"/>
+    <OSPropertyString id="10030" value="For example operating system, software platform and/or hardware specifications (include as appropriate for the issue)."/>
+    <OSPropertyString id="10031">
+        <value><![CDATA[An estimate of how much work remains until this issue will be resolved.<br>
+The format of this is ' *w *d *h *m ' (representing weeks, days, hours and minutes - where * can be any number)<br>
+Examples: 4d, 5h 30m, 60m and 3w.]]></value>
+    </OSPropertyString>
+    <OSPropertyString id="10032" value="7"/>
+    <OSPropertyString id="10033" value="24"/>
+    <OSPropertyString id="10034" value="This value can not be changed after work has begun on the issue."/>
+    <OSPropertyString id="10040" value="10000"/>
+    <OSPropertyString id="10041" value="1"/>
+    <OSPropertyString id="10042" value="10485760"/>
+    <OSPropertyString id="10043" value="${fullname} (JIRA)"/>
+    <OSPropertyString id="10047" value="never"/>
+    <OSPropertyString id="10053" value="workaround"/>
+    <OSPropertyString id="10150" value="http://localhost:8182"/>
+    <OSPropertyString id="10160" value="jira"/>
+    <OSPropertyString id="10161" value="jira"/>
+    <OSPropertyString id="10170" value="Zendesk TicketID"/>
+    <OSPropertyString id="10570" value="601"/>
+    <OSPropertyString id="10580" value="en_UK"/>
+    <OSPropertyString id="10640" value="zendesk"/>
+    <OSPropertyString id="10653" value="S0C8uOTybuoKIpR/8HtqGgtetpovZrLjC4nhQ+lqlu4="/>
+    <OSPropertyString id="10655" value="10011"/>
+    <OSPropertyString id="10660" value="jira:12427782"/>
+    <OSPropertyString id="10701" value="2"/>
+    <OSPropertyString id="10703" value="1"/>
+    <OSPropertyString id="10711" value="#3c78b5"/>
+    <OSPropertyString id="10712" value="#3c78b5"/>
+    <OSPropertyString id="10713" value="#3c78b5"/>
+    <OSPropertyString id="10714" value="5"/>
+    <OSPropertyString id="10721" value="10062"/>
+    <OSPropertyString id="10722" value="2"/>
+    <OSPropertyString id="10830" value="10063"/>
+    <OSPropertyString id="10833" value="Service Provider Token Remover"/>
+    <OSPropertyString id="10834" value="28800000"/>
+    <OSPropertyString id="10835" value="true"/>
+    <OSPropertyText id="10017" value="NQqxSpNqPMnQPQOnorVtrnrqmPNnOqMPPwsSssuwWMvWvUTtvUQUuwoooUUnoptpunommmmmUUnoptpunommmmmUU1dfifpWJlcqtXobW1mJ"/>
+    <OSPropertyText id="10018" value="pOMmvRKtgnFraUPalHeqGcCkQoVsOfvoUBSsEvXPwVwELWmi2Ka0m&gt;AynVnIWdvQYRBArt2K2GVPP1JXDXsjQekELAqv"/>
+    <OSPropertyText id="10651" value="AAABWQ0ODAoPeNpNUc9qwjAYv+cpAjtH2trNIQRW2uAUbcVUB2MwsvqpmTWWJHXzzXbfiy1tlXnIKd/v/90LrHFUaez3sR8Og8Hw3sNxkuPA832UgCm0rKw8KjoZLyK8VKU8SOswSwPavA1xVoHC/FjrAvBUFqAMoFiDaDCJsEAbIuKFxA9RfFRWFDYVB6AzuZcGc7A7zH9/dINT6FNq0buwsLVsdVmas8V8MebsimczIUt6aAiexFaW0hBz3NgvoaG33iN2EmXd6tONKJ2dW9b8XEGrn81Z+s6z5SJm3YEjliegVteAyu545SI2NAFyisqCEqoA9l1Jfb5GC4jXJ4GHMr0VSppONmpNuVY6U65f3mmk9eEDdLZpy6PER5yl1D3yMHgM+wHioE+gxwmNJtOA5NHqmYSvPCb90WiELgnc73Sc3ICuff37qq8robnbZScM3CzR2v0Dkzqn3jAsAhR8heTC8bz3pa/xckfu2H6+cI4LkwIUaqmvRpni1h33cKUkmTlC0hMcBKI=X02h1"/>
+    <OSPropertyText id="10658" value="MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCauliGuA9fTA/T2o2eZHkWBaI0BBK6Wu4qUPYkuJh2taiZCtHhtYIHmLWoUsmfKJgfcezjTiXS1gjoSXrnXf0IRJF04CmHuvLZ0aaDEVXiyRy1O8vhz1aLhBquUZ8bNkgBhLXVIbgqgfq06ImBWIDtHSipqegAWSvHdZQwnNn/ESczQm9/CjrKMeOMXL/01enFU4oW4AK8fjbbOmwWM4UQfxCkaE3gNMwGYEKVim9b5ZK5f5cmHMW5uXCwIsGn3uVbBU0lwKVT34//RU5mDw1qmpgsLFkaE0ysCKpSfYmVL0FAccOLs/Zz+xJM5FCDp8csMNJ+I7iw0imhBwmvTJCNAgMBAAECggEAFbYILf8tyQV3QxbrwEoA46IuvHXF2vhfavipUUXFvwKGgdMO2EkL0d0PwGq9d+POVLs7rjmM/SSjY1TMNiLuGnbkoi3CJhWJdh8A6mtITeZCbPvTBAB/+Fu1ErjJRpw7RltE2H8+xFgwwanPgaLVlG//AK+iqknY5sgM3zVjMXMR8ST2jNMJiAwaEGNT/7APA7kqJARWHF2f4oSA/eeaDdqLapFyQkWp/1A2k+DQCQ5X8s6m6k7dvnsdmugee+TMNehJzmZgx2uSHMcE6R4m0Ii97Sj1FLg04PlplaohwkfavZRh3YsqJXJdlHEcAthPfLjh3X0aOYfUtaT/Vw64AQKBgQDuvVTBQrdveC6dRsVTbsYwWOnBVx9pVgc/TZD8zqnh689JroQnZ0wupxS6ObsXIx71U4UGZzj87nJUIetHiSmmJKMuRuSqKewiD3Xd0axfx3D1Veh9UhTIsFKRKNsb4AuaicoWAnWrhxY/e1q0/HdHCkH+AYif4qoW2RPloAbTgQKBgQCl6hmP5d6WdAqQpFBevksABvdC+0HSDyvohEwifYb3SRUSpj/+SCNmyD06EzmT2tbYKRuW1+UB/etavtRyGimbj1cayXl07wkZvo+Wb43GD2jtY+/WDjjR5bYG7S2GMZY0bPbA+B874C90+zhOsimkoKRf1Zr+V2WzT4eodOFTDQKBgQDAGqtbg5LVaHCh77OSqj1h4/ncsH0/JpFYV9MGCkna2AQJdxsyFcXQeHOOUiwAtysPHzCYcXEC3eAzYMPQ4UcZQLvp3fPcFTXERoqCflhlDbgQQht81BKTVoZp9eUxrfvIU33AbiQ/bMjzNhBMOCbGjDOD77n/ZcWV8wE2saksgQKBgQCjA2KALsNHIdZrjPXmUKOR8EYqyoE+KWfjuXCwhpMADg8lVrETXr9hsiXuFIuCyQZENgeEarT4AwqmC07imO/+hpR3njK2gFF5uPCNRyeNzQA0FffEYg7TtBXnsksDSV8iPVkn+eF+S+N01YvaTlR6CtfVzSLO+QHUbrSD/+qPVQKBgQCWOJlGqt5AOSxH1IyemFhmN32Jqw0Pxf1ckeWsmzjLSMHsBpz29oWzaJM/ehaxK4LB6ibnjIz9JUTKxNlJC6WVXxpU9uWj2eOLNIMl96Cb1YTx7uisn3+bEOk+jfhmdQKSmp504NXwvbQBWaoxKOxucvQTh6mcazx1M5Sgb5MELQ=="/>
+    <OSPropertyText id="10659" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmrpYhrgPX0wP09qNnmR5FgWiNAQSulruKlD2JLiYdrWomQrR4bWCB5i1qFLJnyiYH3Hs404l0tYI6El65139CESRdOAph7ry2dGmgxFV4skctTvL4c9Wi4QarlGfGzZIAYS11SG4KoH6tOiJgViA7R0oqanoAFkrx3WUMJzZ/xEnM0Jvfwo6yjHjjFy/9NXpxVOKFuACvH422zpsFjOFEH8QpGhN4DTMBmBClYpvW+WSuX+XJhzFublwsCLBp97lWwVNJcClU9+P/0VOZg8NapqYLCxZGhNMrAiqUn2JlS9BQHHDi7P2c/sSTORQg6fHLDDSfiO4sNIpoQcJr0yQjQIDAQAB"/>
+    <OSPropertyText id="10831">
+        <value><![CDATA[http://www.atlassian.com/*
+]]></value>
+    </OSPropertyText>
+    <OptionConfiguration id="10000" fieldid="issuetype" optionid="1" fieldconfig="10000" sequence="0"/>
+    <OptionConfiguration id="10001" fieldid="issuetype" optionid="2" fieldconfig="10000" sequence="1"/>
+    <OptionConfiguration id="10002" fieldid="issuetype" optionid="3" fieldconfig="10000" sequence="2"/>
+    <OptionConfiguration id="10003" fieldid="issuetype" optionid="4" fieldconfig="10000" sequence="3"/>
+    <PermissionScheme id="0" name="Default Permission Scheme" description="This is the default Permission Scheme. Any new projects that are created will be assigned this scheme"/>
+    <PluginVersion id="10000" name="User Format" key="jira.user.format" version="1.0" created="2009-03-24 13:54:16.965"/>
+    <PluginVersion id="10001" name="Admin Menu Sections" key="jira.webfragments.admin" version="1.0" created="2009-03-24 13:54:16.985"/>
+    <PluginVersion id="10002" name="Custom Field Types &amp; Searchers" key="com.atlassian.jira.plugin.system.customfieldtypes" version="1.0" created="2009-03-24 13:54:16.986"/>
+    <PluginVersion id="10004" name="Web Resources Plugin" key="jira.webresources" version="1.0" created="2009-03-24 13:54:16.988"/>
+    <PluginVersion id="10005" name="Issue Operations Plugin" key="com.atlassian.jira.plugin.system.issueoperations" version="1.0" created="2009-03-24 13:54:16.989"/>
+    <PluginVersion id="10006" name="Workflow Plugin" key="com.atlassian.jira.plugin.system.workflow" version="1.0" created="2009-03-24 13:54:16.99"/>
+    <PluginVersion id="10007" name="User Navigation Bar Sections" key="jira.webfragments.user.navigation.bar" version="1.0" created="2009-03-24 13:54:16.991"/>
+    <PluginVersion id="10008" name="Issue Tab Panels Plugin" key="com.atlassian.jira.plugin.system.issuetabpanels" version="1.0" created="2009-03-24 13:54:16.992"/>
+    <PluginVersion id="10009" name="Renderer Plugin" key="com.atlassian.jira.plugin.system.jirarenderers" version="1.0" created="2009-03-24 13:54:16.993"/>
+    <PluginVersion id="10010" name="Renderer Component Factories Plugin" key="com.atlassian.jira.plugin.wiki.renderercomponentfactories" version="1.0" created="2009-03-24 13:54:16.994"/>
+    <PluginVersion id="10011" name="Reports Plugin" key="com.atlassian.jira.plugin.system.reports" version="1.0" created="2009-03-24 13:54:16.996"/>
+    <PluginVersion id="10013" name="Top Navigation Bar" key="jira.top.navigation.bar" version="1.0" created="2009-03-24 13:54:16.998"/>
+    <PluginVersion id="10014" name="Webwork Plugin" key="com.atlassian.jira.plugin.system.webwork1" version="1.0" created="2009-03-24 13:54:17.0"/>
+    <PluginVersion id="10016" name="Portlets Plugin" key="com.atlassian.jira.plugin.system.portlets" version="1.0" created="2009-03-24 13:54:17.002"/>
+    <PluginVersion id="10017" name="Preset Filters Sections" key="jira.webfragments.preset.filters" version="1.0" created="2009-03-24 13:54:17.003"/>
+    <PluginVersion id="10019" name="Issue Views Plugin" key="jira.issueviews" version="1.0" created="2009-03-24 13:54:17.005"/>
+    <PluginVersion id="10020" name="User Profile Links" key="jira.webfragments.user.profile.links" version="1.0" created="2009-03-24 13:54:17.006"/>
+    <PluginVersion id="10021" name="Project Panels Plugin" key="com.atlassian.jira.plugin.system.project" version="1.0" created="2009-03-24 13:54:17.009"/>
+    <PluginVersion id="10022" name="Content Link Resolvers Plugin" key="com.atlassian.jira.plugin.wiki.contentlinkresolvers" version="1.0" created="2009-03-24 13:54:17.01"/>
+    <PluginVersion id="10023" name="Wiki Renderer Macros Plugin" key="com.atlassian.jira.plugin.system.renderers.wiki.macros" version="1.0" created="2009-03-24 13:54:17.011"/>
+    <PluginVersion id="10024" name="View Project Operations Sections" key="jira.webfragments.view.project.operations" version="1.0" created="2009-03-24 13:54:17.012"/>
+    <PluginVersion id="10025" name="Project Role Actors Plugin" key="com.atlassian.jira.plugin.system.projectroleactors" version="1.0" created="2009-03-24 13:54:17.013"/>
+    <PluginVersion id="10026" name="JIRA Footer" key="jira.footer" version="1.0" created="2009-03-24 13:54:17.014"/>
+    <PluginVersion id="10050" name="Gadget Directory Plugin" key="com.atlassian.gadgets.directory" version="3.0.2" created="2011-04-13 21:25:24.553"/>
+    <PluginVersion id="10052" name="Atlassian OAuth Admin Plugin" key="com.atlassian.oauth.admin" version="1.2.2" created="2011-04-13 21:25:24.556"/>
+    <PluginVersion id="10054" name="Embedded Gadgets Plugin" key="com.atlassian.gadgets.embedded" version="3.0.2" created="2011-04-13 21:25:24.556"/>
+    <PluginVersion id="10055" name="JIRA Shared Application Access Layer (SAL) Plugin" key="com.atlassian.sal.jira" version="4.3.2" created="2011-04-13 21:25:24.557"/>
+    <PluginVersion id="10056" name="JIRA Activity Stream Plugin" key="com.atlassian.streams.streams-jira-plugin" version="3.1.4" created="2011-04-13 21:25:24.558"/>
+    <PluginVersion id="10057" name="Gadget Dashboard Plugin" key="com.atlassian.gadgets.dashboard" version="3.0.2" created="2011-04-13 21:25:24.558"/>
+    <PluginVersion id="10058" name="JSON Library" key="com.atlassian.bundles.json-20070829.0.0.1" version="20070829.0.0.1" created="2009-11-13 12:03:34.014"/>
+    <PluginVersion id="10059" name="Joda-Time" key="joda-time-1.6" version="1.6" created="2009-11-13 12:03:34.014"/>
+    <PluginVersion id="10060" name="Atlassian Template Renderer Velocity 1.6 Plugin" key="com.atlassian.templaterenderer.atlassian-template-renderer-velocity1.6-plugin" version="1.2.3" created="2011-04-13 21:25:24.559"/>
+    <PluginVersion id="10061" name="JIRA OAuth Consumer SPI Plugin" key="com.atlassian.jira.oauth.consumer" version="4.3.2" created="2011-04-13 21:25:24.56"/>
+    <PluginVersion id="10062" name="JIRA Gadgets Plugin" key="com.atlassian.jira.gadgets" version="4.3.2" created="2011-04-13 21:25:24.56"/>
+    <PluginVersion id="10063" name="Atlassian UI Plugin" key="com.atlassian.auiplugin" version="3.3.1" created="2011-04-13 21:25:24.561"/>
+    <PluginVersion id="10064" name="Atlassian REST - Module Types" key="com.atlassian.plugins.rest.atlassian-rest-module" version="2.4.0" created="2011-04-13 21:25:24.561"/>
+    <PluginVersion id="10065" name="JQL Functions" key="jira.jql.function" version="1.0" created="2009-11-13 12:03:34.016"/>
+    <PluginVersion id="10066" name="Apache HttpClient OSGi bundle" key="org.apache.httpcomponents.httpclient-4.0" version="4.0" created="2009-11-13 12:03:34.016"/>
+    <PluginVersion id="10067" name="Atlassian Gadgets OAuth Service Provider Plugin" key="com.atlassian.gadgets.oauth.serviceprovider" version="3.0.2" created="2011-04-13 21:25:24.562"/>
+    <PluginVersion id="10068" name="JDOM DOM Processor" key="com.springsource.org.jdom-1.0.0" version="1.0.0" created="2009-11-13 12:03:34.017"/>
+    <PluginVersion id="10070" name="BND Library" key="biz.aQute.bndlib-0.0.255" version="0.0.255" created="2009-11-13 12:03:34.018"/>
+    <PluginVersion id="10071" name="JIRA OAuth Service Provider SPI Plugin" key="com.atlassian.jira.oauth.serviceprovider" version="4.3.2" created="2011-04-13 21:25:24.562"/>
+    <PluginVersion id="10073" name="Apache HttpCore OSGi bundle" key="org.apache.httpcomponents.httpcore-4.0" version="4.0" created="2009-11-13 12:03:34.019"/>
+    <PluginVersion id="10074" name="ICU4J" key="com.atlassian.bundles.icu4j-3.8.0.1" version="3.8.0.1" created="2009-11-13 12:03:34.02"/>
+    <PluginVersion id="10075" name="FishEye Plugin" key="com.atlassian.jirafisheyeplugin" version="3.1.2" created="2011-04-13 21:25:24.563"/>
+    <PluginVersion id="10076" name="ROME: RSS/Atom syndication and publishing tools" key="com.springsource.com.sun.syndication-0.9.0" version="0.9.0" created="2009-11-13 12:03:34.02"/>
+    <PluginVersion id="10077" name="Gadget Spec Publisher Plugin" key="com.atlassian.gadgets.publisher" version="3.0.2" created="2011-04-13 21:25:24.564"/>
+    <PluginVersion id="10078" name="JIRA REST Plugin" key="com.atlassian.jira.rest" version="4.3.2" created="2011-04-13 21:25:24.565"/>
+    <PluginVersion id="10079" name="ROME, RSS and atOM utilitiEs for Java" key="rome.rome-1.0" version="1.0" created="2009-11-13 12:03:34.021"/>
+    <PluginVersion id="10080" name="Atlassian Template Renderer API" key="com.atlassian.templaterenderer.api" version="1.2.3" created="2011-04-13 21:25:24.565"/>
+    <PluginVersion id="10081" name="JIRA Bamboo Plugin" key="com.atlassian.jira.plugin.ext.bamboo" version="4.1.3" created="2011-01-16 21:00:18.186"/>
+    <PluginVersion id="10082" name="Neko HTML" key="com.atlassian.bundles.nekohtml-1.9.12.1" version="1.9.12.1" created="2009-11-13 12:03:34.022"/>
+    <PluginVersion id="10083" name="Atlassian OAuth Service Provider Plugin" key="com.atlassian.oauth.serviceprovider" version="1.2.2" created="2011-04-13 21:25:24.566"/>
+    <PluginVersion id="10084" name="Atlassian OAuth Consumer Plugin" key="com.atlassian.oauth.consumer" version="1.2.2" created="2011-04-13 21:25:24.567"/>
+    <PluginVersion id="10090" name="RPC JIRA Plugin" key="com.atlassian.jira.ext.rpc" version="4.3.2" created="2011-04-13 21:25:24.555"/>
+    <PluginVersion id="10111" name="Keyboard Shortcuts Plugin" key="jira.keyboard.shortcuts" version="1.0" created="2010-04-28 09:41:06.375"/>
+    <PluginVersion id="10112" name="User Profile Panels" key="jira.user.profile.panels" version="1.0" created="2010-04-28 09:41:06.377"/>
+    <PluginVersion id="10120" name="JIRA Importers Plugin (JIM)" key="com.atlassian.jira.plugins.jira-importers-plugin" version="2.1" created="2011-04-13 21:25:24.554"/>
+    <PluginVersion id="10124" name="JIRA Usage Hints" key="jira.usage.hints" version="1.0" created="2011-01-16 21:00:18.187"/>
+    <PluginVersion id="10130" name="Crowd REST API" key="crowd-rest-plugin" version="1.0" created="2011-04-13 21:25:24.554"/>
+    <PluginVersion id="10131" name="Crowd REST API" key="crowd-rest-application-management" version="1.0" created="2011-04-13 21:25:24.555"/>
+    <PluginVersion id="10132" name="Support Tools Plugin" key="com.atlassian.support.stp" version="2.3.1" created="2011-04-13 21:25:24.556"/>
+    <PluginVersion id="10133" name="Applinks Product Plugin" key="com.atlassian.applinks.applinks-plugin" version="3.3" created="2011-04-13 21:25:24.559"/>
+    <PluginVersion id="10134" name="jira-ical-feed" key="com.atlassian.jira.extra.jira-ical-feed" version="1.0" created="2011-04-13 21:25:24.564"/>
+    <PluginVersion id="10135" name="Atlassian OAuth Consumer SPI" key="com.atlassian.oauth.atlassian-oauth-consumer-spi-1.2.2" version="1.2.2" created="2011-04-13 21:25:24.564"/>
+    <PluginVersion id="10136" name="Atlassian Universal Plugin Manager Plugin" key="com.atlassian.upm.atlassian-universal-plugin-manager-plugin" version="1.3.1" created="2011-04-13 21:25:24.566"/>
+    <PluginVersion id="10137" name="Atlassian OAuth Service Provider SPI" key="com.atlassian.oauth.atlassian-oauth-service-provider-spi-1.2.2" version="1.2.2" created="2011-04-13 21:25:24.566"/>
+    <PluginVersion id="10138" name="Atlassian Embedded Crowd - Administration Plugin" key="com.atlassian.crowd.embedded.admin" version="1.0.2" created="2011-04-13 21:25:24.566"/>
+    <PluginVersion id="10139" name="Opensocial Plugin" key="com.atlassian.gadgets.opensocial" version="3.0.2" created="2011-04-13 21:25:24.567"/>
+    <PluginVersion id="10140" name="Crowd System Password Encoders" key="crowd.system.passwordencoders" version="1.0" created="2011-04-13 21:25:24.568"/>
+    <PortalPage id="10000" pagename="System Dashboard" sequence="0" favCount="0" version="0"/>
+    <PortletConfiguration id="10000" portalpage="10000" columnNumber="0" position="0" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:introduction-gadget/gadgets/introduction-gadget.xml"/>
+    <PortletConfiguration id="10001" portalpage="10000" columnNumber="0" position="1" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:project-gadget/gadgets/project-gadget.xml"/>
+    <PortletConfiguration id="10002" portalpage="10000" columnNumber="1" position="0" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:favourite-filters-gadget/gadgets/favourite-filters-gadget.xml"/>
+    <PortletConfiguration id="10003" portalpage="10000" columnNumber="1" position="1" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:assigned-to-me-gadget/gadgets/assigned-to-me-gadget.xml"/>
+    <PortletConfiguration id="10004" portalpage="10000" columnNumber="1" position="2" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:in-progress-gadget/gadgets/in-progress-gadget.xml"/>
+    <PortletConfiguration id="10005" portalpage="10000" columnNumber="1" position="3" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:quicklinks-gadget/gadgets/quicklinks-gadget.xml"/>
+    <PortletConfiguration id="10006" portalpage="10000" columnNumber="1" position="4" gadgetXml="rest/gadgets/1.0/g/com.atlassian.jira.gadgets:admin-gadget/gadgets/admin-gadget.xml"/>
+    <Priority id="1" sequence="1" name="Blocker" description="Blocks development and/or testing work, production could not run." iconurl="/images/icons/priority_blocker.gif" statusColor="#cc0000"/>
+    <Priority id="2" sequence="2" name="Critical" description="Crashes, loss of data, severe memory leak." iconurl="/images/icons/priority_critical.gif" statusColor="#ff0000"/>
+    <Priority id="3" sequence="3" name="Major" description="Major loss of function." iconurl="/images/icons/priority_major.gif" statusColor="#009900"/>
+    <Priority id="4" sequence="4" name="Minor" description="Minor loss of function, or other problem where easy workaround is present." iconurl="/images/icons/priority_minor.gif" statusColor="#006600"/>
+    <Priority id="5" sequence="5" name="Trivial" description="Cosmetic problem like misspelt words or misaligned text." iconurl="/images/icons/priority_trivial.gif" statusColor="#003300"/>
+    <Project id="10090" name="Manuel Test Project" url="" lead="mikis" description="" key="MTP" counter="0" assigneetype="2" avatar="10011"/>
+    <ProjectRole id="10000" name="Users" description="A project role that represents users in a project"/>
+    <ProjectRole id="10001" name="Developers" description="A project role that represents developers in a project"/>
+    <ProjectRole id="10002" name="Administrators" description="A project role that represents administrators in a project"/>
+    <ProjectRoleActor id="10000" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
+    <ProjectRoleActor id="10001" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
+    <ProjectRoleActor id="10002" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
+    <ProjectRoleActor id="10290" pid="10090" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
+    <ProjectRoleActor id="10291" pid="10090" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
+    <ProjectRoleActor id="10292" pid="10090" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
+    <ProjectRoleActor id="10730" pid="10230" projectroleid="10002" roletype="atlassian-group-role-actor" roletypeparameter="jira-administrators"/>
+    <ProjectRoleActor id="10731" pid="10230" projectroleid="10001" roletype="atlassian-group-role-actor" roletypeparameter="jira-developers"/>
+    <ProjectRoleActor id="10732" pid="10230" projectroleid="10000" roletype="atlassian-group-role-actor" roletypeparameter="jira-users"/>
+    <RememberMeToken id="10000" created="2011-01-16 21:01:46.339" token="27d74272269279b26a119b6d56db88358234cca2" username="mikis"/>
+    <Resolution id="1" sequence="1" name="Fixed" description="A fix for this issue is checked into the tree and tested."/>
+    <Resolution id="2" sequence="2" name="Won&apos;t Fix" description="The problem described is an issue which will never be fixed."/>
+    <Resolution id="3" sequence="3" name="Duplicate" description="The problem is a duplicate of an existing issue."/>
+    <Resolution id="4" sequence="4" name="Incomplete" description="The problem is not completely described."/>
+    <Resolution id="5" sequence="5" name="Cannot Reproduce" description="All attempts at reproducing this issue failed, or not enough information was available to reproduce the issue. Reading the code produces no clues as to why this behavior would occur. If more information appears later, please reopen the issue."/>
+    <SchemePermissions id="10000" permission="0" type="group" parameter="jira-administrators"/>
+    <SchemePermissions id="10001" permission="1" type="group" parameter="jira-users"/>
+    <SchemePermissions id="10002" permission="27" type="group" parameter="jira-developers"/>
+    <SchemePermissions id="10003" permission="24" type="group" parameter="jira-developers"/>
+    <SchemePermissions id="10004" scheme="0" permission="23" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10005" scheme="0" permission="10" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10006" scheme="0" permission="11" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10007" scheme="0" permission="15" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10008" scheme="0" permission="19" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10009" scheme="0" permission="13" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10010" scheme="0" permission="17" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10011" scheme="0" permission="14" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10012" scheme="0" permission="21" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10013" scheme="0" permission="12" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10014" scheme="0" permission="16" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10015" scheme="0" permission="18" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10016" scheme="0" permission="25" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10017" scheme="0" permission="28" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10018" scheme="0" permission="30" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10019" scheme="0" permission="20" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10020" scheme="0" permission="43" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10021" scheme="0" permission="42" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10022" scheme="0" permission="41" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10023" scheme="0" permission="40" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10024" scheme="0" permission="31" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10025" scheme="0" permission="32" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10026" scheme="0" permission="34" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10027" scheme="0" permission="35" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10028" scheme="0" permission="36" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10029" scheme="0" permission="37" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10030" scheme="0" permission="38" type="projectrole" parameter="10002"/>
+    <SchemePermissions id="10031" scheme="0" permission="39" type="projectrole" parameter="10000"/>
+    <SchemePermissions id="10032" permission="22" type="group" parameter="jira-users"/>
+    <SchemePermissions id="10033" scheme="0" permission="29" type="projectrole" parameter="10001"/>
+    <SchemePermissions id="10040" permission="33" type="group" parameter="jira-users"/>
+    <SchemePermissions id="10041" permission="44" type="group" parameter="jira-administrators"/>
+    <SequenceValueItem seqName="Action" seqId="10260"/>
+    <SequenceValueItem seqName="Avatar" seqId="10140"/>
+    <SequenceValueItem seqName="ChangeGroup" seqId="10250"/>
+    <SequenceValueItem seqName="ChangeItem" seqId="10250"/>
+    <SequenceValueItem seqName="ConfigurationContext" seqId="10030"/>
+    <SequenceValueItem seqName="CustomField" seqId="10010"/>
+    <SequenceValueItem seqName="CustomFieldValue" seqId="10300"/>
+    <SequenceValueItem seqName="ExternalEntity" seqId="110"/>
+    <SequenceValueItem seqName="FieldConfigScheme" seqId="10020"/>
+    <SequenceValueItem seqName="FieldConfigSchemeIssueType" seqId="10030"/>
+    <SequenceValueItem seqName="FieldConfiguration" seqId="10020"/>
+    <SequenceValueItem seqName="FieldScreen" seqId="10000"/>
+    <SequenceValueItem seqName="FieldScreenLayoutItem" seqId="10050"/>
+    <SequenceValueItem seqName="FieldScreenScheme" seqId="10000"/>
+    <SequenceValueItem seqName="FieldScreenSchemeItem" seqId="10010"/>
+    <SequenceValueItem seqName="FieldScreenTab" seqId="10010"/>
+    <SequenceValueItem seqName="GadgetUserPreference" seqId="10010"/>
+    <SequenceValueItem seqName="GenericConfiguration" seqId="10010"/>
+    <SequenceValueItem seqName="Group" seqId="10010"/>
+    <SequenceValueItem seqName="Issue" seqId="10370"/>
+    <SequenceValueItem seqName="IssueTypeScreenSchemeEntity" seqId="10010"/>
+    <SequenceValueItem seqName="ListenerConfig" seqId="10320"/>
+    <SequenceValueItem seqName="Membership" seqId="10"/>
+    <SequenceValueItem seqName="Notification" seqId="10050"/>
+    <SequenceValueItem seqName="NotificationScheme" seqId="10010"/>
+    <SequenceValueItem seqName="OSCurrentStep" seqId="10390"/>
+    <SequenceValueItem seqName="OSGroup" seqId="10010"/>
+    <SequenceValueItem seqName="OSMembership" seqId="10520"/>
+    <SequenceValueItem seqName="OSPropertyEntry" seqId="10930"/>
+    <SequenceValueItem seqName="OSUser" seqId="10310"/>
+    <SequenceValueItem seqName="OSWorkflowEntry" seqId="10370"/>
+    <SequenceValueItem seqName="OptionConfiguration" seqId="10010"/>
+    <SequenceValueItem seqName="PluginVersion" seqId="10230"/>
+    <SequenceValueItem seqName="PortalPage" seqId="10010"/>
+    <SequenceValueItem seqName="PortletConfiguration" seqId="10010"/>
+    <SequenceValueItem seqName="Project" seqId="10250"/>
+    <SequenceValueItem seqName="ProjectRole" seqId="10010"/>
+    <SequenceValueItem seqName="ProjectRoleActor" seqId="10750"/>
+    <SequenceValueItem seqName="RememberMeToken" seqId="10010"/>
+    <SequenceValueItem seqName="SchemePermissions" seqId="10050"/>
+    <SequenceValueItem seqName="ServiceConfig" seqId="10290"/>
+    <SequenceValueItem seqName="SharePermissions" seqId="10010"/>
+    <SequenceValueItem seqName="UpgradeHistory" seqId="10280"/>
+    <SequenceValueItem seqName="UpgradeVersionHistory" seqId="10120"/>
+    <SequenceValueItem seqName="User" seqId="10310"/>
+    <SequenceValueItem seqName="UserAttribute" seqId="10830"/>
+    <SequenceValueItem seqName="UserHistoryItem" seqId="10100"/>
+    <SequenceValueItem seqName="Workflow" seqId="10010"/>
+    <SequenceValueItem seqName="WorkflowScheme" seqId="10010"/>
+    <SequenceValueItem seqName="WorkflowSchemeEntity" seqId="10010"/>
+    <ServiceConfig id="10000" time="60000" clazz="com.atlassian.jira.service.services.mail.MailQueueService" name="Mail Queue Service"/>
+    <ServiceConfig id="10190" time="28800000" clazz="com.atlassian.sal.jira.scheduling.JiraPluginSchedulerService" name="Service Provider Token Remover"/>
+    <SharePermissions id="10000" entityId="10000" entityType="PortalPage" type="global"/>
+    <Status id="1" sequence="1" name="Open" description="The issue is open and ready for the assignee to start work on it." iconurl="/images/icons/status_open.gif"/>
+    <Status id="10000" sequence="7" name="Investigating" description="The issue is being investigated" iconurl="/images/icons/status_visible.gif"/>
+    <Status id="3" sequence="3" name="In Progress" description="This issue is being actively worked on at the moment by the assignee." iconurl="/images/icons/status_inprogress.gif"/>
+    <Status id="4" sequence="4" name="Reopened" description="This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved." iconurl="/images/icons/status_reopened.gif"/>
+    <Status id="5" sequence="5" name="Resolved" description="A resolution has been taken, and it is awaiting verification by reporter. From here issues are either reopened, or are closed." iconurl="/images/icons/status_resolved.gif"/>
+    <Status id="6" sequence="6" name="Closed" description="The issue is considered finished, the resolution is correct. Issues which are closed can be reopened." iconurl="/images/icons/status_closed.gif"/>
+    <UpgradeHistory id="10000" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask1_2"/>
+    <UpgradeHistory id="10002" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build10"/>
+    <UpgradeHistory id="10021" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build101"/>
+    <UpgradeHistory id="10022" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build102"/>
+    <UpgradeHistory id="10003" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build11"/>
+    <UpgradeHistory id="10023" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build130"/>
+    <UpgradeHistory id="10024" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build132"/>
+    <UpgradeHistory id="10025" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build150"/>
+    <UpgradeHistory id="10026" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build151"/>
+    <UpgradeHistory id="10027" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build152"/>
+    <UpgradeHistory id="10028" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build175"/>
+    <UpgradeHistory id="10029" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build176"/>
+    <UpgradeHistory id="10030" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build205"/>
+    <UpgradeHistory id="10031" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build207"/>
+    <UpgradeHistory id="10032" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build257"/>
+    <UpgradeHistory id="10033" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build258"/>
+    <UpgradeHistory id="10004" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build27"/>
+    <UpgradeHistory id="10034" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build296"/>
+    <UpgradeHistory id="10035" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build317"/>
+    <UpgradeHistory id="10036" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build325"/>
+    <UpgradeHistory id="10037" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build326"/>
+    <UpgradeHistory id="10005" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build35"/>
+    <UpgradeHistory id="10040" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build401"/>
+    <UpgradeHistory id="10041" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build402"/>
+    <UpgradeHistory id="10042" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build403"/>
+    <UpgradeHistory id="10043" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build412"/>
+    <UpgradeHistory id="10044" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build418"/>
+    <UpgradeHistory id="10045" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build428"/>
+    <UpgradeHistory id="10046" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build436"/>
+    <UpgradeHistory id="10047" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build437"/>
+    <UpgradeHistory id="10048" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build438"/>
+    <UpgradeHistory id="10049" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build440"/>
+    <UpgradeHistory id="10050" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build446"/>
+    <UpgradeHistory id="10006" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build47"/>
+    <UpgradeHistory id="10007" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build48"/>
+    <UpgradeHistory id="10060" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build509" targetbuild="522"/>
+    <UpgradeHistory id="10008" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build51"/>
+    <UpgradeHistory id="10061" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build518" targetbuild="522"/>
+    <UpgradeHistory id="10009" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build52"/>
+    <UpgradeHistory id="10062" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build520" targetbuild="522"/>
+    <UpgradeHistory id="10070" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build551" targetbuild="589"/>
+    <UpgradeHistory id="10071" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build552" targetbuild="589"/>
+    <UpgradeHistory id="10072" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build553" targetbuild="589"/>
+    <UpgradeHistory id="10073" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build554" targetbuild="589"/>
+    <UpgradeHistory id="10010" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build56"/>
+    <UpgradeHistory id="10074" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build571" targetbuild="589"/>
+    <UpgradeHistory id="10011" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build60"/>
+    <UpgradeHistory id="10080" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build601" targetbuild="616"/>
+    <UpgradeHistory id="10180" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build602" targetbuild="616"/>
+    <UpgradeHistory id="10181" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build603" targetbuild="616"/>
+    <UpgradeHistory id="10182" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build604" targetbuild="616"/>
+    <UpgradeHistory id="10183" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build605" targetbuild="616"/>
+    <UpgradeHistory id="10184" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build606" targetbuild="616"/>
+    <UpgradeHistory id="10185" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build608" targetbuild="616"/>
+    <UpgradeHistory id="10186" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build611" targetbuild="616"/>
+    <UpgradeHistory id="10020" upgradeclass="com.atlassian.jira.upgrade.tasks.UpgradeTask_Build83"/>
+    <UpgradeHistory id="10001" upgradeclass="com.atlassian.jira.upgrade.tasks.professional.UpgradeTask1_2"/>
+    <UpgradeVersionHistory id="10000" timeperformed="2010-04-28 09:44:07.196" targetbuild="522" targetversion="4.1.1"/>
+    <UpgradeVersionHistory id="10010" timeperformed="2011-01-16 21:00:22.262" targetbuild="589" targetversion="4.2.2-b589"/>
+    <UpgradeVersionHistory id="10020" timeperformed="2011-04-13 21:29:37.824" targetbuild="616" targetversion="4.3.2"/>
+    <User id="10000" directoryId="1" userName="mikis" lowerUserName="mikis" active="1" createdDate="2011-04-13 21:29:36.694" updatedDate="2011-04-13 21:29:36.694" firstName="" lowerFirstName="" lastName="" lowerLastName="" displayName="Mikis Seth Sørensen" lowerDisplayName="mikis seth sørensen" emailAddress="mikis@agilos-software.dk" lowerEmailAddress="mikis@agilos-software.dk" credential="vxK9iURNYzD68MLbeFRwuL6FiNH6ShKul4JCqc8LCp5x6Sn6hSzuiVlePkB1D2l1xPrZEv3XbvkOr8RlalVwGw=="/>
+    <User id="10010" directoryId="1" userName="greenpepper" lowerUserName="greenpepper" active="1" createdDate="2011-04-13 21:29:36.695" updatedDate="2011-04-13 21:29:36.695" firstName="" lowerFirstName="" lastName="" lowerLastName="" displayName="Greenpepper test" lowerDisplayName="greenpepper test" emailAddress="agilos-greenpepper@agilis-software.dk" lowerEmailAddress="agilos-greenpepper@agilis-software.dk" credential="plyERCxq2ii1vTKizVSGDwYQk8tSPZ6b011IjwOX//aCIZSBD92zidpZJ3EzA2jXZCBjnqBjeJKdZxsvG4NcVA=="/>
+    <User id="10011" directoryId="1" userName="bamboo" lowerUserName="bamboo" active="1" createdDate="2011-04-13 21:29:36.696" updatedDate="2011-04-13 21:29:36.696" firstName="" lowerFirstName="" lastName="" lowerLastName="" displayName="Bamboo Test Server" lowerDisplayName="bamboo test server" emailAddress="agilosbamboo@agilis-software.dk" lowerEmailAddress="agilosbamboo@agilis-software.dk" credential="ModIrf52efOxRxgiNjFB/Jl33EWQQiq9gMQ1Q3jz/82/p3gHJYglgGktS0VTfl5J3upi4/oKjNsTjidIIOh5bQ=="/>
+    <User id="10270" directoryId="1" userName="admin" lowerUserName="admin" active="1" createdDate="2011-04-13 21:29:36.697" updatedDate="2011-04-13 21:29:36.697" firstName="" lowerFirstName="" lastName="" lowerLastName="" displayName="Integration test admin user" lowerDisplayName="integration test admin user" emailAddress="admin@nowhere.org" lowerEmailAddress="admin@nowhere.org" credential="{PKCS5S2}xBOCpl/97dOfmUWe73S6C+JGuPjnoIPu71J29mryacTOtN9O2SZucvo2cxrPmNMt"/>
+    <User id="10300" directoryId="1" userName="zendesk" lowerUserName="zendesk" active="1" createdDate="2011-04-13 21:29:36.698" updatedDate="2011-04-13 21:29:36.698" firstName="" lowerFirstName="" lastName="" lowerLastName="" displayName="Zendesk Application" lowerDisplayName="zendesk application" emailAddress="zendesk@nowhere.com" lowerEmailAddress="zendesk@nowhere.com" credential="lTondHfVsuyQW4YyCghqBVhVYvw+0KrT2y5FA48f+x6rtEhdoXzZYw+N5i450HRSsMv5OfHzIb1bpLCmnkcNvA=="/>
+    <UserAttribute id="10656" userId="10000" directoryId="1" name="login.lastLoginMillis" value="1295208106347" lowerValue="1295208106347"/>
+    <UserAttribute id="10657" userId="10000" directoryId="1" name="login.count" value="5" lowerValue="5"/>
+    <UserAttribute id="10661" userId="10000" directoryId="1" name="login.previousLoginMillis" value="1266587103999" lowerValue="1266587103999"/>
+    <UserAttribute id="10723" userId="10000" directoryId="1" name="login.currentFailedCount" value="0" lowerValue="0"/>
+    <UserAttribute id="10736" userId="10270" directoryId="1" name="invalidPasswordAttempts" value="0" lowerValue="0"/>
+    <UserAttribute id="10737" userId="10270" directoryId="1" name="requiresPasswordChange" value="false" lowerValue="false"/>
+    <UserAttribute id="10738" userId="10270" directoryId="1" name="lastAuthenticated" value="1302723034925" lowerValue="1302723034925"/>
+    <UserAttribute id="10739" userId="10270" directoryId="1" name="login.currentFailedCount" value="0" lowerValue="0"/>
+    <UserAttribute id="10740" userId="10270" directoryId="1" name="login.lastLoginMillis" value="1302723034930" lowerValue="1302723034930"/>
+    <UserAttribute id="10741" userId="10270" directoryId="1" name="login.previousLoginMillis" value="1302723015968" lowerValue="1302723015968"/>
+    <UserAttribute id="10742" userId="10270" directoryId="1" name="login.count" value="2" lowerValue="2"/>
+    <UserHistoryItem id="10000" type="Dashboard" entityId="10000" username="admin" lastViewed="1302723016021"/>
+    <Workflow id="10000" name="Custom workflow">
+        <descriptor><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
+<workflow>
+  <meta name="jira.update.author.name">mikis</meta>
+  <meta name="jira.description">For test purposes</meta>
+  <meta name="jira.updated.date">1256900154480</meta>
+  <initial-actions>
+    <action id="1" name="Create Issue">
+      <meta name="jira.i18n.title">common.forms.create</meta>
+      <validators>
+        <validator name="" type="class">
+          <arg name="class.name">com.atlassian.jira.workflow.validator.PermissionValidator</arg>
+          <arg name="permission">Create Issue</arg>
+        </validator>
+      </validators>
+      <results>
+        <unconditional-result old-status="Finished" status="Open" step="1">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueCreateFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+              <arg name="eventTypeId">1</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+  </initial-actions>
+  <common-actions>
+    <action id="2" name="Close Issue" view="resolveissue">
+      <meta name="jira.i18n.submit">closeissue.close</meta>
+      <meta name="jira.i18n.description">closeissue.desc</meta>
+      <meta name="jira.i18n.title">closeissue.title</meta>
+      <restrict-to>
+        <conditions type="AND">
+          <condition type="class">
+            <arg name="class.name">com.atlassian.jira.workflow.condition.PermissionCondition</arg>
+            <arg name="permission">Resolve Issue</arg>
+          </condition>
+          <condition type="class">
+            <arg name="class.name">com.atlassian.jira.workflow.condition.PermissionCondition</arg>
+            <arg name="permission">Close Issue</arg>
+          </condition>
+        </conditions>
+      </restrict-to>
+      <results>
+        <unconditional-result old-status="Finished" status="Closed" step="6">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+              <arg name="eventTypeId">5</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+    <action id="3" name="Reopen Issue" view="commentassign">
+      <meta name="jira.i18n.submit">issue.operations.reopen.issue</meta>
+      <meta name="jira.i18n.description">issue.operations.reopen.description</meta>
+      <meta name="jira.i18n.title">issue.operations.reopen.issue</meta>
+      <restrict-to>
+        <conditions>
+          <condition type="class">
+            <arg name="class.name">com.atlassian.jira.workflow.condition.PermissionCondition</arg>
+            <arg name="permission">Resolve Issue</arg>
+          </condition>
+        </conditions>
+      </restrict-to>
+      <results>
+        <unconditional-result old-status="Finished" status="Reopened" step="5">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueFieldFunction</arg>
+              <arg name="field.value"></arg>
+              <arg name="field.name">resolution</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+              <arg name="eventTypeId">7</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+    <action id="4" name="Start Progress">
+      <meta name="jira.i18n.title">startprogress.title</meta>
+      <restrict-to>
+        <conditions>
+          <condition type="class">
+            <arg name="class.name">com.atlassian.jira.workflow.condition.AllowOnlyAssignee</arg>
+          </condition>
+        </conditions>
+      </restrict-to>
+      <results>
+        <unconditional-result old-status="Finished" status="Underway" step="3">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueFieldFunction</arg>
+              <arg name="field.value"></arg>
+              <arg name="field.name">resolution</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+              <arg name="eventTypeId">11</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+    <action id="5" name="Resolve Issue" view="resolveissue">
+      <meta name="jira.i18n.submit">resolveissue.resolve</meta>
+      <meta name="jira.i18n.description">resolveissue.desc.line1</meta>
+      <meta name="jira.i18n.title">resolveissue.title</meta>
+      <restrict-to>
+        <conditions>
+          <condition type="class">
+            <arg name="class.name">com.atlassian.jira.workflow.condition.PermissionCondition</arg>
+            <arg name="permission">Resolve Issue</arg>
+          </condition>
+        </conditions>
+      </restrict-to>
+      <results>
+        <unconditional-result old-status="Finished" status="Resolved" step="4">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+              <arg name="eventTypeId">4</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+  </common-actions>
+  <steps>
+    <step id="1" name="Open">
+      <meta name="jira.status.id">1</meta>
+      <actions>
+<common-action id="4" />
+<common-action id="5" />
+<common-action id="2" />
+        <action id="721" name="Investigate">
+          <meta name="jira.description">The issue should be investigated further before starting work</meta>
+          <results>
+            <unconditional-result old-status="Not Done" status="Done" step="7">
+              <post-functions>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+                  <arg name="eventTypeId">13</arg>
+                </function>
+              </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="3" name="In Progress">
+      <meta name="jira.status.id">3</meta>
+      <actions>
+<common-action id="5" />
+<common-action id="2" />
+        <action id="301" name="Stop Progress">
+          <meta name="jira.i18n.title">stopprogress.title</meta>
+          <restrict-to>
+            <conditions>
+              <condition type="class">
+                <arg name="class.name">com.atlassian.jira.workflow.condition.AllowOnlyAssignee</arg>
+              </condition>
+            </conditions>
+          </restrict-to>
+          <results>
+            <unconditional-result old-status="Finished" status="Assigned" step="1">
+              <post-functions>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueFieldFunction</arg>
+                  <arg name="field.value"></arg>
+                  <arg name="field.name">resolution</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+                  <arg name="eventTypeId">12</arg>
+                </function>
+              </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="4" name="Resolved">
+      <meta name="jira.status.id">5</meta>
+      <actions>
+<common-action id="3" />
+        <action id="701" name="Close Issue" view="commentassign">
+          <meta name="jira.i18n.submit">closeissue.close</meta>
+          <meta name="jira.i18n.description">closeissue.desc</meta>
+          <meta name="jira.i18n.title">closeissue.title</meta>
+          <meta name="jira.description">Closing an issue indicates there is no more work to be done on it, and it has been verified as complete.</meta>
+          <restrict-to>
+            <conditions>
+              <condition type="class">
+                <arg name="class.name">com.atlassian.jira.workflow.condition.PermissionCondition</arg>
+                <arg name="permission">Close Issue</arg>
+              </condition>
+            </conditions>
+          </restrict-to>
+          <results>
+            <unconditional-result old-status="Finished" status="Closed" step="6">
+              <post-functions>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+                  <arg name="eventTypeId">5</arg>
+                </function>
+              </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="5" name="Reopened">
+      <meta name="jira.status.id">4</meta>
+      <actions>
+<common-action id="5" />
+<common-action id="2" />
+<common-action id="4" />
+      </actions>
+    </step>
+    <step id="6" name="Closed">
+      <meta name="jira.status.id">6</meta>
+      <meta name="jira.issue.editable">false</meta>
+      <actions>
+<common-action id="3" />
+      </actions>
+    </step>
+    <step id="7" name="Investigating">
+      <meta name="jira.status.id">10000</meta>
+      <actions>
+        <action id="711" name="Investigation finished">
+          <meta name="jira.description">The issue is ready for work</meta>
+          <results>
+            <unconditional-result old-status="Not Done" status="Done" step="1">
+              <post-functions>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+                  <arg name="eventTypeId">13</arg>
+                </function>
+              </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+        <action id="731" name="Start progress">
+          <meta name="jira.description">Start work on the issue</meta>
+          <results>
+            <unconditional-result old-status="Not Done" status="Done" step="3">
+              <post-functions>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.UpdateIssueStatusFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.misc.CreateCommentFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.GenerateChangeHistoryFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.issue.IssueReindexFunction</arg>
+                </function>
+                <function type="class">
+                  <arg name="class.name">com.atlassian.jira.workflow.function.event.FireIssueEventFunction</arg>
+                  <arg name="eventTypeId">13</arg>
+                </function>
+              </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+      </actions>
+    </step>
+  </steps>
+</workflow>
+]]></descriptor>
+    </Workflow>
+    <WorkflowScheme id="10000" name="Custom workflow" description=""/>
+    <WorkflowSchemeEntity id="10000" scheme="10000" workflow="Custom workflow" issuetype="0"/>
+<!-- 
+
+
+___ Entities ________________________________
+
+     Total                                         : 648
+
+     Application                                   : 1
+     Avatar                                        : 36
+     ConfigurationContext                          : 2
+     CustomField                                   : 1
+     Directory                                     : 1
+     DirectoryAttribute                            : 1
+     DirectoryOperation                            : 12
+     EventType                                     : 16
+     ExternalEntity                                : 2
+     FieldConfigScheme                             : 2
+     FieldConfigSchemeIssueType                    : 2
+     FieldConfiguration                            : 2
+     FieldScreen                                   : 3
+     FieldScreenLayoutItem                         : 20
+     FieldScreenScheme                             : 1
+     FieldScreenSchemeItem                         : 1
+     FieldScreenTab                                : 3
+     GadgetUserPreference                          : 7
+     GenericConfiguration                          : 1
+     Group                                         : 3
+     IssueType                                     : 4
+     IssueTypeScreenScheme                         : 1
+     IssueTypeScreenSchemeEntity                   : 1
+     ListenerConfig                                : 4
+     Membership                                    : 13
+     NodeAssociation                               : 2
+     Notification                                  : 48
+     NotificationScheme                            : 1
+     OSCurrentStepPrev                             : 10
+     OSHistoryStepPrev                             : 9
+     OSPropertyEntry                               : 78
+     OSPropertyNumber                              : 20
+     OSPropertyString                              : 52
+     OSPropertyText                                : 6
+     OptionConfiguration                           : 4
+     PermissionScheme                              : 1
+     PluginVersion                                 : 70
+     PortalPage                                    : 1
+     PortletConfiguration                          : 7
+     Priority                                      : 5
+     Project                                       : 1
+     ProjectRole                                   : 3
+     ProjectRoleActor                              : 9
+     RememberMeToken                               : 1
+     Resolution                                    : 5
+     SchemePermissions                             : 36
+     SequenceValueItem                             : 50
+     ServiceConfig                                 : 2
+     SharePermissions                              : 1
+     Status                                        : 6
+     UpgradeHistory                                : 57
+     UpgradeVersionHistory                         : 3
+     User                                          : 5
+     UserAttribute                                 : 11
+     UserHistoryItem                               : 1
+     Workflow                                      : 1
+     WorkflowScheme                                : 1
+     WorkflowSchemeEntity                          : 1
+
+ -->
+</entity-engine-xml>

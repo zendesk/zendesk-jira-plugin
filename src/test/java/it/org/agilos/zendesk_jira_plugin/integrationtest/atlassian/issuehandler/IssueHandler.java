@@ -1,5 +1,7 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler;
 
+import org.openqa.selenium.WebDriver;
+
 import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
 
 import com.thoughtworks.selenium.Selenium;
