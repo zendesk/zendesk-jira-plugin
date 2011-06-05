@@ -1,5 +1,8 @@
 package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
+
+import it.org.agilos.zendesk_jira_plugin.integrationtest.testcases.NotificationTest;
+
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.NotificationFixture;
 import org.apache.log4j.Logger;
@@ -7,7 +10,7 @@ import org.restlet.data.Request;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class AbstractNotificationTest extends JIRATest {
+public abstract class AbstractNotificationTest extends JIRATest {
 	public NotificationFixture fixture;
 	protected String issueKey;    
 
@@ -15,13 +18,13 @@ public class AbstractNotificationTest extends JIRATest {
 
 	@BeforeMethod (alwaysRun = true)  
 	@Override
-	void setUpTest() throws Exception {
+	protected void setUpTest() throws Exception {
 		super.setUpTest();
 		issueKey = fixture.createIssue(PROJECT_KEY).getKey();       
 	}
 
 	@AfterMethod  (alwaysRun = true)
-	void tearDownTest() throws Exception {
+	protected void tearDownTest() throws Exception {
 		Request request = fixture.getNextRequestInstant();
 		if (request != null) log.warn("Notification remains on message queue after testcase has finish" + request.getEntityAsText()); 
 	}

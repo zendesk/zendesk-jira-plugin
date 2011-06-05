@@ -1,7 +1,9 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest.testcases;
 
 import static org.testng.AssertJUnit.assertEquals;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.AbstractNotificationTest;
 
+import org.agilos.zendesk_jira_plugin.testframework.TestDataFactory;
 import org.testng.annotations.Test;
 
 public class WorkflowNotificationTest extends AbstractNotificationTest {

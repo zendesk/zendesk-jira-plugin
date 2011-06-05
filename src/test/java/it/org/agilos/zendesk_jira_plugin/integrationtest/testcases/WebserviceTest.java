@@ -1,10 +1,13 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest.testcases;
 
 import static org.testng.AssertJUnit.assertTrue;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRATest;
 
 import org.agilos.jira.soapclient.RemoteAuthenticationException;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.WebserviceFixture;
+import org.agilos.zendesk_jira_plugin.testframework.JIRA;
+import org.agilos.zendesk_jira_plugin.testframework.ZendeskWSClient;
 import org.testng.annotations.Test;
 
 public class WebserviceTest extends JIRATest {

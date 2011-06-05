@@ -1,9 +1,9 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler;
+package org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler;
 
 /**
  * Contains methods for accessing the new issue UI implemented in JIRA 4.1
  */
-public class IssueHandlerJIRA42OrLater extends IssueHandler {
+public class IssueHandlerJIRA41OrLater extends IssueHandler {
 //    @Override
 //    public void update() {
 //        tester.clickButton("update_submit");
@@ -12,27 +12,15 @@ public class IssueHandlerJIRA42OrLater extends IssueHandler {
 //    @Override
 //    public void resolve() {
 //    	tester.clickLinkWithText("Resolve Issue");
-//		tester.setWorkingForm("issue-workflow-transition");
+//		tester.setWorkingForm("jiraform");
 //		selenium.isTextPresent(""Resolve Issue");
-//        tester.clickButton("issue-workflow-transition-submit");
+//        tester.clickButton("comment_assign_submit");
 //		selenium.isTextPresent(""Resolved");
 //    }
 //
 //    @Override
-//    public void close() {
-//    	tester.clickLinkWithText("Close Issue");
-//    	tester.setWorkingForm("issue-workflow-transition");
-//    	selenium.isTextPresent(""Close Issue");
-//    	tester.submit();
-//    	selenium.isTextPresent(""Closed");
-//    }
-//    
-//    @Override
 //    public void reopen() {
-//		tester.clickLinkWithText("Reopen Issue");
-//		tester.setWorkingForm("issue-workflow-transition");
-//		tester.submit();
-//		selenium.isTextPresent(""Reopened");
+//        tester.clickButton("comment_assign_submit");
 //    }
 //
 //    @Override

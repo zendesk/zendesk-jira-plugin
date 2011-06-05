@@ -1,13 +1,17 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest.testcases;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
+
+
+import it.org.agilos.zendesk_jira_plugin.integrationtest.AbstractNotificationTest;
 
 import java.util.Calendar;
 
 import org.agilos.jira.soapclient.RemoteComment;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
+import org.agilos.zendesk_jira_plugin.testframework.TestDataFactory;
 import org.apache.log4j.Logger;
 import org.restlet.data.Parameter;
 import org.restlet.engine.http.HttpConstants;

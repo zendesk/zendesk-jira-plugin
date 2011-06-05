@@ -1,13 +1,13 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package org.agilos.zendesk_jira_plugin.testframework;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 
 import java.net.URL;
 
 import org.agilos.jira.soapclient.JiraSoapService;
 import org.agilos.jira.soapclient.JiraSoapServiceService;
 import org.agilos.jira.soapclient.JiraSoapServiceServiceLocator;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandler;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandlerProvider;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,7 +52,7 @@ public class JIRAClient {
 		//driver.get("http://www.google.com");
 		
 		selenium = new WebDriverBackedSelenium(driver, JIRA.URL);
-
+		selenium.open("");
 		
 		shutDownHook = new Thread(new ShutDownHook(selenium));
 		shutDownHook.setName("SeleniumShutDownHook");
@@ -121,7 +121,6 @@ public class JIRAClient {
 		WebElement element = driver.findElement(By.name("Public comments"));
 		element.clear();
 		element.sendKeys(publicComments);
-		//selenium.type("//input[@name='Public comments']", "publicComments");
 		selenium.click("update_submit");
 		selenium.isTextPresent(publicComments);
 	}	

@@ -1,9 +1,9 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRARoles;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.ZendeskWSClient;
 
 import org.agilos.jira.soapclient.RemoteUser;
+import org.agilos.zendesk_jira_plugin.testframework.JIRARoles;
+import org.agilos.zendesk_jira_plugin.testframework.ZendeskWSClient;
 import org.apache.log4j.Logger;
 
 public class WebserviceFixture extends JIRAFixture {

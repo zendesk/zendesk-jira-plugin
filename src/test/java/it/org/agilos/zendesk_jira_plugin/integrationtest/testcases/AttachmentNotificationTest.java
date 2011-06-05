@@ -1,11 +1,15 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest.testcases;
 
 import static org.testng.AssertJUnit.assertEquals;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.AbstractNotificationTest;
 
 import java.io.File;
 
 import org.agilos.zendesk_jira_plugin.integrationtest.AttachmentComparator;
 import org.agilos.zendesk_jira_plugin.integrationtest.notifications.AttachmentReceiver;
+import org.agilos.zendesk_jira_plugin.testframework.TestDataFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +22,7 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	
 	@BeforeMethod (alwaysRun = true)  
 	@Override
-	void setUpTest() throws Exception {
+	protected void setUpTest() throws Exception {
 		super.setUpTest();
 		if (AttachmentReceiver.ATTACHMENT_DIRECTORY.exists()) {
 			File[] oldAttachmentFiles= AttachmentReceiver.ATTACHMENT_DIRECTORY.listFiles();
@@ -136,28 +140,28 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	/**
 	 * ZEN-65 Attachment comments are not included in notifications
 	 */
-	@Test (groups = {"regressionTests"} ) 
-	public void testAttachmentWithComment() throws Exception  {
-		String attachmentName = "pom-example.xml";
-		String comment = "Attaching file and adding comment at the same time";
-
-		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
-		
-		selenium.open("browse/"+issueKey);
-		issueHandler.attachFile();
-		//fixture.tester.setWorkingForm("jiraform");
-		
-		attachFile("filename.1", uploadFile);
-		selenium.type("comment", comment);
-		selenium.click("submit");
-		
-		Request request = fixture.getNextRequest(); 
-		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentWithComment.1"), request.getEntityAsText());	
-		
-		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
-
-		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
-	}
+//	@Test (groups = {"regressionTests"} ) 
+//	public void testAttachmentWithComment() throws Exception  {
+//		String attachmentName = "pom-example.xml";
+//		String comment = "Attaching file and adding comment at the same time";
+//
+//		File uploadFile = loadFile(attachmentUploadDir+File.separator+attachmentName);
+//		
+//		selenium.open("browse/"+issueKey);
+//		issueHandler.attachFile();
+//		//fixture.tester.setWorkingForm("jiraform");
+//		
+//		attachFile("filename.1", uploadFile);
+//		selenium.type("comment", comment);
+//		selenium.click("submit");
+//		
+//		Request request = fixture.getNextRequest(); 
+//		assertEquals("Wrong response received after adding attachment", TestDataFactory.getSoapResponse("testAttachmentWithComment.1"), request.getEntityAsText());	
+//		
+//		File receivedFile = loadFile(AttachmentReceiver.ATTACHMENT_DIRECTORY+File.separator+attachmentName);
+//
+//		assert(AttachmentComparator.fileContentsEquals(uploadFile, receivedFile));
+//	}
 	
 //	@Test (groups = {"regressionTests"} )
 //	public void testAttachmentDeleted() throws Exception  {	
@@ -201,22 +205,5 @@ public class AttachmentNotificationTest extends AbstractNotificationTest {
 	private File loadFile(String fileName) {
 		return new File(fileName);		
 	}
-	
-	public void attachFile(String fieldName, File file) {
-//		UploadFileSpec bigFile = new UploadFileSpec(file);
-//        try {
-//        	fixture.tester.getDialog().getResponse().getFormWithID("attach-file").setParameter(fieldName, new UploadFileSpec[] {
-//                bigFile
-//            });
-//        }
-//        catch(SAXException e) {
-//            throw new RuntimeException(e);
-//        }
-
-		selenium.type("//body[@id='jira']/form[2]/input", 
-				System.getProperty("user.home") + "/projects/zendesk-jira-plugin/src/test/attachments/" + file);
-		selenium.click("attach-file-submit");
-		selenium.waitForPageToLoad("30000");
-    }
 }
 	

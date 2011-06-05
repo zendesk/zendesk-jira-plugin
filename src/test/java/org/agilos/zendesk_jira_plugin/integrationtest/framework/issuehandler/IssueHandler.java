@@ -1,8 +1,8 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler;
+package org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler;
 
+import org.agilos.zendesk_jira_plugin.testframework.JIRAClient;
 import org.openqa.selenium.WebDriver;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -18,6 +18,7 @@ public class IssueHandler {
 
     public void resolve() {
     	selenium.click("link=Resolve Issue");
+    	selenium.waitForPageToLoad("3000");
     	selenium.isTextPresent("Resolve issue");
     	selenium.click("issue-workflow-transition-submit");
     	selenium.waitForPageToLoad("3000");
@@ -25,6 +26,7 @@ public class IssueHandler {
     }
     public void close() {
     	selenium.click("link=Close Issue");
+    	selenium.waitForPageToLoad("3000");
     	selenium.isTextPresent("Close Issue");
     	selenium.click("issue-workflow-transition-submit");
     	selenium.waitForPageToLoad("3000");
@@ -32,6 +34,7 @@ public class IssueHandler {
     }
     public void reopen() {
 		selenium.click("link=Reopen Issue");
+    	selenium.waitForPageToLoad("3000");
     	selenium.isTextPresent("Reopen Issue");
     	selenium.click("issue-workflow-transition-submit");
     	selenium.waitForPageToLoad("3000");

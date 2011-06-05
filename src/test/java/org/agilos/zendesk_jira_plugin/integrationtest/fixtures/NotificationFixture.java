@@ -1,6 +1,5 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.ZendeskServerStub;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +13,7 @@ import org.agilos.jira.soapclient.RemoteCustomFieldValue;
 import org.agilos.jira.soapclient.RemoteFieldValue;
 import org.agilos.jira.soapclient.RemoteIssue;
 import org.agilos.jira.soapclient.RemoteProject;
+import org.agilos.zendesk_jira_plugin.testframework.ZendeskServerStub;
 import org.apache.log4j.Logger;
 import org.restlet.data.Request;
 

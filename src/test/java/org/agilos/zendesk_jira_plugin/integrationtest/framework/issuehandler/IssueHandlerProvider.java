@@ -1,4 +1,4 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler;
+package org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler;
 
 
 /**

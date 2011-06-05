@@ -1,9 +1,5 @@
 package org.agilos.zendesk_jira_plugin.integrationtest.fixtures;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRA;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.JIRAClient;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +13,13 @@ import org.agilos.jira.soapclient.RemoteGroup;
 import org.agilos.jira.soapclient.RemotePermissionScheme;
 import org.agilos.jira.soapclient.RemoteProject;
 import org.agilos.jira.soapclient.RemoteUser;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandler;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandlerProvider;
+import org.agilos.zendesk_jira_plugin.testframework.JIRA;
+import org.agilos.zendesk_jira_plugin.testframework.JIRAClient;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 
 import com.thoughtworks.selenium.Selenium;
 
@@ -44,12 +45,14 @@ public class JIRAFixture {
 	private static final char FS = File.separatorChar;
 
 	public static Selenium selenium;    
+	public static WebDriver driver;    
 
 	protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 
 	public JIRAFixture() {
 		jiraClient = JIRAClient.instance();
 		selenium = JIRAClient.selenium;
+		driver = JIRAClient.driver;
 	}
 
 	/**

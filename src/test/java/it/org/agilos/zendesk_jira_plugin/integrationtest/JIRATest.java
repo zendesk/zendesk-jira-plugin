@@ -2,9 +2,10 @@ package it.org.agilos.zendesk_jira_plugin.integrationtest;
 
 import java.util.Date;
 
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandler;
-import it.org.agilos.zendesk_jira_plugin.integrationtest.atlassian.issuehandler.IssueHandlerProvider;
 import org.agilos.zendesk_jira_plugin.integrationtest.fixtures.JIRAFixture;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandler;
+import org.agilos.zendesk_jira_plugin.integrationtest.framework.issuehandler.IssueHandlerProvider;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.log4testng.Logger;
 
@@ -21,12 +22,14 @@ public abstract class JIRATest {
 	protected abstract JIRAFixture getFixture() throws Exception;
 	
 	protected Selenium selenium;
+	protected WebDriver driver;
 
     protected IssueHandler issueHandler = IssueHandlerProvider.getIssueHandler();
 
 	@BeforeMethod (alwaysRun = true)
-	void setUpTest() throws Exception {
+	protected void setUpTest() throws Exception {
 		selenium = getFixture().selenium;
+		driver = getFixture().driver;
 		
 		log.info("Restoring data from "+"restoreData-JIRA-"+System.getProperty("jira.deploy.version", "4.3.2")+".xml");
 		try {

@@ -1,6 +1,7 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package it.org.agilos.zendesk_jira_plugin.integrationtest.testcases;
 
 import static org.testng.AssertJUnit.assertNotNull;
+import it.org.agilos.zendesk_jira_plugin.integrationtest.AbstractNotificationTest;
 
 import org.restlet.data.Request;
 import org.testng.annotations.BeforeMethod;
@@ -10,7 +11,7 @@ public class HttpsNotificationTest extends AbstractNotificationTest {
 
     @BeforeMethod (alwaysRun = true)  
 	@Override
-	void setUpTest() throws Exception {
+	protected void setUpTest() throws Exception {
 		super.setUpTest();
 		getFixture().getJiraClient().setZendeskUrl("https://localhost:8443");
 	}

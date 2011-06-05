@@ -1,4 +1,4 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package org.agilos.zendesk_jira_plugin.testframework;
 
 public class JIRAVersion {
 	public static final String JIRA_432 = "4.3.2";

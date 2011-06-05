@@ -1,4 +1,4 @@
-package it.org.agilos.zendesk_jira_plugin.integrationtest;
+package org.agilos.zendesk_jira_plugin.testframework;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
